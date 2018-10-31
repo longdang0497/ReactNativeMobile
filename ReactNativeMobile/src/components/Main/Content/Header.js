@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import { View, 
-    Text,
-    Dimensions, 
+    Text, 
+    TouchableOpacity, 
+    Dimensions,
     StyleSheet,
     TextInput 
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { height } = Dimensions.get('window');
 
 export default class Header extends Component {
     render() {
+        const { navigation } = this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.firstPart}>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                        <Icon name='bars' size={22} color='#fff' />
+                    </TouchableOpacity>
                     <Text style={styles.titleStyle}> DateNow </Text>
+                    <TouchableOpacity onPress={null}>
+                        <Icon name='share-alt' size={22} color='#fff' />
+                    </TouchableOpacity>
                 </View>
                 <TextInput 
                     style={styles.secondPart} 
@@ -32,7 +41,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     firstPart: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center'
     },
     secondPart: {
