@@ -22,6 +22,6 @@ const MyDrawer = DrawerNavigator({
 { 
   contentComponent: Menu,
   drawerWidth: width * 0.55,
-  //drawerLockMode: 'locked-closed'
+  drawerLockMode: 'locked-closed'
 }
 );

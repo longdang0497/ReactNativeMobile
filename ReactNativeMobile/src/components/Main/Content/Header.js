@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, 
-    Text, 
-    TouchableOpacity, 
+import {
+    View,
+    Text,
+    TouchableOpacity,
     Dimensions,
-    StyleSheet,
-    TextInput 
+    StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -15,19 +15,13 @@ export default class Header extends Component {
         const { navigation } = this.props;
         return (
             <View style={styles.container}>
-                <View style={styles.firstPart}>
-                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                        <Icon name='bars' size={22} color='#fff' />
-                    </TouchableOpacity>
-                    <Text style={styles.titleStyle}> DateNow </Text>
-                    <TouchableOpacity onPress={null}>
-                        <Icon name='share-alt' size={22} color='#fff' />
-                    </TouchableOpacity>
-                </View>
-                <TextInput 
-                    style={styles.secondPart} 
-                    placeholder="What do you want to buy?"
-                />
+                <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <Icon name='bars' size={22} color='#fff' />
+                </TouchableOpacity>
+                <Text style={styles.titleStyle}> DateNow </Text>
+                <TouchableOpacity onPress={null}>
+                    <Icon name='share-alt' size={22} color='#fff' />
+                </TouchableOpacity>
             </View>
         );
     }
@@ -35,12 +29,9 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: height / 8,
-        backgroundColor: '#34B089',     
+        height: height / 15,
+        backgroundColor: '#34B089',
         padding: 10,
-        justifyContent: 'space-between'
-    },
-    firstPart: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
@@ -54,6 +45,6 @@ const styles = StyleSheet.create({
     titleStyle: {
         color: '#FFF',
         fontFamily: 'Avenir',
-        fontSize: 17    
+        fontSize: 17
     }
 });

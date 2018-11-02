@@ -3,7 +3,6 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity,
     ImageBackground,
     StyleSheet
 } from 'react-native';
@@ -23,21 +22,13 @@ export default class Home extends Component {
             >
                 <View style={styles.userInfoContainer}>
                     <View style={styles.userContainer}>
-                        <TouchableOpacity>
-                            <Image source={defaultAvatar} style={styles.avatarStyle} />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.textStyle}>User 1</Text>
-                        </TouchableOpacity>
+                        <Image source={defaultAvatar} style={styles.avatarStyle} />
+                        <Text style={styles.textStyle}>User 1</Text>
                     </View>
                     <Image source={icHeart} style={styles.iconHeartStyle} />
                     <View style={styles.userContainer}>
-                        <TouchableOpacity>
-                            <Image source={defaultAvatar} style={styles.avatarStyle} />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={styles.textStyle}>User 2</Text>
-                        </TouchableOpacity>
+                        <Image source={defaultAvatar} style={styles.avatarStyle} />
+                        <Text style={styles.textStyle}>User 2</Text>
                     </View>
                 </View>
                 <View style={styles.timeInfoContainer}>
@@ -75,7 +66,8 @@ const styles = StyleSheet.create({
     avatarStyle: {
         width: 80,
         height: 80,
-        marginBottom: 7
+        marginBottom: 7,
+        borderRadius: 80
     },
     textStyle: {
 
