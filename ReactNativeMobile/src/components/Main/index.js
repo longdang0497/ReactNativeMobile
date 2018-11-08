@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import {
-    View
-} from 'react-native';
+import { View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from './Home';
 import Profile from './Profile';
-import Recommend from './Recommend';
+import Recommend from './Recommend/index';
 import Header from './Header.js';
 
 export const BottomTabNavigator = createBottomTabNavigator({
@@ -49,7 +47,7 @@ export default class Main extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <Header navigation={navigation} />
                 <BottomTabNavigator />
             </View>

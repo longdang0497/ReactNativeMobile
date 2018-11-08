@@ -13,7 +13,7 @@ export default class Header extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.firstPart}>
-                    <Text style={styles.titleStyle}> DateNow </Text>
+                    <Text style={styles.titleStyle}> Date Now </Text>
                 </View>
                 <TextInput 
                     style={styles.secondPart} 
