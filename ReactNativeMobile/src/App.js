@@ -7,24 +7,18 @@
  */
 
 import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { Provider } from 'react-redux';
+import Store from './redux/store';
+import RouterScreen from './RouterScreen';
 
-import Main from './components/Main';
-import Authentication from './components/Authentication';
-
-export const RootStack = createStackNavigator({
-  Main,
-  Authentication
-},
-{
-  headerMode: 'none',
-  initialRouteName: 'Main'
-});
+const store = Store();
 
 export default class App extends Component {
   render() {
     return (
-      <RootStack />
+      <Provider store={store}>
+        <RouterScreen />
+      </Provider>
     );
   }
 }

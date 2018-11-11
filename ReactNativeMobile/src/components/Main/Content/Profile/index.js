@@ -7,16 +7,19 @@ import {
     ScrollView,
     TextInput,
     TouchableOpacity,
+    AsyncStorage,
     Switch,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Slider } from 'react-native-elements';
 import Dialog, { DialogButton, DialogTitle, ScaleAnimation } from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import ImagePicker from 'react-native-image-picker';
-
+import * as actions from '../../../../redux/actions/ProfileAction';
+import constants from '../../Constants';
 
 import avatar from '../../../../media/avatar_user_default.png';
 
@@ -28,10 +31,14 @@ const popupType = {
     date: 'date'
 };
 
+const imageType = {
+    userAvatar: 'user avatar',
+    loverAvatar: 'lover avatar',
+    background: 'background'
+};
+
 let userNameText = 'User Name',
     loverNameText = 'Your lover',
-    titleText = 'Been Together',
-    bottomText = 'Today',
     dateText = 'Now 1, 2017';
 
 const options = {
@@ -43,7 +50,7 @@ const options = {
 };
 
 
-export default class Profile extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,24 +64,36 @@ export default class Profile extends Component {
     }
 
     onRetrieveData() {
+        const { popupText } = this.state;
         switch (this.state.popupType) {
             case popupType.userName:
-                userNameText = this.state.popupText;
+                userNameText = popupText;
                 break;
             case popupType.loverName:
-                loverNameText = this.state.popupText;
+                loverNameText = popupText;
                 break;
             case popupType.title:
-                titleText = this.state.popupText;
+                this.props.changeTitle(popupText);
+                this.saveItem(constants.STORAGE_KEY.TITLE, popupText);
                 break;
             case popupType.bottomText:
-                bottomText = this.state.popupText;
+                this.props.changeBottomText(popupText);
+                this.saveItem(constants.STORAGE_KEY.BOTTOM_TEXT, popupText);
                 break;
             case popupType.date:
-                dateText = this.state.popupText;
+                dateText = popupText;
                 break;
             default:
                 break;
+        }
+    }
+
+    saveItem = async (key, value) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+            console.log(value);
+        } catch (error) {
+            // Error saving data
         }
     }
 
@@ -96,7 +115,7 @@ export default class Profile extends Component {
         this.hideDateTimePicker();
     };
 
-    openImagePicker() {
+    openImagePicker(type) {
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
 
@@ -112,9 +131,16 @@ export default class Profile extends Component {
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-                this.setState({
-                    imageSource: source,
-                });
+                switch (type) {
+                    case imageType.userAvatar:
+                        break;
+                    case imageType.loverAvatar:
+                        break;
+                    default:
+                        this.props.changeBackground(source);
+                        this.saveItem(constants.STORAGE_KEY.BACKGROUND, JSON.stringify(source));
+                        break;
+                }
             }
         });
     }
@@ -158,22 +184,27 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.settingItem}
-                        onPress={() => this.openPopup(popupType.loverName, 'Title', titleText)}
+                        onPress={() => this.openPopup(
+                            popupType.title, 'Title',
+                            this.props.titleText
+                        )}
                     >
                         <Text style={styles.textTitleItem}>Change Title</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{titleText}</Text>
+                            <Text style={styles.textSetting}>{this.props.titleText}</Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.settingItem}
-                        onPress={() =>
-                            this.openPopup(popupType.loverName, 'Bottom Text', bottomText)}
+                        onPress={() => this.openPopup(
+                            popupType.bottomText, 'Bottom Text',
+                            this.props.bottomText
+                        )}
                     >
                         <Text style={styles.textTitleItem}>Change Bottom Text</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{bottomText}</Text>
+                            <Text style={styles.textSetting}>{this.props.bottomText}</Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
@@ -187,18 +218,18 @@ export default class Profile extends Component {
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingItem}>
+                    <View style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Start from Zero</Text>
                         <View style={styles.rightViewItem}>
                             <Switch />
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.settingItem}>
+                    </View>
+                    <View style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Show Year, Month, Days</Text>
                         <View style={styles.rightViewItem}>
                             <Switch />
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </View>
                 <View>
                     <Text style={styles.title}>Background Image</Text>
@@ -220,8 +251,11 @@ export default class Profile extends Component {
                                 maximumValue={1}
                                 step={0.1}
                                 thumbTintColor='#34B089'
-                                value={0}
-                                onValueChange={null}
+                                value={this.props.blur}
+                                onValueChange={(val) => {
+                                    this.props.changeBlur(val);
+                                    this.saveItem(constants.STORAGE_KEY.BLUR, val.toString());
+                                }}
                             />
                         </View>
                     </View>
@@ -277,6 +311,14 @@ export default class Profile extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    titleText: state.profile.titleText,
+    bottomText: state.profile.bottomText,
+    blur: state.profile.backgroundBlur
+});
+
+export default connect(mapStateToProps, actions)(Profile);
 
 const styles = StyleSheet.create({
     container: {

@@ -6,18 +6,18 @@ import {
     ImageBackground,
     StyleSheet
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import defaultAvatar from '../../../../media/avatar_user_default.png';
-import defaultBackground from '../../../../media/backgound_default.jpg';
 import icHeart from '../../../../media/heart.png';
 
-export default class Home extends Component {
+class Home extends Component {
     render() {
         return (
             <ImageBackground
-                source={defaultBackground}
+                source={this.props.backgroundSource}
                 imageStyle={{ resizeMode: 'cover' }}
-                blurRadius={1}
+                blurRadius={this.props.blur}
                 style={styles.container}
             >
                 <View style={styles.userInfoContainer}>
@@ -32,14 +32,23 @@ export default class Home extends Component {
                     </View>
                 </View>
                 <View style={styles.timeInfoContainer}>
-                    <Text style={styles.textStyle}>Been Together</Text>
+                    <Text style={styles.textStyle}>{this.props.titleText}</Text>
                     <Text style={styles.timeTextStyle}>1 years</Text>
-                    <Text style={styles.textStyle}>Today</Text>
+                    <Text style={styles.textStyle}>{this.props.bottomText}</Text>
                 </View>
             </ImageBackground>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    titleText: state.profile.titleText,
+    bottomText: state.profile.bottomText,
+    backgroundSource: state.profile.imageSource,
+    blur: state.profile.backgroundBlur
+});
+
+export default connect(mapStateToProps, null)(Home);
 
 const styles = StyleSheet.create({
     container: {
