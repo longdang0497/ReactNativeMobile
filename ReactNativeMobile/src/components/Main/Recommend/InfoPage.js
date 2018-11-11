@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import ImageCarousel from './ImageCarousel';
 import DetailsRecommend from './DetailsRecommend';
+import CollapseInfo from './CollapseInfo';
 
 //const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -22,7 +23,9 @@ export default class InfoPage extends Component {
                     <View style={{ flex: 1, padding: 5 }}>
                         <DetailsRecommend />
                     </View>
-
+                    <View style={{ flex: 1, padding: 5 }}>
+                        <CollapseInfo />
+                    </View>
                 </ScrollView>
                 <View style={styles.btnContainer}>
                     <TouchableOpacity style={styles.btnSaveDeal}>
