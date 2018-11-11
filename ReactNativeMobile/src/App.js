@@ -11,13 +11,13 @@ import { createStackNavigator } from 'react-navigation';
 
 import Main from './components/Main';
 import Authentication from './components/Authentication';
-import Recommend from './components/Main/Recommend/index';
+import RecommendScreen from './components/Main/Recommend/index';
 import InfoPage from './components/Main/Recommend/InfoPage';
 
 export const RootStack = createStackNavigator({
   Main,
   Authentication,
-  Recommend,
+  RecommendScreen,
   InfoPage
 },
 {
