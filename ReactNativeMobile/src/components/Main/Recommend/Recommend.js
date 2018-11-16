@@ -1,11 +1,12 @@
 import {
     StyleSheet, Text, View, ScrollView,
-    Image, Animated,
+    Image, Animated, TextInput,
     Dimensions, SafeAreaView, TouchableOpacity
 } from 'react-native';
 import React, { Component } from 'react';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window');
 
 /* eslint-disable global-require */
 const images = [
@@ -22,41 +23,68 @@ const images = [
 /* eslint-enable global-require */
 
 export default class Recommend extends Component {
-    static NavigationOptions = {
-        backgroundColor: null,
-        opacity: 100
+    static navigationOptions = {
+        headerTitle: (
+            <TextInput
+                inlineImageLeft='ic_search'
+                style={{
+                    height: SCREEN_HEIGHT / 20,
+                    width: SCREEN_WIDTH,
+                    backgroundColor: '#fff',
+                    padding: 20,
+                    paddingLeft: 25,
+                    borderWidth: 0.5,
+                    borderColor: 'black'
+                }}
+                placeholder="Tìm kiếm"
+            />
+        ),
+        /* eslint-disable global-require */
+        //headerRight: (),
+        /* eslint-enable global-require */
     }
+
     render() {
         return (
+            /* eslint-disable global-require */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ScrollView style={{ flex: 2 }}>
                     <View style={style.btnContainer}>
                         <TouchableOpacity style={style.btnNew}>
-                            <Text>Mới Nhất</Text>
+                            <Image
+                                source={require('../../../../assets/appicon/ic_new.png')}
+                                style={style.imgIcon}
+                            />
+                            <Text style={{ color: 'white' }}>Mới Nhất</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={style.btnNear}>
-                            <Text>Gần Nhất</Text>
+                            <Image
+                                source={require('../../../../assets/appicon/ic_near.png')}
+                                style={style.imgIcon}
+                            />
+                            <Text style={{ color: 'white' }}>Gần Nhất</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={style.recommendContainer}>
                         {images.map((image, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() => this.props.navigation.navigate('InfoPage')}
-                                >
-                                    <Animated.View style={style.cardHolder}>
-                                        <Image source={image.src} style={style.imgRecommend} />
-                                        <View style={style.txtRecommend}>
-                                            <Text
-                                                style={style.txtInfoRecommend}
-                                            >THIS IS THE TITLE</Text>
-                                        </View>
-                                    </Animated.View>
-                                </TouchableOpacity>
-                            ))}
+                            <TouchableOpacity
+                                key={index}
+                                onPress={() => this.props.navigation.navigate('InfoPage')}
+                            >
+                                <Animated.View style={style.cardHolder}>
+                                    <Image source={image.src} style={style.imgRecommend} />
+                                    <View style={style.txtRecommend}>
+                                        <Text
+                                            style={style.txtInfoRecommend}
+                                        >THIS IS THE TITLE</Text>
+                                    </View>
+                                </Animated.View>
+                            </TouchableOpacity>
+                        ))}
                     </View>
                 </ScrollView>
             </SafeAreaView>
+            /* eslint-enable global-require */
         );
     }
 }
@@ -106,13 +134,36 @@ const style = StyleSheet.create({
         flexWrap: 'wrap'
     },
     btnNew: {
+        flexDirection: 'row',
         borderRadius: 20,
-        backgroundColor: 'red',
-        padding: 15
+        backgroundColor: '#E94B3C',
+        padding: 15,
+        borderColor: 'black',
+        justifyContent: 'center',
+        width: SCREEN_WIDTH / 4
     },
     btnNear: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         borderRadius: 20,
-        backgroundColor: 'green',
-        padding: 15
+        backgroundColor: '#88B04B',
+        padding: 15,
+        width: SCREEN_WIDTH / 4,
+        borderColor: 'black',
+    },
+    btnFilter: {
+        justifyContent: 'center',
+        padding: 15,
+    },
+    searchBox: {
+        height: SCREEN_HEIGHT / 20,
+        backgroundColor: '#fff',
+        paddingLeft: 10,
+        padding: 1
+    },
+    imgIcon: {
+        width: 20,
+        height: 20,
+        paddingRight: 20
     },
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-    View,
-    Text,
+    View, Dimensions,
+    Text, Image,
     StyleSheet,
     ScrollView,
     TouchableOpacity
@@ -9,15 +9,17 @@ import {
 import ImageCarousel from './ImageCarousel';
 import DetailsRecommend from './DetailsRecommend';
 import CollapseInfo from './CollapseInfo';
+import ShareInfo from './ShareInfo';
 
-//const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class InfoPage extends Component {
     render() {
         return (
+            /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
                 <ScrollView>
-                    <View style={{ flex: 2, padding: 5 }}>
+                    <View style={{ flex: 1, padding: 5 }}>
                         <ImageCarousel />
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
@@ -26,16 +28,34 @@ export default class InfoPage extends Component {
                     <View style={{ flex: 1, padding: 5 }}>
                         <CollapseInfo />
                     </View>
+                    <View style={{ flex: 1, padding: 5 }}>
+                        <ShareInfo />
+                    </View>
                 </ScrollView>
                 <View style={styles.btnContainer}>
-                    <TouchableOpacity style={styles.btnSaveDeal}>
-                        <Text>Lưu ưu đãi</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.btnGetDeal}>
-                        <Text>Lấy ưu đãi</Text>
-                    </TouchableOpacity>
+                    <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
+                        <TouchableOpacity style={styles.btnSaveDeal}>
+                            <Image
+                                source={require('../../../../assets/appicon/ic_heart.png')}
+                                style={styles.imgIcon}
+                            />
+                            <Text style={{ textAlign: 'center', paddingLeft: 20 }}>Lưu ưu đãi</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
+                        <TouchableOpacity style={styles.btnGetDeal}>
+                            <Image
+                                source={require('../../../../assets/appicon/ic_get.png')}
+                                style={styles.imgIcon}
+                            />
+                            <Text
+                                style={{ textAlign: 'center', color: 'white', paddingLeft: 20 }}
+                            >Lấy ưu đãi</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
+            /* eslint-enable global-require */
         );
     }
 }
@@ -47,19 +67,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'green'
     },
-    // title: {
-    //     fontWeight: 'bold',
-    //     fontSize: 20
-    // },
-    // imageContainer: {
-    //     width: SCREEN_WIDTH,
-    //     height: SCREEN_WIDTH / 2
-    // },
-    // image: {
-    //     alignSelf: 'stretch',
-    //     width: SCREEN_WIDTH,
-    //     height: SCREEN_WIDTH / 2
-    // },
     btnContainer: {
         flexDirection: 'row',
         alignItems: 'stretch',
@@ -67,62 +74,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly'
     },
     btnGetDeal: {
-
-        backgroundColor: 'red',
-        padding: 15
+        width: SCREEN_WIDTH / 2,
+        backgroundColor: '#E94B3C',
+        padding: 15,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     btnSaveDeal: {
-        backgroundColor: 'gray',
+        flexDirection: 'row',
+        width: SCREEN_WIDTH / 2,
+        backgroundColor: '#F0EDE5',
         padding: 15,
         borderColor: 'black',
-
+        justifyContent: 'center'
     },
+    imgIcon: {
+        width: 20,
+        height: 20,
+        paddingRight: 20
+    }
 });
-
-// <Carousel
-//                         // other props
-//                         scrollInterpolator={this.scrollInterpolator}
-//                         slideInterpolatedStyle={this.animatedStyles}
-//                         useScrollView={true}
-//                     />
-
-
-// scrollInterpolator(index, carouselProps) {
-//     const range = [3, 2, 1, 0, -1]; // Remember that this has to be declared in a reverse order
-//     const inputRange = getInputRangeFromIndexes(range, index, carouselProps);
-//     const outputRange = range;
-
-//     return { inputRange, outputRange };
-// }
-
-// animatedStyles(index, animatedValue, carouselProps) {
-//     const sizeRef = carouselProps.vertical ? carouselProps.itemHeight : carouselProps.itemWidth;
-//     const translateProp = carouselProps.vertical ? 'translateY' : 'translateX';
-
-//     return {
-//         elevation: carouselProps.data.length - index,
-//         opacity: animatedValue.interpolate({
-//             inputRange: [2, 3],
-//             outputRange: [1, 0]
-//         }),
-//         transform: [{
-//             rotate: animatedValue.interpolate({
-//                 inputRange: [-1, 0, 1, 2, 3],
-//                 outputRange: ['-25deg', '0deg', '-3deg', '1.8deg', '0deg'],
-//                 extrapolate: 'clamp'
-//             })
-//         }, {
-//             [translateProp]: animatedValue.interpolate({
-//                 inputRange: [-1, 0, 1, 2, 3],
-//                 outputRange: [
-//                     -sizeRef * 0.5,
-//                     0,
-//                     -sizeRef, // centered
-//                     -sizeRef * 2, // centered
-//                     -sizeRef * 3 // centered
-//                 ],
-//                 extrapolate: 'clamp'
-//             })
-//         }]
-//     };
-// }

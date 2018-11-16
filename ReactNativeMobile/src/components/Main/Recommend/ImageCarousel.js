@@ -92,7 +92,7 @@ const CurrentVideoImage = styled.Image`
   top: 25;
   box-shadow: 5px 10px;
   width: 100%;
-  height: 450;
+  height: 250;
   border-radius: 10;
 `;
 

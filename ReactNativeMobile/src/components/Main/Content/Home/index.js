@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
+    Text, TouchableWithoutFeedback,
     Image,
     ImageBackground,
     StyleSheet
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 import defaultAvatar from '../../../../media/avatar_user_default.png';
 import defaultBackground from '../../../../media/backgound_default.jpg';
@@ -25,7 +26,14 @@ export default class Home extends Component {
                         <Image source={defaultAvatar} style={styles.avatarStyle} />
                         <Text style={styles.textStyle}>User 1</Text>
                     </View>
-                    <Image source={icHeart} style={styles.iconHeartStyle} />
+                    <View style={{ flex: 1, padding: 40 }}>
+                        <TouchableWithoutFeedback onPress={() => this.view.bounce(1200)}>
+                            <Animatable.View ref={(c) => this.view = c}>
+                                <Image source={icHeart} style={styles.iconHeartStyle} />
+                            </Animatable.View>
+                        </TouchableWithoutFeedback>
+                    </View>
+
                     <View style={styles.userContainer}>
                         <Image source={defaultAvatar} style={styles.avatarStyle} />
                         <Text style={styles.textStyle}>User 2</Text>
