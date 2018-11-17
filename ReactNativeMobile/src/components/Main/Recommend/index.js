@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
 import { createStackNavigator } from 'react-navigation';
-import { View } from 'react-native-animatable';
 import InfoPage from './InfoPage';
 import Recommend from './Recommend';
-
+import ShowMaps from './ShowMaps';
 
 export const RootStack = createStackNavigator({
     Recommend: { screen: Recommend },
     InfoPage: { screen: InfoPage },
+    ShowMaps: { screen: ShowMaps },
 },
     {
         initialRouteName: 'Recommend',

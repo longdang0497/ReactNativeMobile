@@ -18,7 +18,7 @@ export const RootStack = createStackNavigator({
   Main,
   Authentication,
   RecommendScreen,
-  InfoPage
+  InfoPage,
 },
 {
   headerMode: 'none',

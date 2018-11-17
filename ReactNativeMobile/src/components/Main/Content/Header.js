@@ -16,11 +16,11 @@ export default class Header extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Icon name='bars' size={22} color='#fff' />
+                    <Icon name='bars' size={22} color='#442C2E' />
                 </TouchableOpacity>
                 <Text style={styles.titleStyle}> DateNow </Text>
                 <TouchableOpacity onPress={null}>
-                    <Icon name='share-alt' size={22} color='#fff' />
+                    <Icon name='share-alt' size={22} color='#442C2E' />
                 </TouchableOpacity>
             </View>
         );
@@ -30,7 +30,7 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         height: height / 15,
-        backgroundColor: '#34B089',
+        backgroundColor: '#FEDBD0',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
         padding: 1
     },
     titleStyle: {
-        color: '#FFF',
-        fontFamily: 'Avenir',
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium',
         fontSize: 17
     }
 });

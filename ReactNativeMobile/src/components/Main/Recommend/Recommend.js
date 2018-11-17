@@ -1,6 +1,6 @@
 import {
     StyleSheet, Text, View, ScrollView,
-    Image, Animated, TextInput,
+    Image, Animated, TextInput, Picker,
     Dimensions, SafeAreaView, TouchableOpacity
 } from 'react-native';
 import React, { Component } from 'react';
@@ -36,12 +36,19 @@ export default class Recommend extends Component {
                     borderWidth: 0.5,
                     borderColor: 'black'
                 }}
-                placeholder="Tìm kiếm"
+                placeholder="What are you looking for?"
             />
         ),
         /* eslint-disable global-require */
         //headerRight: (),
         /* eslint-enable global-require */
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            PickerValue: ''
+        };
     }
 
     render() {
@@ -55,15 +62,28 @@ export default class Recommend extends Component {
                                 source={require('../../../../assets/appicon/ic_new.png')}
                                 style={style.imgIcon}
                             />
-                            <Text style={{ color: 'white' }}>Mới Nhất</Text>
+                            <Text style={style.txtButton}>Latest</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={style.btnNear}>
                             <Image
                                 source={require('../../../../assets/appicon/ic_near.png')}
                                 style={style.imgIcon}
                             />
-                            <Text style={{ color: 'white' }}>Gần Nhất</Text>
+                            <Text style={style.txtButton}>Nearby</Text>
                         </TouchableOpacity>
+                        <Picker
+                            style={style.btnFilter}
+                            selectedValue={this.state.PickerValue}
+                            textStyle={style.txtButton}
+                            itemTextStyle={style.txtButton}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.setState({ PickerValue: itemValue })}
+                        >
+                            <Picker.Item label="Category" value="" />
+                            <Picker.Item label="Food" value="food" />
+                            <Picker.Item label="Beauty" value="beauty" />
+                            <Picker.Item label="Fashion" value="fashion" />
+                        </Picker>
                     </View>
                     <View style={style.recommendContainer}>
                         {images.map((image, index) => (
@@ -106,18 +126,19 @@ const style = StyleSheet.create({
     cardHolder: {
         height: SCREEN_WIDTH / 2,
         width: SCREEN_WIDTH / 2,
-        padding: 15
+        padding: 8
     },
     txtRecommend: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#98DDDE',
+        backgroundColor: '#FEDBD0',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5
     },
-    txtInfoRecommend: {
-        fontFamily: 'FontAwesome',
-        fontSize: 20,
+    txtButton: {
+        fontFamily: 'Rubik-Medium',
+        textAlign: 'center',
+        paddingLeft: 10,
         fontWeight: 'bold',
     },
     imgRecommend: {
@@ -135,25 +156,30 @@ const style = StyleSheet.create({
     },
     btnNew: {
         flexDirection: 'row',
-        borderRadius: 20,
-        backgroundColor: '#E94B3C',
+        width: SCREEN_WIDTH / 3,
+        backgroundColor: '#ff7a89',
         padding: 15,
         borderColor: 'black',
         justifyContent: 'center',
-        width: SCREEN_WIDTH / 4
+        borderWidth: 0.2
     },
     btnNear: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        borderRadius: 20,
-        backgroundColor: '#88B04B',
+        width: SCREEN_WIDTH / 3,
+        backgroundColor: '#FEDBD0',
         padding: 15,
-        width: SCREEN_WIDTH / 4,
         borderColor: 'black',
+        justifyContent: 'center',
+        borderWidth: 0.2
     },
     btnFilter: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        width: SCREEN_WIDTH / 3,
+        backgroundColor: '#FEEAE6',
         padding: 15,
+        borderColor: 'black',
+        justifyContent: 'center',
+        borderWidth: 0.2
     },
     searchBox: {
         height: SCREEN_HEIGHT / 20,

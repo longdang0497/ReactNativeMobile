@@ -6,7 +6,7 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-import ImageCarousel from './ImageCarousel';
+//import ImageCarousel from './ImageCarousel';
 import DetailsRecommend from './DetailsRecommend';
 import CollapseInfo from './CollapseInfo';
 import ShareInfo from './ShareInfo';
@@ -14,16 +14,50 @@ import ShareInfo from './ShareInfo';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 export default class InfoPage extends Component {
+    static navigationOptions = {
+        headerTitle: (
+            <Text
+                style={{
+                    fontFamily: 'Rubik-Medium',
+                    fontWeight: 'bold',
+                    color: '#442C2E',
+                    justifyContent: 'center'
+                }}
+            >THIS IS DEAL'S TITLE</Text>
+        ),
+        /* eslint-disable global-require */
+        //headerRight: (),
+        /* eslint-enable global-require */
+    }
+
     render() {
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
                 <ScrollView>
                     <View style={{ flex: 1, padding: 5 }}>
-                        <ImageCarousel />
+                        <Image style={styles.imgDeal} />
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
-                        <DetailsRecommend />
+                        <View style={{ flex: 1 }}>
+                            <DetailsRecommend />
+                        </View>
+                        <View
+                            style={{
+                                flex: 1,
+                                padding: 5,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: '#F0EDE5',
+                            }}
+                        >
+                            <TouchableOpacity
+                                style={styles.btnDirection}
+                                onPress={() => this.props.navigation.navigate('ShowMaps')}
+                            >
+                                <Text>CHỈ ĐƯỜNG</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
                         <CollapseInfo />
@@ -88,9 +122,23 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         justifyContent: 'center'
     },
+    btnDirection: {
+        flexDirection: 'row',
+        width: SCREEN_WIDTH,
+        backgroundColor: '#F0EDE5',
+        padding: 15,
+        borderColor: 'black',
+        justifyContent: 'center'
+    },
     imgIcon: {
         width: 20,
         height: 20,
         paddingRight: 20
+    },
+    imgDeal: {
+        width: SCREEN_WIDTH,
+        height: SCREEN_WIDTH / 2,
+        borderWidth: 0.5,
+        backgroundColor: 'black',
     }
 });

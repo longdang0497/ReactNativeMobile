@@ -11,9 +11,9 @@ import RecommendScreen from '../Recommend/index';
 import Header from './Header.js';
 
 export const BottomTabNavigator = createBottomTabNavigator({
-    Home,
-    RecommendScreen,
-    Profile
+    Home: { screen: Home },
+    Recommend: { screen: RecommendScreen },
+    Profile: { screen: Profile }
 },
     {
         navigationOptions: ({ navigation }) => ({
@@ -24,7 +24,7 @@ export const BottomTabNavigator = createBottomTabNavigator({
                     case 'Home':
                         iconName = 'home';
                         break;
-                    case 'RecommendScreen':
+                    case 'Recommend':
                         iconName = 'shopping-cart';
                         break;
                     default:
@@ -38,8 +38,13 @@ export const BottomTabNavigator = createBottomTabNavigator({
             },
         }),
         tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
+            activeTintColor: '#442C2E',
+            inactiveTintColor: '#caa99f',
+            style:{
+            backgroundColor: '#FEDBD0',
+            borderTopWidth: 0.5,
+            borderTopColor: '#442C2E'
+        },
         },
         swipeEnabled: true
     },
