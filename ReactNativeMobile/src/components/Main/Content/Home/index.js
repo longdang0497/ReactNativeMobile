@@ -78,11 +78,16 @@ const styles = StyleSheet.create({
         borderRadius: 80
     },
     textStyle: {
-
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium',
+        fontSize: 17,
+        fontWeight: 'bold'
     },
     timeTextStyle: {
         marginVertical: 10,
-        fontSize: 20,
+        fontSize: 30,
+        color: '#442C2E',
+        fontFamily: 'Rubik-LightItalic',
         fontStyle: 'italic'
     }
 });

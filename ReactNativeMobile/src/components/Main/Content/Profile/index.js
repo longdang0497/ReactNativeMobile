@@ -121,16 +121,18 @@ export default class Profile extends Component {
 
     render() {
         return (
+            /* eslint-disable global-require */
             <ScrollView style={styles.container}>
                 <View style={styles.infoContainer}>
                     <TouchableOpacity onPress={this.openImagePicker.bind(this)}>
                         <Image source={avatar} style={styles.avatartStyle} />
                     </TouchableOpacity>
                     <TouchableOpacity
+                        style={styles.usrContainer}
                         onPress={() =>
                             this.openPopup(popupType.userName, 'User Name', userNameText)}
                     >
-                        <Text>{userNameText}</Text>
+                        <Text style={styles.txtButton}>{userNameText}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 30 }}>
@@ -190,13 +192,13 @@ export default class Profile extends Component {
                     <TouchableOpacity style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Start from Zero</Text>
                         <View style={styles.rightViewItem}>
-                            <Switch />
+                            <Switch style={{ trackColor: '#442C2E' }} />
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Show Year, Month, Days</Text>
                         <View style={styles.rightViewItem}>
-                            <Switch />
+                            <Switch style={{ trackColor: '#442C2E' }} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -228,10 +230,10 @@ export default class Profile extends Component {
                 </View>
                 <View>
                     <Text style={styles.title}>Account Settings</Text>
-                    <TouchableOpacity style={styles.settingItem}>
-                        <Text style={styles.textTitleItem}>Sign Out</Text>
+                    <TouchableOpacity style={styles.btnSignOut}>
+                        <Text style={{ color: 'white' }}>Sign Out</Text>
                         <View style={styles.rightViewItem}>
-                            <Icon name='angle-right' size={25} color='#A3A3A3' />
+                            <Icon name='angle-right' size={25} color='#fff' />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -274,6 +276,7 @@ export default class Profile extends Component {
                     onCancel={this.hideDateTimePicker}
                 />
             </ScrollView>
+            /* eslint-enable global-require */
         );
     }
 }
@@ -300,6 +303,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 7
     },
+    btnSignOut: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FF6F61',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 7
+    },
     rightViewItem: {
         flex: 1,
         flexDirection: 'row',
@@ -309,10 +320,13 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         paddingLeft: 10,
-        backgroundColor: '#34B089'
+        backgroundColor: '#FEDBD0',
+        borderWidth: 0.2,
+        borderColor: '#442C2E',
+        fontWeight: 'bold'
     },
     textTitleItem: {
-
+        
     },
     textSetting: {
         color: '#A3A3A3',
@@ -325,5 +339,22 @@ const styles = StyleSheet.create({
         height: 30,
         padding: 0,
         paddingHorizontal: 5
+    },
+    txtButton: {
+        fontFamily: 'Rubik-Medium',
+        textAlign: 'center',
+        paddingRight: 10,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    imgIcon: {
+        width: 20,
+        height: 20,
+        paddingRight: 20
+    },
+    usrContainer: {
+        flexDirection: 'row',
+        padding: 15,
+        justifyContent: 'center',
     }
 });
