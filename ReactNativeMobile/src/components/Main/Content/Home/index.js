@@ -20,21 +20,23 @@ class Home extends Component {
                 blurRadius={this.props.blur}
                 style={styles.container}
             >
-                <View style={styles.userInfoContainer}>
-                    <View style={styles.userContainer}>
-                        <Image source={defaultAvatar} style={styles.avatarStyle} />
-                        <Text style={styles.textStyle}>User 1</Text>
+                <View style={styles.wrapper}>
+                    <View style={styles.userInfoContainer}>
+                        <View style={styles.userContainer}>
+                            <Image source={defaultAvatar} style={styles.avatarStyle} />
+                            <Text style={styles.textStyle}>User 1</Text>
+                        </View>
+                        <Image source={icHeart} style={styles.iconHeartStyle} />
+                        <View style={styles.userContainer}>
+                            <Image source={defaultAvatar} style={styles.avatarStyle} />
+                            <Text style={styles.textStyle}>User 2</Text>
+                        </View>
                     </View>
-                    <Image source={icHeart} style={styles.iconHeartStyle} />
-                    <View style={styles.userContainer}>
-                        <Image source={defaultAvatar} style={styles.avatarStyle} />
-                        <Text style={styles.textStyle}>User 2</Text>
+                    <View style={styles.timeInfoContainer}>
+                        <Text style={styles.textStyle}>{this.props.titleText}</Text>
+                        <Text style={styles.timeTextStyle}>1 years</Text>
+                        <Text style={styles.textStyle}>{this.props.bottomText}</Text>
                     </View>
-                </View>
-                <View style={styles.timeInfoContainer}>
-                    <Text style={styles.textStyle}>{this.props.titleText}</Text>
-                    <Text style={styles.timeTextStyle}>1 years</Text>
-                    <Text style={styles.textStyle}>{this.props.bottomText}</Text>
                 </View>
             </ImageBackground>
         );
@@ -54,6 +56,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center'
+    },
+    wrapper: {
+        paddingVertical: 30,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 30,
+        backgroundColor: 'rgba(0, 0, 0, .4)'
     },
     userInfoContainer: {
         flexDirection: 'row',
@@ -79,11 +89,13 @@ const styles = StyleSheet.create({
         borderRadius: 80
     },
     textStyle: {
-
+        color: '#fff',
+        opacity: 0.9
     },
     timeTextStyle: {
         marginVertical: 10,
         fontSize: 20,
+        color: '#fff',
         fontStyle: 'italic'
     }
 });

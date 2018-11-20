@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -32,9 +31,6 @@ export default class Authentication extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.firstPart}>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Icon name='chevron-left' size={25} color='#fff' />
-          </TouchableOpacity>
           <Text style={styles.titleStyle}>Let's Date</Text>
           <View />
         </View>
@@ -65,7 +61,7 @@ const styles = StyleSheet.create({
   },
   firstPart: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   titleStyle: {

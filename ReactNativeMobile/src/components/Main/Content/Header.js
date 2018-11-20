@@ -29,7 +29,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: height / 15,
+        height: height / 13,
         backgroundColor: '#34B089',
         padding: 10,
         flexDirection: 'row',

@@ -23,7 +23,7 @@ export const RootStack = createStackNavigator({
 },
     {
         headerMode: 'none',
-        initialRouteName: 'Main'
+        initialRouteName: 'Authentication'
     });
 
 class RouterScreen extends Component {

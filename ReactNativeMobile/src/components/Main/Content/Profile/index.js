@@ -55,6 +55,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             imageSource: null,
+            getImageSuccess: false,
             isDateTimePickerVisible: false,
             popupVisible: false,
             popupType: '',
@@ -120,8 +121,10 @@ class Profile extends Component {
             console.log('Response = ', response);
 
             if (response.didCancel) {
+                this.setState({ getImageSuccess: false });
                 console.log('User cancelled image picker');
             } else if (response.error) {
+                this.setState({ getImageSuccess: false });
                 console.log('ImagePicker Error: ', response.error);
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
@@ -130,7 +133,6 @@ class Profile extends Component {
 
                 // You can also display the image using data:
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
                 switch (type) {
                     case imageType.userAvatar:
                         break;
@@ -248,8 +250,8 @@ class Profile extends Component {
                         <View style={styles.rightViewItem}>
                             <Slider
                                 style={{ width: 70 }}
-                                maximumValue={1}
-                                step={0.1}
+                                maximumValue={2}
+                                step={0.2}
                                 thumbTintColor='#34B089'
                                 value={this.props.blur}
                                 onValueChange={(val) => {
