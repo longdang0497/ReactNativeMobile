@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import ProfileReducer from './ProfileReducer';
+import RecommendReducer from './RecommendReducer';
 
 export default combineReducers({
-    profile: ProfileReducer
+    Recommend: RecommendReducer
 });

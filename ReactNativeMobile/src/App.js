@@ -8,6 +8,8 @@
 
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
+import { Provider } from 'react-redux';
+import Store from './redux/store/index';
 
 import Main from './components/Main';
 import Authentication from './components/Authentication';
@@ -25,10 +27,14 @@ export const RootStack = createStackNavigator({
   initialRouteName: 'Main'
 });
 
+const store = Store();
+
 export default class App extends Component {
   render() {
     return (
-      <RootStack />
+      <Provider store={store}>
+        <RootStack />
+      </Provider>
     );
   }
 }

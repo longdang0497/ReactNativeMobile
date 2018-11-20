@@ -40,10 +40,10 @@ export const BottomTabNavigator = createBottomTabNavigator({
         tabBarOptions: {
             activeTintColor: '#442C2E',
             inactiveTintColor: '#caa99f',
-            style:{
+            style: {
             backgroundColor: '#FEDBD0',
             borderTopWidth: 0.5,
-            borderTopColor: '#442C2E'
+            borderTopColor: '#442C2E',
         },
         },
         swipeEnabled: true

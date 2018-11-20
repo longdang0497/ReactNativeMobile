@@ -3,24 +3,37 @@ import {
     Image, Animated, TextInput, Picker,
     Dimensions, SafeAreaView, TouchableOpacity
 } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import React, { Component } from 'react';
+import ListDeal from './ListDeal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window');
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-/* eslint-disable global-require */
-const images = [
-    { id: 1, src: require('../../../../assets/background/photo-1.jpg') },
-    { id: 2, src: require('../../../../assets/background/photo-2.jpg') },
-    { id: 4, src: require('../../../../assets/background/photo-4.jpg') },
-    { id: 5, src: require('../../../../assets/background/photo-5.jpg') },
-    { id: 6, src: require('../../../../assets/background/photo-6.jpg') },
-    { id: 7, src: require('../../../../assets/background/photo-7.jpg') },
-    { id: 8, src: require('../../../../assets/background/photo-8.jpg') },
-    { id: 9, src: require('../../../../assets/background/photo-9.jpg') },
-    { id: 10, src: require('../../../../assets/background/photo-10.jpg') }
-];
-/* eslint-enable global-require */
+const FoodRoute = () => (
+    //<ScrollView style={{ flex: 2 }}>
+    <View style={[style.scene, { backgroundColor: '#ff4081' }]}>
+        <ListDeal />
+    </View>
+    //</ScrollView>
+);
+
+const BeautyRoute = () => (
+    //<ScrollView style={{ flex: 2 }}>
+    <View style={[style.scene, { backgroundColor: '#673ab7' }]}>
+        <ListDeal />
+    </View>
+    //</ScrollView>
+);
+
+const FashionRoute = () => (
+    //<ScrollView style={{ flex: 2 }}>
+    <View style={[style.scene, { backgroundColor: '#ff4081' }]}>
+        <ListDeal />
+    </View>
+    //</ScrollView>
+
+);
 
 export default class Recommend extends Component {
     static navigationOptions = {
@@ -28,7 +41,7 @@ export default class Recommend extends Component {
             <TextInput
                 inlineImageLeft='ic_search'
                 style={{
-                    height: SCREEN_HEIGHT / 20,
+                    height: SCREEN_HEIGHT / 12.4,
                     width: SCREEN_WIDTH,
                     backgroundColor: '#fff',
                     padding: 20,
@@ -51,77 +64,79 @@ export default class Recommend extends Component {
         };
     }
 
+    tabState = {
+        index: 0,
+        routes: [
+            { key: 'food', title: 'FOOD' },
+            { key: 'beauty', title: 'BEAUTY' },
+            { key: 'fashion', title: 'FASHION' },
+        ],
+    };
+
+    renderTab = props => {
+        const inputRange = props.navigationState.routes.map((x, i) => i);
+
+        return (
+            <View style={style.tabBar}>
+                {props.navigationState.routes.map((route, i) => {
+                    const color = props.position.interpolate({
+                        inputRange,
+                        outputRange: inputRange.map(
+                            inputIndex => (inputIndex === i ? '#442C2E' : '#caa99f')
+                        ),
+                    });
+                    return (
+                        <TouchableOpacity
+                            style={style.tabItem}
+                            onPress={() => this.setState({ index: i })}
+                        >
+                            <Animated.Text
+                                style={{ color, fontWeight: 'bold', fontFamily: 'Rubik-Medium' }}
+                            >{route.title}</Animated.Text>
+                        </TouchableOpacity>
+                    );
+                })}
+            </View>
+        );
+    };
+
     render() {
         return (
             /* eslint-disable global-require */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <ScrollView style={{ flex: 2 }}>
-                    <View style={style.btnContainer}>
-                        <TouchableOpacity style={style.btnNew}>
-                            <Image
-                                source={require('../../../../assets/appicon/ic_new.png')}
-                                style={style.imgIcon}
-                            />
-                            <Text style={style.txtButton}>Latest</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={style.btnNear}>
-                            <Image
-                                source={require('../../../../assets/appicon/ic_near.png')}
-                                style={style.imgIcon}
-                            />
-                            <Text style={style.txtButton}>Nearby</Text>
-                        </TouchableOpacity>
-                        <Picker
-                            style={style.btnFilter}
-                            selectedValue={this.state.PickerValue}
-                            textStyle={style.txtButton}
-                            itemTextStyle={style.txtButton}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ PickerValue: itemValue })}
-                        >
-                            <Picker.Item label="Category" value="" />
-                            <Picker.Item label="Food" value="food" />
-                            <Picker.Item label="Beauty" value="beauty" />
-                            <Picker.Item label="Fashion" value="fashion" />
-                        </Picker>
-                    </View>
-                    <View style={style.recommendContainer}>
-                        {images.map((image, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => this.props.navigation.navigate('InfoPage')}
-                            >
-                                <Animated.View style={style.cardHolder}>
-                                    <Image source={image.src} style={style.imgRecommend} />
-                                    <View style={style.txtRecommend}>
-                                        <Text
-                                            style={style.txtInfoRecommend}
-                                        >THIS IS THE TITLE</Text>
-                                    </View>
-                                </Animated.View>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </ScrollView>
+                <TabView
+                    navigationState={this.tabState}
+                    renderScene={SceneMap({
+                        food: FoodRoute,
+                        beauty: BeautyRoute,
+                        fashion: FashionRoute
+                    })}
+                    onIndexChange={index => this.setState({ index })}
+                    initialLayout={{ width: SCREEN_WIDTH }}
+                    renderTabBar={this.renderTab}
+                    //canJumpToTab={route => route.disabled}
+                />
             </SafeAreaView>
             /* eslint-enable global-require */
         );
     }
 }
 
-// export default class SwitchToInfo extends Component {
-//     render() {
-//         return (
-//             <AppStackNavigator />
-//         );
-//     }
-// }
-
 const style = StyleSheet.create({
     recommendContainer: {
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap'
+    },
+    tabBar: {
+        flexDirection: 'row',
+        //paddingTop: 10,
+        backgroundColor: '#FEDBD0'
+    },
+    tabItem: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 16,
     },
     cardHolder: {
         height: SCREEN_WIDTH / 2,
@@ -193,3 +208,37 @@ const style = StyleSheet.create({
         paddingRight: 20
     },
 });
+
+
+// <View style={style.recommendContainer}>
+                    // </View>
+// <View style={style.btnContainer}>
+// <TouchableOpacity style={style.btnNew}>
+//  
+//                             <Image
+//                                 source={require('../../../../assets/appicon/ic_new.png')}
+//                                 style={style.imgIcon}
+//                             />
+//                             <Text style={style.txtButton}>Latest</Text>
+//                         </TouchableOpacity>
+//                         <TouchableOpacity style={style.btnNear}>
+//                             <Image
+//                                 source={require('../../../../assets/appicon/ic_near.png')}
+//                                 style={style.imgIcon}
+//                             />
+//                             <Text style={style.txtButton}>Nearby</Text>
+//                         </TouchableOpacity>
+//                         <Picker
+//                             style={style.btnFilter}
+//                             selectedValue={this.state.PickerValue}
+//                             textStyle={style.txtButton}
+//                             itemTextStyle={style.txtButton}
+//                             onValueChange={(itemValue, itemIndex) =>
+//                                 this.setState({ PickerValue: itemValue })}
+//                         >
+//                             <Picker.Item label="Category" value="" />
+//                             <Picker.Item label="Food" value="food" />
+//                             <Picker.Item label="Beauty" value="beauty" />
+//                             <Picker.Item label="Fashion" value="fashion" />
+//                         </Picker>
+//                     </View>
