@@ -9,12 +9,16 @@ import {
     Dimensions
 } from 'react-native';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import { connect } from 'react-redux';
+
+import * as actions from '../../redux/actions/UserActions';
+import saveToken from '../../api/saveToken';
 
 import signUp from '../../api/signUp';
 
 const { height } = Dimensions.get('window');
 
-export default class SignUp extends Component {
+class SignUp extends Component {
     state = {
         name: '',
         email: '',
@@ -39,6 +43,15 @@ export default class SignUp extends Component {
                         'Sign Up',
                         'Sign up successed!!',
                         [
+                            {
+                                text: 'Sign In', 
+                                onPress: () => {
+                                    this.props.addUser(responseJson.user);
+                                    saveToken(responseJson.user.authentication_token);
+                                    this.props.navigation.navigate('Main');
+                                }, 
+                                style: 'ok'
+                            },
                             { text: 'Cancel', style: 'cancel' }
                         ],
                         { cancelable: false }
@@ -99,6 +112,8 @@ export default class SignUp extends Component {
         );
     }
 }
+
+export default connect(null, actions)(SignUp);
 
 const styles = StyleSheet.create({
     container: {

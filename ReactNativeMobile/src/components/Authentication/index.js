@@ -6,16 +6,23 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
+import { connect } from 'react-redux';
 
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 const { height } = Dimensions.get('window');
 
-export default class Authentication extends Component {
+class Authentication extends Component {
   constructor(props) {
     super(props);
     this.state = { isSignIn: true };
+  }
+
+  componentWillMount() {
+    if (this.props.isSigned) {
+      this.props.navigation.navigate('Main');
+    }
   }
 
   signIn() {
@@ -26,6 +33,7 @@ export default class Authentication extends Component {
     this.setState({ isSignIn: false });
   }
   render() {
+    const { navigation } = this.props;
     const { isSignIn } = this.state;
     const MainJSX = isSignIn ? SignIn : SignUp;
     return (
@@ -34,7 +42,7 @@ export default class Authentication extends Component {
           <Text style={styles.titleStyle}>Let's Date</Text>
           <View />
         </View>
-        <MainJSX />
+        <MainJSX navigation={navigation} />
         <View style={styles.controlStyle}>
           <TouchableOpacity style={styles.btnControlStyle} onPress={this.signIn.bind(this)}>
             <Text style={isSignIn ? styles.activeStyle : styles.inactiveStyle}> SIGN IN </Text>
@@ -48,6 +56,12 @@ export default class Authentication extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  isSigned: state.user.isSigned
+});
+
+export default connect(mapStateToProps, null)(Authentication);
 
 const ControlHeight = height * 0.06;
 

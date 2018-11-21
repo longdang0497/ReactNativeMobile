@@ -3,6 +3,7 @@ module.exports = {
         TITLE: 'key_title',
         BOTTOM_TEXT: 'key_bottomText',
         BACKGROUND: 'key_background',
-        BLUR: 'key_blur'
+        BLUR: 'key_blur',
+        TOKEN: 'ket_token'
     }
 };

@@ -9,8 +9,10 @@ import {
     TouchableOpacity,
     AsyncStorage,
     Switch,
+    Alert,
     StyleSheet
 } from 'react-native';
+import { ProgressDialog } from 'react-native-simple-dialogs';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Slider } from 'react-native-elements';
@@ -18,8 +20,12 @@ import Dialog, { DialogButton, DialogTitle, ScaleAnimation } from 'react-native-
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import ImagePicker from 'react-native-image-picker';
+
+
 import * as actions from '../../../../redux/actions/ProfileAction';
 import constants from '../../Constants';
+//import signOut from '../../../../api/signOut';
+import saveToken from '../../../../api/saveToken';
 
 import avatar from '../../../../media/avatar_user_default.png';
 
@@ -37,8 +43,7 @@ const imageType = {
     background: 'background'
 };
 
-let userNameText = 'User Name',
-    loverNameText = 'Your lover',
+let loverNameText = 'Your lover',
     dateText = 'Now 1, 2017';
 
 const options = {
@@ -60,15 +65,48 @@ class Profile extends Component {
             popupVisible: false,
             popupType: '',
             popupTitle: '',
-            popupText: ''
+            popupText: '',
+            inProgress: false
         };
+    }
+
+    onSignOut() {
+        /*
+        this.setState({ inProgress: true });
+        signOut(this.props.user.email)
+            .then((responseJson) => {
+                this.setState({ inProgress: false });
+                console.log(responseJson);
+                if (responseJson.success) {
+                    saveToken('');
+                    this.props.screenProps.goBack();
+                }
+            })
+            .catch(err => console.log(err));
+        */
+        Alert.alert(
+            'Sign Out',
+            'Are you sure you want to signout?',
+            [
+                {
+                    text: 'Sign Out',
+                    onPress: () => {
+                        saveToken('');
+                        this.props.screenProps.goBack();
+                    },
+                    style: 'ok'
+                },
+                { text: 'Cancel', style: 'cancel' }
+            ],
+            { cancelable: false }
+        );
     }
 
     onRetrieveData() {
         const { popupText } = this.state;
         switch (this.state.popupType) {
             case popupType.userName:
-                userNameText = popupText;
+                //userNameText = popupText;
                 break;
             case popupType.loverName:
                 loverNameText = popupText;
@@ -148,17 +186,21 @@ class Profile extends Component {
     }
 
     render() {
+        const { user } = this.props;
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.infoContainer}>
                     <TouchableOpacity onPress={this.openImagePicker.bind(this)}>
-                        <Image source={avatar} style={styles.avatartStyle} />
+                        <Image
+                            source={user.avatar.url ? user.avatar.url : avatar}
+                            style={styles.avatartStyle}
+                        />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() =>
-                            this.openPopup(popupType.userName, 'User Name', userNameText)}
+                            this.openPopup(popupType.userName, 'User Name', user.name)}
                     >
-                        <Text>{userNameText}</Text>
+                        <Text>{user.name}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 30 }}>
@@ -166,11 +208,14 @@ class Profile extends Component {
                     <TouchableOpacity
                         style={styles.settingItem}
                         onPress={() =>
-                            this.openPopup(popupType.loverName, 'lover Name', loverNameText)}
+                            this.openPopup(popupType.loverName, 'lover Name',
+                                user.lover_name ? user.lover_name : loverNameText)}
                     >
                         <Text style={styles.textTitleItem}>Lover</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{loverNameText}</Text>
+                            <Text style={styles.textSetting}>
+                                {user.lover_name ? user.lover_name : loverNameText}
+                            </Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
@@ -264,7 +309,10 @@ class Profile extends Component {
                 </View>
                 <View>
                     <Text style={styles.title}>Account Settings</Text>
-                    <TouchableOpacity style={styles.settingItem}>
+                    <TouchableOpacity
+                        style={styles.settingItem}
+                        onPress={this.onSignOut.bind(this)}
+                    >
                         <Text style={styles.textTitleItem}>Sign Out</Text>
                         <View style={styles.rightViewItem}>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
@@ -309,6 +357,11 @@ class Profile extends Component {
                     onConfirm={this.handleDatePicked}
                     onCancel={this.hideDateTimePicker}
                 />
+                <ProgressDialog
+                    visible={this.state.inProgress}
+                    title="Processing"
+                    message="Please, wait..."
+                />
             </ScrollView>
         );
     }
@@ -317,7 +370,8 @@ class Profile extends Component {
 const mapStateToProps = state => ({
     titleText: state.profile.titleText,
     bottomText: state.profile.bottomText,
-    blur: state.profile.backgroundBlur
+    blur: state.profile.backgroundBlur,
+    user: state.user.user
 });
 
 export default connect(mapStateToProps, actions)(Profile);

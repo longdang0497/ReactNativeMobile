@@ -45,13 +45,13 @@ export const BottomTabNavigator = createBottomTabNavigator({
     },
 );
 
-export default class Main extends Component {
+export default class MainContent extends Component {
     render() {
         const { navigation } = this.props;
         return (
             <View style={{ flex: 1 }}>
                 <Header navigation={navigation} />
-                <BottomTabNavigator />
+                <BottomTabNavigator screenProps={this.props.screenProps} />
             </View>
         );
     }

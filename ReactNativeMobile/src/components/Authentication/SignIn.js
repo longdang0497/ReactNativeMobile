@@ -9,12 +9,16 @@ import {
     Dimensions
 } from 'react-native';
 import { ProgressDialog } from 'react-native-simple-dialogs';
+import { connect } from 'react-redux';
+
+import * as actions from '../../redux/actions/UserActions';
+import saveToken from '../../api/saveToken';
 
 import signIn from '../../api/signIn';
 
 const { height } = Dimensions.get('window');
 
-export default class SignIn extends Component {
+class SignIn extends Component {
     state = {
         email: '',
         password: '',
@@ -31,14 +35,9 @@ export default class SignIn extends Component {
                 this.setState({ inProgress: false });
                 console.log(responseJson);
                 if (responseJson.success) {
-                    Alert.alert(
-                        'Sign In',
-                        'Sign in successed!!',
-                        [
-                            { text: 'Cancel', style: 'cancel' }
-                        ],
-                        { cancelable: false }
-                    );
+                    this.props.addUser(responseJson.user);
+                    saveToken(responseJson.user.authentication_token);
+                    this.props.navigation.navigate('Main');
                 } else {
                     Alert.alert(
                         'Sign In',
@@ -80,6 +79,8 @@ export default class SignIn extends Component {
         );
     }
 }
+
+export default connect(null, actions)(SignIn);
 
 const styles = StyleSheet.create({
     container: {

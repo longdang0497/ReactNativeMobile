@@ -1,6 +1,6 @@
 const signUp = (_email, _password, _passwordConfirm, _name) => (
     // eslint-disable-next-line no-undef
-    fetch('https://date-now.herokuapp.com/users/sign_up.json', {
+    fetch('https://date-now.herokuapp.com/users/sign_up', {
         method: 'POST',
         headers: {
             Accept: 'application/json',

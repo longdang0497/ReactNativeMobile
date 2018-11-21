@@ -13,6 +13,7 @@ import icHeart from '../../../../media/heart.png';
 
 class Home extends Component {
     render() {
+        const { user } = this.props;
         return (
             <ImageBackground
                 source={this.props.backgroundSource}
@@ -23,13 +24,22 @@ class Home extends Component {
                 <View style={styles.wrapper}>
                     <View style={styles.userInfoContainer}>
                         <View style={styles.userContainer}>
-                            <Image source={defaultAvatar} style={styles.avatarStyle} />
-                            <Text style={styles.textStyle}>User 1</Text>
+                            <Image
+                                source={user.avatar.url ? user.avatar.url : defaultAvatar}
+                                style={styles.avatarStyle}
+                            />
+                            <Text ellipsizeMode='tail' style={styles.textStyle}>{user.name}</Text>
                         </View>
                         <Image source={icHeart} style={styles.iconHeartStyle} />
                         <View style={styles.userContainer}>
-                            <Image source={defaultAvatar} style={styles.avatarStyle} />
-                            <Text style={styles.textStyle}>User 2</Text>
+                            <Image
+                                source={user.lover_avatar.url ? user.lover_avatar.url
+                                    : defaultAvatar}
+                                style={styles.avatarStyle}
+                            />
+                            <Text ellipsizeMode='tail' style={styles.textStyle}>
+                                {user.lover_name ? user.lover_name : 'Lover\'s Name'}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.timeInfoContainer}>
@@ -47,7 +57,8 @@ const mapStateToProps = state => ({
     titleText: state.profile.titleText,
     bottomText: state.profile.bottomText,
     backgroundSource: state.profile.imageSource,
-    blur: state.profile.backgroundBlur
+    blur: state.profile.backgroundBlur,
+    user: state.user.user
 });
 
 export default connect(mapStateToProps, null)(Home);
