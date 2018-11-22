@@ -14,18 +14,23 @@ import {
 } from 'react-native';
 import { ProgressDialog } from 'react-native-simple-dialogs';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Slider } from 'react-native-elements';
 import Dialog, { DialogButton, DialogTitle, ScaleAnimation } from 'react-native-popup-dialog';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import ImagePicker from 'react-native-image-picker';
+import CookieManager from 'react-native-cookies';
 
 
-import * as actions from '../../../../redux/actions/ProfileAction';
+import * as profileActions from '../../../../redux/actions/ProfileAction';
+import * as userActions from '../../../../redux/actions/UserActions';
 import constants from '../../Constants';
-//import signOut from '../../../../api/signOut';
+import signOut from '../../../../api/signOut';
 import saveToken from '../../../../api/saveToken';
+import updateUser from '../../../../api/updateUser';
+import getCookie from '../../../../api/getCookie';
 
 import avatar from '../../../../media/avatar_user_default.png';
 
@@ -43,8 +48,8 @@ const imageType = {
     background: 'background'
 };
 
-let loverNameText = 'Your lover',
-    dateText = 'Now 1, 2017';
+const loverNameText = 'Your lover';
+let dateText = 'Now 1, 2017';
 
 const options = {
     title: 'Select Avatar',
@@ -71,19 +76,6 @@ class Profile extends Component {
     }
 
     onSignOut() {
-        /*
-        this.setState({ inProgress: true });
-        signOut(this.props.user.email)
-            .then((responseJson) => {
-                this.setState({ inProgress: false });
-                console.log(responseJson);
-                if (responseJson.success) {
-                    saveToken('');
-                    this.props.screenProps.goBack();
-                }
-            })
-            .catch(err => console.log(err));
-        */
         Alert.alert(
             'Sign Out',
             'Are you sure you want to signout?',
@@ -91,8 +83,21 @@ class Profile extends Component {
                 {
                     text: 'Sign Out',
                     onPress: () => {
-                        saveToken('');
-                        this.props.screenProps.goBack();
+                        this.setState({ inProgress: true });
+                        getCookie()
+                            .then(cookie => {
+                                signOut(cookie, this.props.user.email)
+                                    .then((responseJson) => {
+                                        this.setState({ inProgress: false });
+                                        console.log(responseJson);
+                                        if (responseJson.success) {
+                                            saveToken('');
+                                            this.props.screenProps.goBack();
+                                        }
+                                    })
+                                    .catch(err => console.log(err));
+                            })
+                            .catch(err => console.log(err));
                     },
                     style: 'ok'
                 },
@@ -102,22 +107,44 @@ class Profile extends Component {
         );
     }
 
+    onUpdateUser(update) {
+        this.inProgress = true;
+        CookieManager.clearAll()
+            .then(() => {
+                getCookie()
+                    .then(cookie => {
+                        updateUser(cookie, this.props.user.id, update)
+                            .then(responseJson => {
+                                console.log(responseJson);
+                                if (responseJson.success) {
+                                    this.inProgress = false;
+                                    this.props.userActions.addUser(responseJson.user);
+                                    this.setAlert('Change Info', 'Change Info Successed!!');
+                                } else this.setAlert('Change Info', 'Change Info Failed!!');
+                            })
+                            .catch(err => console(err));
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+    }
+
     onRetrieveData() {
         const { popupText } = this.state;
         switch (this.state.popupType) {
             case popupType.userName:
-                //userNameText = popupText;
+                this.onUpdateUser({ name: popupText.trim() });
                 break;
             case popupType.loverName:
-                loverNameText = popupText;
+                this.onUpdateUser({ lover_name: popupText.trim() });
                 break;
             case popupType.title:
-                this.props.changeTitle(popupText);
-                this.saveItem(constants.STORAGE_KEY.TITLE, popupText);
+                this.props.profileActions.changeTitle(popupText.trim());
+                this.saveItem(constants.STORAGE_KEY.TITLE, popupText.trim());
                 break;
             case popupType.bottomText:
-                this.props.changeBottomText(popupText);
-                this.saveItem(constants.STORAGE_KEY.BOTTOM_TEXT, popupText);
+                this.props.profileActions.changeBottomText(popupText.trim());
+                this.saveItem(constants.STORAGE_KEY.BOTTOM_TEXT, popupText.trim());
                 break;
             case popupType.date:
                 dateText = popupText;
@@ -125,6 +152,17 @@ class Profile extends Component {
             default:
                 break;
         }
+    }
+
+    setAlert(title, content) {
+        Alert.alert(
+            title,
+            content,
+            [
+                { text: 'OK', style: 'ok' }
+            ],
+            { cancelable: false }
+        );
     }
 
     saveItem = async (key, value) => {
@@ -177,8 +215,16 @@ class Profile extends Component {
                     case imageType.loverAvatar:
                         break;
                     default:
-                        this.props.changeBackground(source);
+                        this.props.profileActions.changeBackground(source);
                         this.saveItem(constants.STORAGE_KEY.BACKGROUND, JSON.stringify(source));
+                        Alert.alert(
+                            'Change Background',
+                            'Change Background successed!!!',
+                            [
+                                { text: 'OK', style: 'ok' }
+                            ],
+                            { cancelable: false }
+                        );
                         break;
                 }
             }
@@ -200,7 +246,11 @@ class Profile extends Component {
                         onPress={() =>
                             this.openPopup(popupType.userName, 'User Name', user.name)}
                     >
-                        <Text>{user.name}</Text>
+                        <Text 
+                        numberOfLines={1}
+                        ellipsizeMode='tail'
+                        style={{ width: 200, textAlign: 'center' }}
+                        >{user.name}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ marginTop: 30 }}>
@@ -213,7 +263,11 @@ class Profile extends Component {
                     >
                         <Text style={styles.textTitleItem}>Lover</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                style={styles.textSetting}
+                            >
                                 {user.lover_name ? user.lover_name : loverNameText}
                             </Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
@@ -238,7 +292,11 @@ class Profile extends Component {
                     >
                         <Text style={styles.textTitleItem}>Change Title</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{this.props.titleText}</Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                style={styles.textSetting}
+                            >{this.props.titleText}</Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
@@ -251,7 +309,11 @@ class Profile extends Component {
                     >
                         <Text style={styles.textTitleItem}>Change Bottom Text</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{this.props.bottomText}</Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                style={styles.textSetting}
+                            >{this.props.bottomText}</Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
@@ -300,7 +362,7 @@ class Profile extends Component {
                                 thumbTintColor='#34B089'
                                 value={this.props.blur}
                                 onValueChange={(val) => {
-                                    this.props.changeBlur(val);
+                                    this.props.profileActions.changeBlur(val);
                                     this.saveItem(constants.STORAGE_KEY.BLUR, val.toString());
                                 }}
                             />
@@ -326,12 +388,6 @@ class Profile extends Component {
                     height={0.26}
                     actions={[
                         <DialogButton
-                            key="cancel"
-                            text="CANCEL"
-                            textStyle={{ fontSize: 15 }}
-                            onPress={() => { this.setState({ popupVisible: false }); }}
-                        />,
-                        <DialogButton
                             key="ok"
                             text="OK"
                             textStyle={{ fontSize: 15 }}
@@ -340,6 +396,12 @@ class Profile extends Component {
                                 this.onRetrieveData();
                             }}
                         />,
+                        <DialogButton
+                            key="cancel"
+                            text="CANCEL"
+                            textStyle={{ fontSize: 15 }}
+                            onPress={() => { this.setState({ popupVisible: false }); }}
+                        />
                     ]}
                     dialogAnimation={new ScaleAnimation({
                         toValue: 0, // optional
@@ -374,7 +436,14 @@ const mapStateToProps = state => ({
     user: state.user.user
 });
 
-export default connect(mapStateToProps, actions)(Profile);
+function mapDispatchToProps(dispatch) {
+    return {
+        profileActions: bindActionCreators(profileActions, dispatch),
+        userActions: bindActionCreators(userActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
 const styles = StyleSheet.create({
     container: {
@@ -413,6 +482,8 @@ const styles = StyleSheet.create({
 
     },
     textSetting: {
+        width: 200,
+        textAlign: 'right',
         color: '#A3A3A3',
         marginRight: 10
     },

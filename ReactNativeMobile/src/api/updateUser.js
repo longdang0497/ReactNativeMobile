@@ -1,19 +1,16 @@
+
 import saveCookie from './saveCookie';
 
-const signIn = (_email, _password) => (
+const updateUser = (_cookie, userId, update) => (
     // eslint-disable-next-line no-undef
-    fetch('https://date-now.herokuapp.com/users/sign_in', {
-        method: 'POST',
+    fetch(`https://date-now.herokuapp.com/users/${userId}.json`, {
+        method: 'PUT',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            cookie: _cookie,
         },
-        body: JSON.stringify({
-            user: {
-                email: _email,
-                password: _password
-            }
-        })
+        body: JSON.stringify(update)
     })
         .then((response) => {
             saveCookie(response.headers.get('set-cookie'));
@@ -21,4 +18,4 @@ const signIn = (_email, _password) => (
         })
 );
 
-module.exports = signIn;
+module.exports = updateUser;

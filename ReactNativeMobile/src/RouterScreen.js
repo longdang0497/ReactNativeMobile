@@ -36,15 +36,15 @@ class RouterScreen extends Component {
     componentDidMount() {
         this.getStorageItem();
         getToken()
-        .then(token => checkToken(token))
-        .then(responseJson => {
-            if (responseJson.success) {
-                console.log(responseJson);
-                this.props.userActions.addUser(responseJson.user);
-                this.props.userActions.isSigned(true);
-            }
-        })
-        .catch(err => console.log(err));
+            .then(token => checkToken(token))
+            .then(responseJson => {
+                if (responseJson.success) {
+                    console.log(responseJson);
+                    this.props.userActions.addUser(responseJson.user);
+                    this.props.userActions.isSigned(true);
+                }
+            })
+            .catch(err => console.log(err));
         setTimeout(() => this.setState({ isLoading: false }), 2000);
     }
 
@@ -84,9 +84,9 @@ class RouterScreen extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-      profileActions: bindActionCreators(profileActions, dispatch),
-      userActions: bindActionCreators(userActions, dispatch)
+        profileActions: bindActionCreators(profileActions, dispatch),
+        userActions: bindActionCreators(userActions, dispatch)
     };
-  }
+}
 
 export default connect(null, mapDispatchToProps)(RouterScreen);

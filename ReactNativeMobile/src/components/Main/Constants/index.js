@@ -4,6 +4,7 @@ module.exports = {
         BOTTOM_TEXT: 'key_bottomText',
         BACKGROUND: 'key_background',
         BLUR: 'key_blur',
-        TOKEN: 'ket_token'
+        TOKEN: 'key_token',
+        COOKIE: 'key_cookie'
     }
 };

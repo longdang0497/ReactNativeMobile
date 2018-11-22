@@ -1,3 +1,5 @@
+import saveCookie from './saveCookie';
+
 const signUp = (_email, _password, _passwordConfirm, _name) => (
     // eslint-disable-next-line no-undef
     fetch('https://date-now.herokuapp.com/users/sign_up', {
@@ -15,7 +17,10 @@ const signUp = (_email, _password, _passwordConfirm, _name) => (
             }
         })
     })
-        .then((response) => response.json())
+        .then((response) => {
+            saveCookie(response.headers.get('set-cookie'));
+            return response.json();
+        })
 );
 
 module.exports = signUp;

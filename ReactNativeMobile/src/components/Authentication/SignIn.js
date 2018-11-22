@@ -28,13 +28,15 @@ class SignIn extends Component {
     onSignIn() {
         this.setState({ inProgress: true });
         signIn(
-            this.state.email,
+            this.state.email.trim(),
             this.state.password
         )
             .then((responseJson) => {
                 this.setState({ inProgress: false });
                 console.log(responseJson);
                 if (responseJson.success) {
+                    this.refs.tiEmail.clear();
+                    this.refs.tiPassword.clear();
                     this.props.addUser(responseJson.user);
                     saveToken(responseJson.user.authentication_token);
                     this.props.navigation.navigate('Main');
@@ -57,11 +59,13 @@ class SignIn extends Component {
         return (
             <View>
                 <TextInput
+                    ref="tiEmail"
                     style={styles.accountInput}
                     onChangeText={(val) => this.setState({ email: val })}
                     placeholder="Enter your email"
                 />
                 <TextInput
+                    ref="tiPassword"
                     style={styles.accountInput}
                     onChangeText={(val) => this.setState({ password: val })}
                     secureTextEntry

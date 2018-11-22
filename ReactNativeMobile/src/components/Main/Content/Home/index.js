@@ -28,7 +28,11 @@ class Home extends Component {
                                 source={user.avatar.url ? user.avatar.url : defaultAvatar}
                                 style={styles.avatarStyle}
                             />
-                            <Text ellipsizeMode='tail' style={styles.textStyle}>{user.name}</Text>
+                            <Text
+                                numberOfLines={2}
+                                ellipsizeMode='tail'
+                                style={styles.textStyle}
+                            >{user.name}</Text>
                         </View>
                         <Image source={icHeart} style={styles.iconHeartStyle} />
                         <View style={styles.userContainer}>
@@ -37,15 +41,27 @@ class Home extends Component {
                                     : defaultAvatar}
                                 style={styles.avatarStyle}
                             />
-                            <Text ellipsizeMode='tail' style={styles.textStyle}>
+                            <Text
+                                numberOfLines={2}
+                                ellipsizeMode='tail'
+                                style={styles.textStyle}
+                            >
                                 {user.lover_name ? user.lover_name : 'Lover\'s Name'}
                             </Text>
                         </View>
                     </View>
                     <View style={styles.timeInfoContainer}>
-                        <Text style={styles.textStyle}>{this.props.titleText}</Text>
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode='tail'
+                            style={styles.textStyle}
+                        >{this.props.titleText}</Text>
                         <Text style={styles.timeTextStyle}>1 years</Text>
-                        <Text style={styles.textStyle}>{this.props.bottomText}</Text>
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode='tail'
+                            style={styles.textStyle}
+                        >{this.props.bottomText}</Text>
                     </View>
                 </View>
             </ImageBackground>
@@ -100,6 +116,8 @@ const styles = StyleSheet.create({
         borderRadius: 80
     },
     textStyle: {
+        width: 110,
+        textAlign: 'center',
         color: '#fff',
         opacity: 0.9
     },
