@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import RecommendReducer from './RecommendReducer';
+import arrFoodReducer from './arrFoodReducer';
+import arrFashionReducer from './arrFashionReducer';
+import arrBeautyReducer from './arrBeautyReducer';
 
 export default combineReducers({
-    Recommend: RecommendReducer
+    imgFood: arrFoodReducer,
+    imgBeauty: arrBeautyReducer,
+    imgFashion: arrFashionReducer
 });
