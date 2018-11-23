@@ -140,7 +140,6 @@ android {
 
 dependencies {
     compile project(':react-native-share')
-    compile project(':react-native-image-base64')
     compile project(':react-native-view-shot')
     compile project(':react-native-cookies')
     compile project(':react-native-image-picker')

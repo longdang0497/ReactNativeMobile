@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import cl.json.RNSharePackage;
-import fr.snapp.imagebase64.RNImgToBase64Package;
 import fr.greweb.reactnativeviewshot.RNViewShotPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -31,7 +30,6 @@ public class MainApplication extends Application implements ShareApplication, Re
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNSharePackage(),
-            new RNImgToBase64Package(),
             new RNViewShotPackage(),
             new CookieManagerPackage(),
             new ImagePickerPackage(),

@@ -10,7 +10,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Display from 'react-native-display';
 import { connect } from 'react-redux';
 import { captureScreen } from 'react-native-view-shot';
-import ImgToBase64 from 'react-native-image-base64';
 import Share from 'react-native-share';
 
 import * as actions from '../../../redux/actions/HomeActions';
@@ -22,23 +21,20 @@ class Header extends Component {
     takeCapture() {
         captureScreen({
             format: 'jpg',
-            quality: 0.8
+            quality: 0.8,
+            result: 'data-uri'
         })
-            .then(uri =>
-                ImgToBase64
-                    .getBase64String(uri)
-                    .then((base64string) => {
-                        const shareImageBase64 = {
-                            title: 'React Native',
-                            message: 'Hola mundo',
-                            url: `data:image/png;base64,${base64string}`,
-                            subject: 'Share Link'
-                        };
-                        console.log(base64string);
-                        Share.open(shareImageBase64)
-                            .catch(err => console.log(err));
-                    })
-                    .catch(err => console.log(err))
+            .then(data => {
+                const shareImageBase64 = {
+                    title: 'React Native',
+                    message: 'Date Now',
+                    url: data,
+                    subject: 'Share Link'
+                };
+                console.log(data);
+                Share.open(shareImageBase64)
+                    .catch(err => console.log(err));
+                }
             )
             .catch(err => console.log(err));
     }
