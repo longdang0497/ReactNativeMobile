@@ -10,6 +10,7 @@ import {
     AsyncStorage,
     Switch,
     Alert,
+    Dimensions,
     StyleSheet
 } from 'react-native';
 import { ProgressDialog } from 'react-native-simple-dialogs';
@@ -22,10 +23,12 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import ImagePicker from 'react-native-image-picker';
 import CookieManager from 'react-native-cookies';
+import { NavigationEvents } from 'react-navigation';
 
 
 import * as profileActions from '../../../../redux/actions/ProfileAction';
 import * as userActions from '../../../../redux/actions/UserActions';
+import * as homeActions from '../../../../redux/actions/HomeActions';
 import constants from '../../Constants';
 import signOut from '../../../../api/signOut';
 import saveToken from '../../../../api/saveToken';
@@ -235,6 +238,11 @@ class Profile extends Component {
         const { user } = this.props;
         return (
             <ScrollView style={styles.container}>
+                <NavigationEvents
+                    onWillFocus={() => {
+                        this.props.homeActions.enableHeader();
+                    }}
+                />
                 <View style={styles.infoContainer}>
                     <TouchableOpacity onPress={this.openImagePicker.bind(this)}>
                         <Image
@@ -246,10 +254,10 @@ class Profile extends Component {
                         onPress={() =>
                             this.openPopup(popupType.userName, 'User Name', user.name)}
                     >
-                        <Text 
-                        numberOfLines={1}
-                        ellipsizeMode='tail'
-                        style={{ width: 200, textAlign: 'center' }}
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode='tail'
+                            style={{ width: 200, textAlign: 'center', flexWrap: 'wrap' }}
                         >{user.name}</Text>
                     </TouchableOpacity>
                 </View>
@@ -439,15 +447,18 @@ const mapStateToProps = state => ({
 function mapDispatchToProps(dispatch) {
     return {
         profileActions: bindActionCreators(profileActions, dispatch),
-        userActions: bindActionCreators(userActions, dispatch)
+        userActions: bindActionCreators(userActions, dispatch),
+        homeActions: bindActionCreators(homeActions, dispatch)
     };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 
+const { height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
-
+        marginTop: height / 13
     },
     infoContainer: {
         alignItems: 'center',

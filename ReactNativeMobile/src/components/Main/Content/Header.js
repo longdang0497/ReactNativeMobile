@@ -7,25 +7,71 @@ import {
     StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Display from 'react-native-display';
+import { connect } from 'react-redux';
+import { captureScreen } from 'react-native-view-shot';
+import ImgToBase64 from 'react-native-image-base64';
+import Share from 'react-native-share';
+
+import * as actions from '../../../redux/actions/HomeActions';
 
 const { height } = Dimensions.get('window');
 
-export default class Header extends Component {
+class Header extends Component {
+
+    takeCapture() {
+        captureScreen({
+            format: 'jpg',
+            quality: 0.8
+        })
+            .then(uri =>
+                ImgToBase64
+                    .getBase64String(uri)
+                    .then((base64string) => {
+                        const shareImageBase64 = {
+                            title: 'React Native',
+                            message: 'Hola mundo',
+                            url: `data:image/png;base64,${base64string}`,
+                            subject: 'Share Link'
+                        };
+                        console.log(base64string);
+                        Share.open(shareImageBase64)
+                            .catch(err => console.log(err));
+                    })
+                    .catch(err => console.log(err))
+            )
+            .catch(err => console.log(err));
+    }
+
     render() {
         const { navigation } = this.props;
         return (
-            <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Icon name='bars' size={22} color='#fff' />
-                </TouchableOpacity>
-                <Text style={styles.titleStyle}> DateNow </Text>
-                <TouchableOpacity onPress={null}>
-                    <Icon name='share-alt' size={22} color='#fff' />
-                </TouchableOpacity>
-            </View>
+            <Display
+                enable={this.props.isEnableHeader}
+                enter='slideInDown'
+                exit='slideOutUp'
+            >
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                        <Icon name='bars' size={22} color='#fff' />
+                    </TouchableOpacity>
+                    <Text style={styles.titleStyle}> DateNow </Text>
+                    <TouchableOpacity
+                        onPress={() => this.takeCapture()}
+                    >
+                        <Icon name='share-alt' size={22} color='#fff' />
+                    </TouchableOpacity>
+                </View>
+            </Display>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    isEnableHeader: state.home.enableHeader
+});
+
+export default connect(mapStateToProps, actions)(Header);
 
 const styles = StyleSheet.create({
     container: {
@@ -35,12 +81,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
-    },
-    secondPart: {
-        height: height / 20,
-        backgroundColor: '#fff',
-        paddingLeft: 10,
-        padding: 1
     },
     titleStyle: {
         color: '#FFF',

@@ -4,67 +4,74 @@ import {
     Text,
     Image,
     ImageBackground,
+    TouchableWithoutFeedback,
     StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import defaultAvatar from '../../../../media/avatar_user_default.png';
 import icHeart from '../../../../media/heart.png';
+import * as actions from '../../../../redux/actions/HomeActions';
 
 class Home extends Component {
     render() {
         const { user } = this.props;
         return (
-            <ImageBackground
-                source={this.props.backgroundSource}
-                imageStyle={{ resizeMode: 'cover' }}
-                blurRadius={this.props.blur}
-                style={styles.container}
-            >
-                <View style={styles.wrapper}>
-                    <View style={styles.userInfoContainer}>
-                        <View style={styles.userContainer}>
-                            <Image
-                                source={user.avatar.url ? user.avatar.url : defaultAvatar}
-                                style={styles.avatarStyle}
-                            />
-                            <Text
-                                numberOfLines={2}
-                                ellipsizeMode='tail'
-                                style={styles.textStyle}
-                            >{user.name}</Text>
+            <TouchableWithoutFeedback onPress={() => this.props.hideHeader()}>
+                <ImageBackground
+                    source={this.props.backgroundSource}
+                    imageStyle={{ resizeMode: 'cover' }}
+                    blurRadius={this.props.blur}
+                    style={styles.container}
+                >
+                    <TouchableWithoutFeedback onPress={() => this.props.hideHeader()}>
+                        <View style={styles.wrapper}>
+                            <View style={styles.userInfoContainer}>
+                                <View style={styles.userContainer}>
+                                    <Image
+                                        source={user.avatar.url ? user.avatar.url
+                                            : defaultAvatar}
+                                        style={styles.avatarStyle}
+                                    />
+                                    <Text
+                                        numberOfLines={2}
+                                        ellipsizeMode='tail'
+                                        style={styles.textStyle}
+                                    >{user.name}</Text>
+                                </View>
+                                <Image source={icHeart} style={styles.iconHeartStyle} />
+                                <View style={styles.userContainer}>
+                                    <Image
+                                        source={user.lover_avatar.url ? user.lover_avatar.url
+                                            : defaultAvatar}
+                                        style={styles.avatarStyle}
+                                    />
+                                    <Text
+                                        numberOfLines={2}
+                                        ellipsizeMode='tail'
+                                        style={styles.textStyle}
+                                    >
+                                        {user.lover_name ? user.lover_name : 'Lover\'s Name'}
+                                    </Text>
+                                </View>
+                            </View>
+                            <View style={styles.timeInfoContainer}>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode='tail'
+                                    style={styles.textStyle}
+                                >{this.props.titleText}</Text>
+                                <Text style={styles.timeTextStyle}>1 years</Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode='tail'
+                                    style={styles.textStyle}
+                                >{this.props.bottomText}</Text>
+                            </View>
                         </View>
-                        <Image source={icHeart} style={styles.iconHeartStyle} />
-                        <View style={styles.userContainer}>
-                            <Image
-                                source={user.lover_avatar.url ? user.lover_avatar.url
-                                    : defaultAvatar}
-                                style={styles.avatarStyle}
-                            />
-                            <Text
-                                numberOfLines={2}
-                                ellipsizeMode='tail'
-                                style={styles.textStyle}
-                            >
-                                {user.lover_name ? user.lover_name : 'Lover\'s Name'}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.timeInfoContainer}>
-                        <Text
-                            numberOfLines={1}
-                            ellipsizeMode='tail'
-                            style={styles.textStyle}
-                        >{this.props.titleText}</Text>
-                        <Text style={styles.timeTextStyle}>1 years</Text>
-                        <Text
-                            numberOfLines={1}
-                            ellipsizeMode='tail'
-                            style={styles.textStyle}
-                        >{this.props.bottomText}</Text>
-                    </View>
-                </View>
-            </ImageBackground>
+                    </TouchableWithoutFeedback>
+                </ImageBackground >
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -77,7 +84,7 @@ const mapStateToProps = state => ({
     user: state.user.user
 });
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, actions)(Home);
 
 const styles = StyleSheet.create({
     container: {

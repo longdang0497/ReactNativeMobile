@@ -35,7 +35,7 @@ export const BottomTabNavigator = createBottomTabNavigator({
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
                 return <Icon name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-            },
+            }
         }),
         tabBarOptions: {
             activeTintColor: 'tomato',
@@ -50,8 +50,12 @@ export default class MainContent extends Component {
         const { navigation } = this.props;
         return (
             <View style={{ flex: 1 }}>
-                <Header navigation={navigation} />
-                <BottomTabNavigator screenProps={this.props.screenProps} />
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <BottomTabNavigator screenProps={this.props.screenProps} />
+                </View>
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <Header navigation={navigation} />
+                </View>
             </View>
         );
     }
