@@ -6,7 +6,6 @@ import {
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-//import ImageCarousel from './ImageCarousel';
 import DetailsRecommend from './DetailsRecommend';
 import CollapseInfo from './CollapseInfo';
 import ShareInfo from './ShareInfo';

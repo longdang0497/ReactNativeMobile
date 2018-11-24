@@ -7,6 +7,7 @@ import { Header, createTabNavigator, TabNavigator } from 'react-navigation';
 import BeautyListDeal from './ListDeal/BeautyListDeal';
 import FashionListDeal from './ListDeal/FashionListDeal';
 import FoodListDeal from './ListDeal/FoodListDeal';
+//import { fetchFoodDeal } from '../../../../redux/actions/RecommendAction';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;

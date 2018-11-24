@@ -4,34 +4,36 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import { fetchBeautyDeal } from '../../../../redux/actions/RecommendAction';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class BeautyListDeal extends Component {
     static navigationOptions = ({ navigation }) => ({
-        tabBarLabel: 'FOOD'
+        tabBarLabel: 'BEAUTY'
     });
 
-    getBeautyImg() {
-        const { myBeautyImg } = this.props;
-        return myBeautyImg;
+    componentDidMount() {
+        console.log(this.props.fetchBeautyDeal());
     }
 
     render() {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    {this.getBeautyImg().map((item, index) => (
+                    {this.props.isFetching && <Text>Loading...</Text>}
+                    {this.props.MyItems && this.props.MyItems.map((item, id) => (
                         <TouchableOpacity
-                            key={index}
+                            key={id}
                             onPress={() => this.props.navigation.navigate('InfoPage')}
                         >
                             <Animated.View style={styles.cardHolder}>
-                                <Image source={item.src} style={styles.imgRecommend} />
+                                <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
                                 <View style={styles.txtRecommend}>
                                     <Text
+                                        numberOfLines={3}
                                         style={styles.txtInfoRecommend}
-                                    >THIS IS THE TITLE</Text>
+                                    >{item.title}</Text>
                                 </View>
                             </Animated.View>
                         </TouchableOpacity>
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
     txtRecommend: {
         flex: 1,
         padding: 20,
+        justifyContent: 'space-around',
         backgroundColor: '#FEDBD0',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5
@@ -72,14 +75,16 @@ const styles = StyleSheet.create({
     txtInfoRecommend: {
         fontFamily: 'Rubik-Medium',
         fontWeight: 'bold',
-        fontSize: 20
+        fontSize: 15,
+        padding: 10
     }
 });
 
 function mapStateToProps(state) {
     return {
-        myBeautyImg: state.imgBeauty,
+        MyItems: state.fetchData.beautyItems,
+        isFetching: state.fetchData.isFetching,
     };
 }
 
-export default connect(mapStateToProps, null)(BeautyListDeal);
+export default connect(mapStateToProps, { fetchBeautyDeal })(BeautyListDeal);
