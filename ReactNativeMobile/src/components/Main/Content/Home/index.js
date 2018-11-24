@@ -25,7 +25,8 @@ export class Home extends Component {
 
     componentDidMount() {
         setInterval(() => {
-            const startDate = new Date(this.props.user.start_date ? this.props.user.start_date : '');
+            const startDate = new Date(
+                this.props.user.start_date ? this.props.user.start_date : '');
             const now = new Date();
 
             let differenceMs = now - startDate;
