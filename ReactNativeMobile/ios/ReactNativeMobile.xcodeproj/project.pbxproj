@@ -54,12 +54,18 @@
 		8F0768032BB84E5C9F02E300 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CAFFCFA5F5F48249BCDA4F1 /* Octicons.ttf */; };
 		F93FBD782BBB43FFA63507DE /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F2E1BD42FC4FEA9DAD239B /* SimpleLineIcons.ttf */; };
 		3EF6380C261D42D3A4CD5CCA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A4F18D07A6C48B7A0A5E36A /* Zocial.ttf */; };
+<<<<<<< HEAD
+		267A78F5F0A44959B8122FE1 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0326B9B1C1EE4577B294921B /* libRNImagePicker.a */; };
+		40E5A578C9124AF889421F0A /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9903142A3EDC4A9C90123839 /* libRNShare.a */; };
+		6D53DC81A2A84636AFB3D4D4 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D0CCA278474AA29833CAE4 /* libAirMaps.a */; };
+=======
 		CE38BB39AB1D424B87EBAC43 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCAD6C75C6134BCF98766470 /* libRNImagePicker.a */; };
 		756D8A1244CA471BA65621B8 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 527E8A1FAD6B4F60BAE58268 /* libimageCropPicker.a */; };
 		F4E351E31A2A453FB6CA0030 /* libRNCookieManagerIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7208167D4AFF4D56A053C74E /* libRNCookieManagerIOS.a */; };
 		A7499F93E74B431E90D820BE /* libRNViewShot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 350E3F074C8F427CA030903F /* libRNViewShot.a */; };
 		E7890FEF140C4A1F9C328C74 /* libRNImgToBase64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40C2C39AF2EA42C7810ABDED /* libRNImgToBase64.a */; };
 		7E77AD0ADB774344881363D1 /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F84963B48584E7DA408E340 /* libRNShare.a */; };
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -383,6 +389,14 @@
 		6CAFFCFA5F5F48249BCDA4F1 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E4F2E1BD42FC4FEA9DAD239B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7A4F18D07A6C48B7A0A5E36A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+<<<<<<< HEAD
+		B0DA57DEB07A43A0926F23F7 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		0326B9B1C1EE4577B294921B /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		8682C236142E4AD1A5237B09 /* RNShare.xcodeproj */ = {isa = PBXFileReference; name = "RNShare.xcodeproj"; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		9903142A3EDC4A9C90123839 /* libRNShare.a */ = {isa = PBXFileReference; name = "libRNShare.a"; path = "libRNShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5A0E060F210B4FF38FAD2DFF /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		74D0CCA278474AA29833CAE4 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+=======
 		ACEF2EBB22A64DE48A1B0A90 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		BCAD6C75C6134BCF98766470 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		9DECF974D9C541CEAF100BF8 /* imageCropPicker.xcodeproj */ = {isa = PBXFileReference; name = "imageCropPicker.xcodeproj"; path = "../node_modules/react-native-image-crop-picker/ios/imageCropPicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
@@ -395,6 +409,7 @@
 		40C2C39AF2EA42C7810ABDED /* libRNImgToBase64.a */ = {isa = PBXFileReference; name = "libRNImgToBase64.a"; path = "libRNImgToBase64.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		3ABEF6BCAA614227A041ACD2 /* RNShare.xcodeproj */ = {isa = PBXFileReference; name = "RNShare.xcodeproj"; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1F84963B48584E7DA408E340 /* libRNShare.a */ = {isa = PBXFileReference; name = "libRNShare.a"; path = "libRNShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,12 +438,18 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				6BDDC050C70E4EC49188A369 /* libRNVectorIcons.a in Frameworks */,
+<<<<<<< HEAD
+				267A78F5F0A44959B8122FE1 /* libRNImagePicker.a in Frameworks */,
+				40E5A578C9124AF889421F0A /* libRNShare.a in Frameworks */,
+				6D53DC81A2A84636AFB3D4D4 /* libAirMaps.a in Frameworks */,
+=======
 				CE38BB39AB1D424B87EBAC43 /* libRNImagePicker.a in Frameworks */,
 				756D8A1244CA471BA65621B8 /* libimageCropPicker.a in Frameworks */,
 				F4E351E31A2A453FB6CA0030 /* libRNCookieManagerIOS.a in Frameworks */,
 				A7499F93E74B431E90D820BE /* libRNViewShot.a in Frameworks */,
 				E7890FEF140C4A1F9C328C74 /* libRNImgToBase64.a in Frameworks */,
 				7E77AD0ADB774344881363D1 /* libRNShare.a in Frameworks */,
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,12 +638,18 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				218669F53A434EAAAEC1EC4E /* RNVectorIcons.xcodeproj */,
+<<<<<<< HEAD
+				B0DA57DEB07A43A0926F23F7 /* RNImagePicker.xcodeproj */,
+				8682C236142E4AD1A5237B09 /* RNShare.xcodeproj */,
+				5A0E060F210B4FF38FAD2DFF /* AirMaps.xcodeproj */,
+=======
 				ACEF2EBB22A64DE48A1B0A90 /* RNImagePicker.xcodeproj */,
 				9DECF974D9C541CEAF100BF8 /* imageCropPicker.xcodeproj */,
 				A690A60289284DA58EBB9492 /* RNCookieManagerIOS.xcodeproj */,
 				FBB66CF405CC4FE1829AF7ED /* RNViewShot.xcodeproj */,
 				29FB45DF58D14E26A25377DB /* RNImgToBase64.xcodeproj */,
 				3ABEF6BCAA614227A041ACD2 /* RNShare.xcodeproj */,
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1294,19 +1321,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Debug;
@@ -1333,19 +1368,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Release;
@@ -1370,11 +1413,16 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Debug;
@@ -1398,11 +1446,16 @@
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Release;
@@ -1437,19 +1490,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Debug;
@@ -1484,19 +1545,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Release;
@@ -1530,19 +1599,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Debug;
@@ -1576,19 +1653,27 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+<<<<<<< HEAD
+=======
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+<<<<<<< HEAD
+					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+=======
 					"$(SRCROOT)\..\node_modules\react-native-image-crop-picker\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-cookies\ios\RNCookieManagerIOS",
 					"$(SRCROOT)\..\node_modules\react-native-view-shot\ios",
 					"$(SRCROOT)\..\node_modules\react-native-image-base64\ios",
 					"$(SRCROOT)\..\node_modules\react-native-share\ios",
+>>>>>>> 0937ad667577020cdbcb25c7b8cae39fd38e759d
 				);
 			};
 			name = Release;

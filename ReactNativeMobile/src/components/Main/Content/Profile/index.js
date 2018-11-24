@@ -478,6 +478,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 7
     },
+    btnSignOut: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FF6F61',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 7
+    },
     rightViewItem: {
         flex: 1,
         flexDirection: 'row',
@@ -487,12 +495,16 @@ const styles = StyleSheet.create({
     title: {
         flex: 1,
         paddingLeft: 10,
-        backgroundColor: '#34B089'
+        backgroundColor: '#FEDBD0',
+        borderWidth: 0.2,
+        borderColor: '#442C2E',
+        fontWeight: 'bold'
     },
     textTitleItem: {
-
+        
     },
     textSetting: {
+        backgroundColor: '#34B089',
         width: 200,
         textAlign: 'right',
         color: '#A3A3A3',
@@ -505,5 +517,22 @@ const styles = StyleSheet.create({
         height: 30,
         padding: 0,
         paddingHorizontal: 5
+    },
+    txtButton: {
+        fontFamily: 'Rubik-Medium',
+        textAlign: 'center',
+        paddingRight: 10,
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    imgIcon: {
+        width: 20,
+        height: 20,
+        paddingRight: 20
+    },
+    usrContainer: {
+        flexDirection: 'row',
+        padding: 15,
+        justifyContent: 'center',
     }
 });

@@ -132,7 +132,7 @@ const listItemStyles = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#34B089'
+        backgroundColor: '#FEDBD0'
     },
     titleStyle: {
         padding: 5

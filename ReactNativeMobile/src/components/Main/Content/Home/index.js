@@ -44,7 +44,7 @@ export class Home extends Component {
             )
             .catch(err => console.log(err));
     }
-    //
+    
     render() {
         const { user } = this.props;
         return (
@@ -156,15 +156,18 @@ const styles = StyleSheet.create({
         borderRadius: 80
     },
     textStyle: {
-        width: 110,
-        textAlign: 'center',
-        color: '#fff',
-        opacity: 0.9
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium',
+        fontSize: 17,
+        fontWeight: 'bold'
     },
     timeTextStyle: {
         marginVertical: 10,
-        fontSize: 20,
-        color: '#fff',
-        fontStyle: 'italic'
+        fontSize: 30,
+        color: '#442C2E',
+        fontFamily: 'Rubik-LightItalic',
+        width: 110,
+        textAlign: 'center',
+        opacity: 0.9
     }
 });

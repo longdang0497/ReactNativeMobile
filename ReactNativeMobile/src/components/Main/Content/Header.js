@@ -49,15 +49,21 @@ export default connect(mapStateToProps, actions)(Header);
 const styles = StyleSheet.create({
     container: {
         height: height / 13,
-        backgroundColor: '#34B089',
+        backgroundColor: '#FEDBD0',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
+    secondPart: {
+        height: height / 20,
+        backgroundColor: '#fff',
+        paddingLeft: 10,
+        padding: 1
+    },
     titleStyle: {
-        color: '#FFF',
-        fontFamily: 'Avenir',
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium',
         fontSize: 17
     }
 });

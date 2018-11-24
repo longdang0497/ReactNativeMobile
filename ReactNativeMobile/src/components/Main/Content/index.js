@@ -7,13 +7,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Home from './Home';
 import Profile from './Profile';
-import Recommend from './Recommend';
+import RecommendScreen from '../Recommend/index';
 import Header from './Header.js';
 
 export const BottomTabNavigator = createBottomTabNavigator({
-    Home,
-    Recommend,
-    Profile
+    Home: { screen: Home },
+    Recommend: { screen: RecommendScreen },
+    Profile: { screen: Profile }
 },
     {
         navigationOptions: ({ navigation }) => ({
@@ -35,11 +35,16 @@ export const BottomTabNavigator = createBottomTabNavigator({
                 // You can return any component that you like here! We usually use an
                 // icon component from react-native-vector-icons
                 return <Icon name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-            }
+            },
         }),
         tabBarOptions: {
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
+            activeTintColor: '#442C2E',
+            inactiveTintColor: '#caa99f',
+            style: {
+                backgroundColor: '#FEDBD0',
+                borderTopWidth: 0.5,
+                borderTopColor: '#442C2E',
+            },
         },
         swipeEnabled: true
     },
@@ -56,7 +61,7 @@ export default class MainContent extends Component {
                 <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
                     <Header navigation={navigation} />
                 </View>
-            </View>
+            </View >
         );
     }
 }
