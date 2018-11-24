@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-//import thunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 import { createEpicMiddleware } from 'redux-observable';
 import reducers from '../reducers';
 import epics from '../epics';
@@ -9,8 +9,8 @@ const epicMiddleware = createEpicMiddleware();
 export default function configureStore() {
     const store = createStore(
         reducers,
-        applyMiddleware(epicMiddleware),
-        //applyMiddleware(thunk)
+        //applyMiddleware(epicMiddleware),
+        applyMiddleware(thunk)
     );
 
     epicMiddleware.run(epics);
