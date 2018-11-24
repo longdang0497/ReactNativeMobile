@@ -9,36 +9,13 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Display from 'react-native-display';
 import { connect } from 'react-redux';
-import { captureScreen } from 'react-native-view-shot';
-import Share from 'react-native-share';
 
 import * as actions from '../../../redux/actions/HomeActions';
+import constants from '../Constants';
 
 const { height } = Dimensions.get('window');
 
 class Header extends Component {
-
-    takeCapture() {
-        captureScreen({
-            format: 'jpg',
-            quality: 0.8,
-            result: 'data-uri'
-        })
-            .then(data => {
-                const shareImageBase64 = {
-                    title: 'React Native',
-                    message: 'Date Now',
-                    url: data,
-                    subject: 'Share Link'
-                };
-                console.log(data);
-                Share.open(shareImageBase64)
-                    .catch(err => console.log(err));
-                }
-            )
-            .catch(err => console.log(err));
-    }
-
     render() {
         const { navigation } = this.props;
         return (
@@ -53,7 +30,7 @@ class Header extends Component {
                     </TouchableOpacity>
                     <Text style={styles.titleStyle}> DateNow </Text>
                     <TouchableOpacity
-                        onPress={() => this.takeCapture()}
+                        onPress={() => constants.takeSnapShot()}
                     >
                         <Icon name='share-alt' size={22} color='#fff' />
                     </TouchableOpacity>
