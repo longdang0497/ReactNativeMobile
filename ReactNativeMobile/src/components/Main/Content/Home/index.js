@@ -20,6 +20,33 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         constants.takeSnapShot = this.takeSnapShot.bind(this);
+        this.state = { textDateTime: '0 Day' };
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            const startDate = new Date(this.props.user.start_date ? this.props.user.start_date : '');
+            const now = new Date();
+
+            let differenceMs = now - startDate;
+            if (!this.props.isStartZero) {
+                differenceMs += 86400000;
+            }
+
+            if (!this.props.isDayMonthYear) {
+                this.setState({ textDateTime: `${Math.floor(differenceMs / 86400000)} days` });
+            } else {
+                const date = new Date(differenceMs);
+                const days = date.getDate() - 1;
+                const months = date.getMonth();
+                const years = date.getFullYear() - 1970;
+                const textYear = (years === 0) ? '' : `${years} years `;
+                const textMonth = (months === 0) ? '' : `${months} months `;
+                const textDay = `${days} days`;
+
+                this.setState({ textDateTime: textYear + textMonth + textDay });
+            }
+        }, 1000);
     }
 
     viewShot = null
@@ -93,7 +120,9 @@ export class Home extends Component {
                                         ellipsizeMode='tail'
                                         style={styles.textStyle}
                                     >{this.props.titleText}</Text>
-                                    <Text style={styles.timeTextStyle}>1 years</Text>
+                                    <Text style={styles.timeTextStyle}>
+                                        {this.state.textDateTime}
+                                    </Text>
                                     <Text
                                         numberOfLines={1}
                                         ellipsizeMode='tail'
@@ -110,6 +139,8 @@ export class Home extends Component {
 }
 
 const mapStateToProps = state => ({
+    isStartZero: state.profile.isStartZero,
+    isDayMonthYear: state.profile.isDayMonthYear,
     titleText: state.profile.titleText,
     bottomText: state.profile.bottomText,
     backgroundSource: state.profile.imageSource,
@@ -163,7 +194,7 @@ const styles = StyleSheet.create({
     },
     timeTextStyle: {
         marginVertical: 10,
-        fontSize: 20,
+        fontSize: 17,
         color: '#fff',
         fontStyle: 'italic'
     }

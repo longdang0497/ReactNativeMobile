@@ -2,7 +2,9 @@ import {
     CHANGE_TITLE,
     CHANGE_BOTTOM_TEXT,
     CHANGE_BACKGROUND,
-    CHANGE_BLUR
+    CHANGE_BLUR,
+    IS_DAYS,
+    IS_START_FROM_ZERO
 } from './type';
 
 export const changeTitle = (_title) => (
@@ -30,5 +32,17 @@ export const changeBlur = (_blur) => (
     {
         type: CHANGE_BLUR,
         blur: _blur
+    }
+);
+
+export const isDaysOn = () => (
+    {
+        type: IS_DAYS
+    }
+);
+
+export const isStartZeroOn = () => (
+    {
+        type: IS_START_FROM_ZERO
     }
 );
