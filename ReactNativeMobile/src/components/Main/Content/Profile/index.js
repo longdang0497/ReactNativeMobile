@@ -504,7 +504,6 @@ const styles = StyleSheet.create({
         
     },
     textSetting: {
-        backgroundColor: '#34B089',
         width: 200,
         textAlign: 'right',
         color: '#A3A3A3',

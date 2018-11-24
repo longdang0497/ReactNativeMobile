@@ -4,13 +4,13 @@ import {
     View
 } from 'react-native';
 import React, { Component } from 'react';
-import { Header, createTabNavigator, TabNavigator } from 'react-navigation';
+import { createTabNavigator, TabNavigator } from 'react-navigation';
 import BeautyListDeal from './ListDeal/BeautyListDeal';
 import FashionListDeal from './ListDeal/FashionListDeal';
 import FoodListDeal from './ListDeal/FoodListDeal';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window');
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class Recommend extends Component {
     constructor() {
@@ -20,14 +20,12 @@ export default class Recommend extends Component {
         };
     }
 
-    Tabs = navigation => {
-        const Tabs = createTabNavigator(
-            {
-                FOOD: { screen: FoodListDeal },
-                BEAUTY: { screen: BeautyListDeal },
-                FASHION: { screen: FashionListDeal }
-            },
-            {
+    Tabs = () => {
+        const Tabs = createTabNavigator({
+            FOOD: { screen: FoodListDeal },
+            BEAUTY: { screen: BeautyListDeal },
+            FASHION: { screen: FashionListDeal }
+        }, {
                 ...TabNavigator.Presets.AndroidTopTabs,
                 lazyLoad: false,
                 tabBarOnPress: {
@@ -52,8 +50,7 @@ export default class Recommend extends Component {
                         justifyContent: 'center'
                     }
                 }
-            }
-        );
+            });
         return <Tabs />;
     }
 
@@ -66,12 +63,12 @@ export default class Recommend extends Component {
                     <TextInput
                         inlineImageLeft='ic_search'
                         style={{
-                            height: SCREEN_HEIGHT / 17,
+                            height: SCREEN_HEIGHT / 12,
                             width: SCREEN_WIDTH,
                             backgroundColor: '#fff',
                             borderWidth: 0.5,
                             borderColor: '442C2E',
-                            paddingLeft: 20,
+                            paddingLeft: 15,
                             paddingTop: 16,
                             paddingBottom: 16,
                             justifyContent: 'space-between'
