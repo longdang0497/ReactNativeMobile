@@ -7,29 +7,48 @@ import {
     StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Display from 'react-native-display';
+import { connect } from 'react-redux';
+
+import * as actions from '../../../redux/actions/HomeActions';
+import constants from '../Constants';
 
 const { height } = Dimensions.get('window');
 
-export default class Header extends Component {
+class Header extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Icon name='bars' size={22} color='#442C2E' />
-                </TouchableOpacity>
-                <Text style={styles.titleStyle}> DateNow </Text>
-                <TouchableOpacity onPress={null}>
-                    <Icon name='share-alt' size={22} color='#442C2E' />
-                </TouchableOpacity>
-            </View>
+            <Display
+                enable={this.props.isEnableHeader}
+                enter='slideInDown'
+                exit='slideOutUp'
+            >
+                <View style={styles.container}>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                        <Icon name='bars' size={22} color='#fff' />
+                    </TouchableOpacity>
+                    <Text style={styles.titleStyle}> DateNow </Text>
+                    <TouchableOpacity
+                        onPress={() => constants.takeSnapShot()}
+                    >
+                        <Icon name='share-alt' size={22} color='#fff' />
+                    </TouchableOpacity>
+                </View>
+            </Display>
         );
     }
 }
 
+const mapStateToProps = state => ({
+    isEnableHeader: state.home.enableHeader
+});
+
+export default connect(mapStateToProps, actions)(Header);
+
 const styles = StyleSheet.create({
     container: {
-        height: height / 15,
+        height: height / 13,
         backgroundColor: '#FEDBD0',
         padding: 10,
         flexDirection: 'row',

@@ -10,7 +10,7 @@ const initialState = {
     imageSource: defaultBackground,
     titleText: 'Been Together',
     bottomText: 'Today',
-    backgroundBlur: 0.5,
+    backgroundBlur: 1,
 };
 
 export default (state = initialState, action) => {

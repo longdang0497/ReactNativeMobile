@@ -16,3 +16,11 @@ export const FOOD_FETCH_FAIL = 'FOOD_FETCH_FAIL';
 export const FASHION_FETCH_FAIL = 'FASHION_FETCH_FAIL';
 export const BEAUTY_FETCH_FAIL = 'BEAUTY_FETCH_FAIL';
 //----------------End FETCH DATA------------------------//
+
+//user actions type
+export const ADD_USER = 'add_user';
+export const CHECK_TOKEN = 'check_token';
+
+//Home actions type
+export const HIDE_HEADER = 'hide_header';
+export const ENABLE_HEADER = 'enable_header';

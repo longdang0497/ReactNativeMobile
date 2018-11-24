@@ -41,23 +41,27 @@ export const BottomTabNavigator = createBottomTabNavigator({
             activeTintColor: '#442C2E',
             inactiveTintColor: '#caa99f',
             style: {
-            backgroundColor: '#FEDBD0',
-            borderTopWidth: 0.5,
-            borderTopColor: '#442C2E',
-        },
+                backgroundColor: '#FEDBD0',
+                borderTopWidth: 0.5,
+                borderTopColor: '#442C2E',
+            },
         },
         swipeEnabled: true
     },
 );
 
-export default class Main extends Component {
+export default class MainContent extends Component {
     render() {
         const { navigation } = this.props;
         return (
             <View style={{ flex: 1 }}>
-                <Header navigation={navigation} />
-                <BottomTabNavigator />
-            </View>
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <BottomTabNavigator screenProps={this.props.screenProps} />
+                </View>
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+                    <Header navigation={navigation} />
+                </View>
+            </View >
         );
     }
 }
