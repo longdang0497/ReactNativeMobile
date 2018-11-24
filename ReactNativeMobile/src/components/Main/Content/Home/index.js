@@ -156,15 +156,14 @@ const styles = StyleSheet.create({
         borderRadius: 80
     },
     textStyle: {
-        color: '#442C2E',
+        color: '#fff',
         fontFamily: 'Rubik-Medium',
-        fontSize: 17,
-        fontWeight: 'bold'
+        fontSize: 14
     },
     timeTextStyle: {
         marginVertical: 10,
-        fontSize: 30,
-        color: '#442C2E',
+        fontSize: 20,
+        color: '#fff',
         fontFamily: 'Rubik-LightItalic',
         width: 110,
         textAlign: 'center',

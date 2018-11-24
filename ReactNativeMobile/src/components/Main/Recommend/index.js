@@ -32,16 +32,23 @@ export const RootStack = createStackNavigator({
                 fontWeight: 'bold',
             },
         },
-        
+
     });
 
-export default class RecommendScreen extends Component {
+class RecommendScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <NavigationEvents
+                    onWillFocus={() => {
+                        this.props.enableHeader();
+                    }}
+                />
                 <RootStack />
-            </View>           
+            </View>
         );
     }
 }
+
+export default connect(null, homeActions)(RecommendScreen);
 
