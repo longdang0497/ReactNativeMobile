@@ -26,13 +26,13 @@ class Header extends Component {
             >
                 <View style={styles.container}>
                     <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                        <Icon name='bars' size={22} color='#fff' />
+                        <Icon name='bars' size={22} color='#442C2E' />
                     </TouchableOpacity>
                     <Text style={styles.titleStyle}> DateNow </Text>
                     <TouchableOpacity
                         onPress={() => constants.takeSnapShot()}
                     >
-                        <Icon name='share-alt' size={22} color='#fff' />
+                        <Icon name='share-alt' size={22} color='#442C2E' />
                     </TouchableOpacity>
                 </View>
             </Display>
@@ -48,7 +48,7 @@ export default connect(mapStateToProps, actions)(Header);
 
 const styles = StyleSheet.create({
     container: {
-        height: height / 13,
+        height: height / 11,
         backgroundColor: '#FEDBD0',
         padding: 10,
         flexDirection: 'row',
