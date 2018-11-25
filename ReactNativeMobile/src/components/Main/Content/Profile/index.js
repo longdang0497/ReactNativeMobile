@@ -94,7 +94,8 @@ class Profile extends Component {
                                         console.log(responseJson);
                                         if (responseJson.success) {
                                             saveToken('');
-                                            this.props.screenProps.goBack();
+                                            this.props.userActions.isSigned(false);
+                                            this.props.screenProps.replace('Authentication');
                                         }
                                     })
                                     .catch(err => console.log(err));

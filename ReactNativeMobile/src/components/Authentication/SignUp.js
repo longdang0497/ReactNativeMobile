@@ -52,7 +52,7 @@ class SignUp extends Component {
                                 onPress: () => {
                                     this.props.addUser(responseJson.user);
                                     saveToken(responseJson.user.authentication_token);
-                                    this.props.navigation.navigate('Main');
+                                    this.props.navigation.replace('Main');
                                 },
                                 style: 'ok'
                             },

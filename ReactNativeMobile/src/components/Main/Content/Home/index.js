@@ -24,7 +24,7 @@ export class Home extends Component {
     }
 
     componentDidMount() {
-        setInterval(() => {
+        this.timeInterval = setInterval(() => {
             const startDate = new Date(
                 this.props.user.start_date ? this.props.user.start_date : '');
             const now = new Date();
@@ -50,6 +50,11 @@ export class Home extends Component {
         }, 1000);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timeInterval);
+    }
+
+    timeInterval = null
     viewShot = null
 
     takeSnapShot() {
