@@ -76,7 +76,7 @@ class Profile extends Component {
             inProgress: false
         };
     }
-
+    
     onSignOut() {
         Alert.alert(
             'Sign Out',
@@ -398,7 +398,7 @@ class Profile extends Component {
                     visible={this.state.popupVisible}
                     dialogTitle={<DialogTitle title={this.state.popupTitle} />}
                     width={0.7}
-                    height={0.26}
+                    height={154}
                     actions={[
                         <DialogButton
                             key="ok"

@@ -195,6 +195,8 @@ const styles = StyleSheet.create({
     textStyle: {
         color: '#fff',
         fontFamily: 'Rubik-Medium',
+        width: 110,
+        textAlign: 'center',
         fontSize: 14
     },
     timeTextStyle: {
@@ -202,8 +204,6 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: '#fff',
         fontFamily: 'Rubik-LightItalic',
-        width: 110,
-        textAlign: 'center',
         opacity: 0.9
     }
 });
