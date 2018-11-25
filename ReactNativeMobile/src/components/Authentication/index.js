@@ -19,9 +19,9 @@ class Authentication extends Component {
     this.state = { isSignIn: true };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.isSigned) {
-      this.props.navigation.navigate('Main');
+      this.props.navigation.replace('Main');
     }
   }
 

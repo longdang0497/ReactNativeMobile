@@ -52,7 +52,6 @@ const imageType = {
 };
 
 const loverNameText = 'Your lover';
-let dateText = 'Now 1, 2017';
 
 const options = {
     title: 'Select Avatar',
@@ -95,7 +94,8 @@ class Profile extends Component {
                                         console.log(responseJson);
                                         if (responseJson.success) {
                                             saveToken('');
-                                            this.props.screenProps.goBack();
+                                            this.props.userActions.isSigned(false);
+                                            this.props.screenProps.replace('Authentication');
                                         }
                                     })
                                     .catch(err => console.log(err));
@@ -149,9 +149,6 @@ class Profile extends Component {
                 this.props.profileActions.changeBottomText(popupText.trim());
                 this.saveItem(constants.STORAGE_KEY.BOTTOM_TEXT, popupText.trim());
                 break;
-            case popupType.date:
-                dateText = popupText;
-                break;
             default:
                 break;
         }
@@ -191,7 +188,7 @@ class Profile extends Component {
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     handleDatePicked = (date) => {
-        dateText = moment(date).format('MMM D, YYYY');
+        this.onUpdateUser({ start_date: moment.utc(date).format() });
         this.hideDateTimePicker();
     };
 
@@ -331,20 +328,28 @@ class Profile extends Component {
                     <TouchableOpacity style={styles.settingItem} onPress={this.showDateTimePicker}>
                         <Text style={styles.textTitleItem}>Start date</Text>
                         <View style={styles.rightViewItem}>
-                            <Text style={styles.textSetting}>{dateText}</Text>
+                            <Text style={styles.textSetting}>
+                                {moment(user.start_date).format('MMM D, YYYY')}
+                            </Text>
                             <Icon name='angle-right' size={25} color='#A3A3A3' />
                         </View>
                     </TouchableOpacity>
                     <View style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Start from Zero</Text>
                         <View style={styles.rightViewItem}>
-                            <Switch />
+                            <Switch
+                                value={this.props.isStartZero}
+                                onValueChange={() => this.props.profileActions.isStartZeroOn()}
+                            />
                         </View>
                     </View>
                     <View style={styles.settingItem}>
                         <Text style={styles.textTitleItem}>Show Year, Month, Days</Text>
                         <View style={styles.rightViewItem}>
-                            <Switch />
+                            <Switch
+                                value={this.props.isDayMonthYear}
+                                onValueChange={() => this.props.profileActions.isDaysOn()}
+                            />
                         </View>
                     </View>
                 </View>
@@ -423,6 +428,7 @@ class Profile extends Component {
                     />
                 </Dialog>
                 <DateTimePicker
+                    date={new Date(user.start_date ? user.start_date : '')}
                     isVisible={this.state.isDateTimePickerVisible}
                     onConfirm={this.handleDatePicked}
                     onCancel={this.hideDateTimePicker}
@@ -438,6 +444,8 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
+    isDayMonthYear: state.profile.isDayMonthYear,
+    isStartZero: state.profile.isStartZero,
     titleText: state.profile.titleText,
     bottomText: state.profile.bottomText,
     blur: state.profile.backgroundBlur,

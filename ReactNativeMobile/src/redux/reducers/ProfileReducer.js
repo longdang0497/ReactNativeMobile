@@ -2,7 +2,9 @@ import {
     CHANGE_TITLE,
     CHANGE_BOTTOM_TEXT,
     CHANGE_BACKGROUND,
-    CHANGE_BLUR
+    CHANGE_BLUR,
+    IS_DAYS,
+    IS_START_FROM_ZERO
 } from '../actions/type.js';
 import defaultBackground from '../../media/backgound_default.jpg';
 
@@ -11,6 +13,8 @@ const initialState = {
     titleText: 'Been Together',
     bottomText: 'Today',
     backgroundBlur: 1,
+    isStartZero: false,
+    isDayMonthYear: true
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +38,16 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 backgroundBlur: action.blur
+            };
+        case IS_DAYS:
+            return {
+                ...state,
+                isDayMonthYear: !state.isDayMonthYear
+            };
+        case IS_START_FROM_ZERO:
+            return {
+                ...state,
+                isStartZero: !state.isStartZero
             };
         default:
             return state;
