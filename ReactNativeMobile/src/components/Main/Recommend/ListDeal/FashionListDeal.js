@@ -7,14 +7,40 @@ import React, { Component } from 'react';
 import { fetchFashionDeal } from '../../../../redux/actions/RecommendAction';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 class FashionListDeal extends Component {
     static navigationOptions = ({ navigation }) => ({
         tabBarLabel: 'FASHION'
     });
 
+    constructor() {
+        super();
+        this.offsetDeal = 0;
+        this.isOnFirstPage = true;
+    }
+
     componentDidMount() {
-        console.log(this.props.fetchFashionDeal());
+        this.isOnFirstPage = true;
+        //this.offsetDeal = this.offsetDeal + 10;
+        this.props.fetchFashionDeal(this.offsetDeal);
+    }
+
+    loadMoreData() {
+        this.isOnFirstPage = false;
+        this.offsetDeal = this.offsetDeal + 10;
+        this.props.fetchFashionDeal(this.offsetDeal);
+    }
+
+    loadLessData() {
+        if (this.offsetDeal !== 0) {
+            this.offsetDeal = this.offsetDeal - 10;
+            this.props.fetchFashionDeal(this.offsetDeal);
+            if (this.offsetDeal <= 0) {
+                this.props.fetchFashionDeal(0);
+                this.isOnFirstPage = true;
+            }
+        }
     }
 
     render() {
@@ -39,6 +65,24 @@ class FashionListDeal extends Component {
                         </TouchableOpacity>
                     ))}
                 </View>
+                {this.props.MyItems[this.props.MyItems.length - 1] ?
+                    <View style={styles.viewLoad}>
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.loadLessData(); }}
+                        >
+                            <Text style={!this.isOnFirstPage ? styles.txtLoadMore : styles.inactiveStyle}>BACK</Text>
+                        </TouchableOpacity>
+                        <View style={{ backgroundColor: '#442C2E', width: 0.5 }} />
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.loadMoreData(); }}
+                        >
+                            <Text style={styles.txtLoadMore}>NEXT</Text>
+                        </TouchableOpacity>
+                    </View>
+                    : null
+                }
             </ScrollView>
         );
     }
@@ -77,6 +121,26 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         padding: 10
+    },
+    viewLoad: {
+        height: SCREEN_HEIGHT * 0.06,
+        flexDirection: 'row',
+        backgroundColor: '#FFF',
+        borderRadius: 30,
+        margin: 10
+    },
+    btnLoad: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    inactiveStyle: {
+        color: '#caa99f',
+        fontFamily: 'Rubik-Medium'
+    },
+    txtLoadMore: {
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium'
     }
 });
 

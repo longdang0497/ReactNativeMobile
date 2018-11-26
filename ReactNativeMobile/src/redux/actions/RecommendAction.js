@@ -70,8 +70,8 @@ export const fetchBeautyFail = (error) => (
     }
 );
 
-export function fetchFoodDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=1';
+export function fetchFoodDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=1';
     return (dispatch) => {
         dispatch(startFoodFetch());
         return fetch(URL, { method: 'GET' })
@@ -87,8 +87,8 @@ export function fetchFoodDeal() {
     };
 }
 
-export function fetchBeautyDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=2';
+export function fetchBeautyDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=2';
     return (dispatch) => {
         dispatch(startBeautyFetch());
         return fetch(URL, { method: 'GET' })
@@ -104,8 +104,8 @@ export function fetchBeautyDeal() {
     };
 }
 
-export function fetchFashionDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=3';
+export function fetchFashionDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=3';
     return (dispatch) => {
         dispatch(startFashionFetch());
         return fetch(URL, { method: 'GET' })

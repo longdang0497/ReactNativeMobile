@@ -118,12 +118,13 @@ const styles = StyleSheet.create({
     btnSignIn: {
         height: height * 0.07,
         alignItems: 'center',
-        borderColor: '#FFF',
+        borderColor: '#442C2E',
         borderWidth: 1,
         borderRadius: 20,
         justifyContent: 'center'
     },
     btnSignInText: {
-        color: '#FFF'
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium'
     }
 });
