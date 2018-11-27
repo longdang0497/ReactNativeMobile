@@ -68,6 +68,16 @@ class RouterScreen extends Component {
                 // eslint-disable-next-line radix
                 this.props.profileActions.changeBlur(parseFloat(value));
             }
+            value = await AsyncStorage.getItem(constants.STORAGE_KEY.IS_START_FROM_ZERO);
+            if (value !== null) {
+                // eslint-disable-next-line radix
+                this.props.profileActions.setIsStartZero(value === 'true');
+            }
+            value = await AsyncStorage.getItem(constants.STORAGE_KEY.IS_DAYS_MONTHS_YEARS);
+            if (value !== null) {
+                // eslint-disable-next-line radix
+                this.props.profileActions.setIsDays(value === 'true');
+            }
         } catch (error) {
             // Error retrieving data
         }

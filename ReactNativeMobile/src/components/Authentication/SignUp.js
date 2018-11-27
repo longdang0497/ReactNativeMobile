@@ -72,7 +72,7 @@ class SignUp extends Component {
                     );
                 }
             })
-            .catch(err => console.log(err));
+            .catch(() => this.setState({ inProgress: false }));
     }
 
     render() {
