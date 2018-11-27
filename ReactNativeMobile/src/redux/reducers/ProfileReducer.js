@@ -4,7 +4,9 @@ import {
     CHANGE_BACKGROUND,
     CHANGE_BLUR,
     IS_DAYS,
-    IS_START_FROM_ZERO
+    SET_IS_DAYS,
+    IS_START_FROM_ZERO,
+    SET_IS_START_FROM_ZERO
 } from '../actions/type.js';
 import defaultBackground from '../../media/backgound_default.jpg';
 
@@ -44,10 +46,20 @@ export default (state = initialState, action) => {
                 ...state,
                 isDayMonthYear: !state.isDayMonthYear
             };
+        case SET_IS_DAYS:
+            return {
+                ...state,
+                isDayMonthYear: action.set
+            };
         case IS_START_FROM_ZERO:
             return {
                 ...state,
                 isStartZero: !state.isStartZero
+            };
+        case SET_IS_START_FROM_ZERO:
+            return {
+                ...state,
+                isStartZero: action.set
             };
         default:
             return state;

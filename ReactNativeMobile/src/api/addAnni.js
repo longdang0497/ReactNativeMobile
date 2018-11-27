@@ -1,13 +1,14 @@
 import saveCookie from './saveCookie';
 
-const getAnniList = (userId) => (
+const getAnniList = (anni) => (
     // eslint-disable-next-line no-undef
-    fetch(`https://date-now.herokuapp.com/celebrations?user_id=${userId}.json`, {
-        method: 'GET',
+    fetch('https://date-now.herokuapp.com/celebrations.json', {
+        method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify(anni)
     })
         .then((response) => {
             saveCookie(response.headers.get('set-cookie'));

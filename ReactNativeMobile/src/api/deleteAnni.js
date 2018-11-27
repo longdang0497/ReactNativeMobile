@@ -1,9 +1,9 @@
 import saveCookie from './saveCookie';
 
-const getAnniList = (userId) => (
+const deleteAnni = (anniId) => (
     // eslint-disable-next-line no-undef
-    fetch(`https://date-now.herokuapp.com/celebrations?user_id=${userId}.json`, {
-        method: 'GET',
+    fetch(`https://date-now.herokuapp.com/celebrations/${anniId}.json`, {
+        method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -15,4 +15,4 @@ const getAnniList = (userId) => (
         })
 );
 
-module.exports = getAnniList;
+module.exports = deleteAnni;

@@ -4,7 +4,9 @@ import {
     CHANGE_BACKGROUND,
     CHANGE_BLUR,
     IS_DAYS,
-    IS_START_FROM_ZERO
+    SET_IS_DAYS,
+    IS_START_FROM_ZERO,
+    SET_IS_START_FROM_ZERO
 } from './type';
 
 export const changeTitle = (_title) => (
@@ -41,8 +43,22 @@ export const isDaysOn = () => (
     }
 );
 
+export const setIsDays = (_set) => (
+    {
+        type: SET_IS_DAYS,
+        set: _set
+    }
+);
+
 export const isStartZeroOn = () => (
     {
         type: IS_START_FROM_ZERO
+    }
+);
+
+export const setIsStartZero = (_set) => (
+    {
+        type: SET_IS_START_FROM_ZERO,
+        set: _set
     }
 );

@@ -100,7 +100,7 @@ class Profile extends Component {
                                     })
                                     .catch(err => console.log(err));
                             })
-                            .catch(err => console.log(err));
+                            .catch(() => this.setState({ inProgress: true }));
                     },
                     style: 'ok'
                 },
@@ -111,7 +111,7 @@ class Profile extends Component {
     }
 
     onUpdateUser(update) {
-        this.inProgress = true;
+        this.setState({ inProgress: true });
         CookieManager.clearAll()
             .then(() => {
                 getCookie()
@@ -120,16 +120,16 @@ class Profile extends Component {
                             .then(responseJson => {
                                 console.log(responseJson);
                                 if (responseJson.success) {
-                                    this.inProgress = false;
+                                    this.setState({ inProgress: false });
                                     this.props.userActions.addUser(responseJson.user);
                                     this.setAlert('Change Info', 'Change Info Successed!!');
                                 } else this.setAlert('Change Info', 'Change Info Failed!!');
                             })
-                            .catch(err => console(err));
+                            .catch(() => this.setState({ inProgress: false }));
                     })
-                    .catch(err => console.log(err));
+                    .catch(() => this.setState({ inProgress: false }));
             })
-            .catch(err => console.log(err));
+            .catch(() => this.setState({ inProgress: false }));
     }
 
     onRetrieveData() {
@@ -188,7 +188,9 @@ class Profile extends Component {
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
 
     handleDatePicked = (date) => {
-        this.onUpdateUser({ start_date: moment.utc(date).format() });
+        if ((new Date() - new Date(date)) / 86400000 < 0) {
+            this.setAlert('Changed Failed!', 'start date must not after current date');
+        } else this.onUpdateUser({ start_date: moment.utc(date).format() });
         this.hideDateTimePicker();
     };
 
@@ -339,7 +341,11 @@ class Profile extends Component {
                         <View style={styles.rightViewItem}>
                             <Switch
                                 value={this.props.isStartZero}
-                                onValueChange={() => this.props.profileActions.isStartZeroOn()}
+                                onValueChange={() => {
+                                    this.props.profileActions.isStartZeroOn();
+                                    this.saveItem(constants.STORAGE_KEY.IS_START_FROM_ZERO, 
+                                        String(!this.props.isStartZero));
+                                }}
                             />
                         </View>
                     </View>
@@ -348,7 +354,11 @@ class Profile extends Component {
                         <View style={styles.rightViewItem}>
                             <Switch
                                 value={this.props.isDayMonthYear}
-                                onValueChange={() => this.props.profileActions.isDaysOn()}
+                                onValueChange={() => {
+                                    this.props.profileActions.isDaysOn();
+                                    this.saveItem(constants.STORAGE_KEY.IS_DAYS_MONTHS_YEARS, 
+                                        String(!this.props.isDayMonthYear));
+                                }}
                             />
                         </View>
                     </View>
