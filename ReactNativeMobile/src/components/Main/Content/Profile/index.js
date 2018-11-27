@@ -340,6 +340,8 @@ class Profile extends Component {
                         <Text style={styles.textTitleItem}>Start from Zero</Text>
                         <View style={styles.rightViewItem}>
                             <Switch
+                                trackColor={{ true: '#FEDBD0' }}
+                                thumbColor='#FEDBD0'
                                 value={this.props.isStartZero}
                                 onValueChange={() => {
                                     this.props.profileActions.isStartZeroOn();
@@ -353,6 +355,8 @@ class Profile extends Component {
                         <Text style={styles.textTitleItem}>Show Year, Month, Days</Text>
                         <View style={styles.rightViewItem}>
                             <Switch
+                                trackColor={{ true: '#FEDBD0' }}
+                                thumbColor='#FEDBD0'
                                 value={this.props.isDayMonthYear}
                                 onValueChange={() => {
                                     this.props.profileActions.isDaysOn();
@@ -379,10 +383,10 @@ class Profile extends Component {
                         <Text style={styles.textTitleItem}>Background Blur</Text>
                         <View style={styles.rightViewItem}>
                             <Slider
-                                style={{ width: 70 }}
+                                style={{ width: 90 }}
                                 maximumValue={2}
                                 step={0.2}
-                                thumbTintColor='#34B089'
+                                thumbTintColor='#FEDBD0'
                                 value={this.props.blur}
                                 onValueChange={(val) => {
                                     this.props.profileActions.changeBlur(val);
@@ -528,7 +532,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     changeInputText: {
-        borderColor: '#34B089',
+        borderColor: '#FEDBD0',
         borderWidth: 1,
         margin: 10,
         height: 30,

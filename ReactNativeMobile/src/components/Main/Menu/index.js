@@ -129,6 +129,7 @@ class Menu extends Component {
                     type: 'delete',
                     onPress: () => this.ondeleteAnni(item, index)
                 }]}
+                buttonWidth={60}
             >
                 <TouchableOpacity
                     style={listItemStyles.container}
@@ -148,7 +149,7 @@ class Menu extends Component {
                             source={icHeart}
                             style={{ width: 20, height: 20, marginRight: 10 }}
                         />
-                        <Text style={{ color: '#34B089' }}>
+                        <Text style={{ color: '#FEDBD0' }}>
                             {
                                 (new Date(item.date_celebration) - new Date()) / 86400000 > 0 ?
                                     Math.ceil((new Date(item.date_celebration) - new Date()) / 86400000) :
@@ -202,7 +203,7 @@ class Menu extends Component {
                             key="cancel"
                             text="CANCEL"
                             textStyle={{ fontSize: 15 }}
-                            onPress={() => { this.setState({ popupVisible: false }); }}
+                            onPress={() => { this.setState({ popupVisible: false, popupText: '' }); }}
                         />,
                     ]}
                     dialogAnimation={new ScaleAnimation({
@@ -239,7 +240,7 @@ const listItemStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingVertical: 13,
         backgroundColor: '#fff'
     },
     timeStyle: {
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
         padding: 5
     },
     changeInputText: {
-        borderColor: '#34B089',
+        borderColor: '#FEDBD0',
         borderWidth: 1,
         margin: 10,
         height: 30,
