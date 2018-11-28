@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View,
+  View, Image,
   TouchableOpacity,
   StyleSheet,
   Dimensions
@@ -36,10 +36,18 @@ class Authentication extends Component {
     const { navigation } = this.props;
     const { isSignIn } = this.state;
     const MainJSX = isSignIn ? SignIn : SignUp;
+    /* eslint-disable global-require */
     return (
       <View style={styles.container}>
         <View style={styles.firstPart}>
-          <Text style={styles.titleStyle}>Let's Date</Text>
+          <Text
+            style={{
+              color: '#442C2E',
+              fontFamily: 'Rubik-Medium',
+              fontSize: 18
+            }}
+          >Let's</Text>
+          <Text style={styles.titleStyle}>DATE NOW</Text>
           <View />
         </View>
         <MainJSX navigation={navigation} />
@@ -47,12 +55,13 @@ class Authentication extends Component {
           <TouchableOpacity style={styles.btnControlStyle} onPress={this.signIn.bind(this)}>
             <Text style={isSignIn ? styles.activeStyle : styles.inactiveStyle}> SIGN IN </Text>
           </TouchableOpacity>
-          <View style={{ backgroundColor: '#34B089', width: 3 }} />
+          <View style={{ backgroundColor: '#442C2E', width: 2 }} />
           <TouchableOpacity style={styles.btnControlStyle} onPress={this.signUp.bind(this)}>
             <Text style={isSignIn ? styles.inactiveStyle : styles.activeStyle}>SIGN UP</Text>
           </TouchableOpacity>
         </View>
       </View>
+      /* eslint-enable global-require */
     );
   }
 }
@@ -68,20 +77,22 @@ const ControlHeight = height * 0.06;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#34B089',
+    backgroundColor: '#FEDBD0',
     paddingHorizontal: 20,
     paddingVertical: 10,
     justifyContent: 'space-between'
   },
   firstPart: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingLeft: 30,
+    paddingTop: 60
   },
   titleStyle: {
-    color: '#FFF',
-    fontFamily: 'Avenir',
-    fontSize: 25
+    color: '#442C2E',
+    fontFamily: 'Rubik-Bold',
+    fontSize: 50,
+    paddingTop: 16
   },
   iconStyle: {
     width: 25,
@@ -100,10 +111,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   activeStyle: {
-    color: '#34B089'
+    color: '#442C2E',
+    fontFamily: 'Rubik-Medium'
   },
   inactiveStyle: {
-    color: '#D7D7D7',
+    color: '#caa99f',
+    fontFamily: 'Rubik-Medium'
   }
 });
 

@@ -5,9 +5,9 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import { createTabNavigator, TabNavigator } from 'react-navigation';
-import BeautyListDeal from './ListDeal/BeautyListDeal';
-import FashionListDeal from './ListDeal/FashionListDeal';
-import FoodListDeal from './ListDeal/FoodListDeal';
+import BeautyScreen from './ListDeal/indexBeauty';
+import FashionScreen from './ListDeal/indexFashion';
+import FoodScreen from './ListDeal/indexFood';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -20,13 +20,16 @@ export default class Recommend extends Component {
         };
     }
 
-    Tabs = () => {
-        const Tabs = createTabNavigator({
-            FOOD: { screen: FoodListDeal },
-            BEAUTY: { screen: BeautyListDeal },
-            FASHION: { screen: FashionListDeal }
-        }, {
+    Tabs = navigation => {
+        const Tabs = createTabNavigator(
+            {
+                FOOD: { screen: FoodScreen },
+                BEAUTY: { screen: BeautyScreen },
+                FASHION: { screen: FashionScreen }
+            },
+            {
                 ...TabNavigator.Presets.AndroidTopTabs,
+                lazy: true,
                 lazyLoad: false,
                 tabBarOnPress: {
                     jumpToIndex: true,

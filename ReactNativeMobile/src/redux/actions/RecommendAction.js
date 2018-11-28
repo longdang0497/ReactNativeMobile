@@ -7,7 +7,11 @@ import {
     BEAUTY_FETCH_OK,
     FOOD_FETCHING,
     FASHION_FETCHING,
-    BEAUTY_FETCHING
+    BEAUTY_FETCHING,
+    GETTING,
+    GET_ID,
+    GET_ADDRESS,
+    GET_FAIL,
 } from './type';
 
 export const startFoodFetch = () => (
@@ -70,8 +74,8 @@ export const fetchBeautyFail = (error) => (
     }
 );
 
-export function fetchFoodDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=1';
+export function fetchFoodDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=1';
     return (dispatch) => {
         dispatch(startFoodFetch());
         return fetch(URL, { method: 'GET' })
@@ -87,8 +91,8 @@ export function fetchFoodDeal() {
     };
 }
 
-export function fetchBeautyDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=2';
+export function fetchBeautyDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=2';
     return (dispatch) => {
         dispatch(startBeautyFetch());
         return fetch(URL, { method: 'GET' })
@@ -104,8 +108,8 @@ export function fetchBeautyDeal() {
     };
 }
 
-export function fetchFashionDeal() {
-    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&limit=20&sort=newest&termIds=3';
+export function fetchFashionDeal(offsetDeal) {
+    const URL = 'https://date-now.herokuapp.com/deals?provinceId=1&offset=' + offsetDeal + '&limit=20&sort=newest&termIds=3';
     return (dispatch) => {
         dispatch(startFashionFetch());
         return fetch(URL, { method: 'GET' })
@@ -127,4 +131,67 @@ function handleErrors(response) {
         throw Error(response.statusText);
     }
     return response;
+}
+
+export const getting = () => (
+    {
+        type: GETTING,
+    }
+);
+
+export const getID = (itemID) => (
+    {
+        type: GET_ID,
+        payload: itemID
+    }
+);
+
+export const getAddress = (itemAddress) => (
+    {
+        type: GET_ADDRESS,
+        payload: itemAddress
+    }
+);
+
+export const getFail = (error) => (
+    {
+        type: GET_FAIL,
+        payload: error
+    }
+);
+
+export function fetchID(itemID) {
+    const URL = 'https://date-now.herokuapp.com/deals/' + itemID;
+    return (dispatch) => {
+        dispatch(getting());
+        return fetch(URL, { method: 'GET' }, { headers: { 'Cache-Control': 'no-cache' } })
+            .then(handleErrors)
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error),
+            )
+            .then((responseJson) => {          
+                console.log( "child: " + responseJson);      
+                dispatch(getID(responseJson));
+                
+            })
+            .catch(dispatch(getFail()));            
+    };
+}
+
+export function fetchAddress(itemID) {
+    const URL = 'https://date-now.herokuapp.com/deals/' + itemID + '/places';
+    return (dispatch) => {
+        dispatch(getting());
+        return fetch(URL, { method: 'GET' })
+            .then(handleErrors)
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error),
+            )
+            .then((responseJson) => {
+                dispatch(getAddress(responseJson));
+            })
+            .catch(dispatch(getFail()));            
+    };
 }

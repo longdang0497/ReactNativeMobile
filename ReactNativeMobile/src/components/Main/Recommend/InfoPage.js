@@ -2,44 +2,74 @@ import React, { Component } from 'react';
 import {
     View, Dimensions,
     Text, Image,
-    StyleSheet,
+    StyleSheet, Picker,
     ScrollView,
     TouchableOpacity
 } from 'react-native';
-import DetailsRecommend from './DetailsRecommend';
-import CollapseInfo from './CollapseInfo';
+import { connect } from 'react-redux';
+import { WebView } from 'react-native-webview';
+import { fetchID, fetchAddress } from '../../../redux/actions/RecommendAction';
+//import DetailsRecommend from './DetailsRecommend';
+//import CollapseInfo from './CollapseInfo';
 import ShareInfo from './ShareInfo';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-export default class InfoPage extends Component {
+class InfoPage extends Component {
     static navigationOptions = {
-        headerTitle: (
-            <Text
-                style={{
-                    fontFamily: 'Rubik-Medium',
-                    fontWeight: 'bold',
-                    color: '#442C2E',
-                    justifyContent: 'center'
-                }}
-            >THIS IS DEAL'S TITLE</Text>
-        ),
-        /* eslint-disable global-require */
-        //headerRight: (),
-        /* eslint-enable global-require */
+        header: null
+    }
+
+    constructor() {
+        super();
+        this.state = {
+            PickerValue: ''
+        };
+    }
+
+    componentWillMount() {
+        const { navigation } = this.props;
+        const item = navigation.getParam('item', 'NO-ID');
+        console.log(item.id);
+        this.props.fetchID(item.id);
+        this.props.fetchAddress(item.id);
     }
 
     render() {
+        const { navigation, itemAddress, MyItems } = this.props;
+        const item = navigation.getParam('item', 'NO-ID');
+        console.log(item);
+        console.log(MyItems);
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
                 <ScrollView>
                     <View style={{ flex: 1, padding: 5 }}>
-                        <Image style={styles.imgDeal} />
+                        <Image
+                            style={styles.imgDeal}
+                            source={{ uri: item.avatar }}
+                        />
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
                         <View style={{ flex: 1 }}>
-                            <DetailsRecommend />
+                            <View style={styles.container}>
+                                <Text style={styles.txtLogo}>{item.logo}</Text>
+                                <Picker
+                                    style={{ width: '80%' }}
+                                    selectedValue={this.state.PickerValue}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ PickerValue: itemValue })}
+                                >
+                                    <Picker.Item label="Select a option" value="" />
+                                    {(itemAddress) ? itemAddress.places.map(
+                                        (obj) => <Picker.Item
+                                            key={obj.id}
+                                            label={obj.address + ', ' + obj.districtName}
+                                            value={obj.address + obj.districtName}
+                                        />
+                                    ) : []}
+                                </Picker>
+                            </View>
                         </View>
                         <View
                             style={{
@@ -47,19 +77,26 @@ export default class InfoPage extends Component {
                                 padding: 5,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: '#F0EDE5',
+                                backgroundColor: 'white',
                             }}
                         >
                             <TouchableOpacity
                                 style={styles.btnDirection}
                                 onPress={() => this.props.navigation.navigate('ShowMaps')}
                             >
-                                <Text>CHỈ ĐƯỜNG</Text>
+                                <Text style={{ fontFamily: 'Rubik-Medium', fontSize: 15, color: '#442C2E' }}>SHOW DIRECTION</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
-                        <CollapseInfo />
+                        <ScrollView>
+                            <WebView
+                                source={{ html: this.props.MyItems.body }}
+                                style={styles.content}
+                                automaticallyAdjustContentInsets={true}
+                                mixedContentMode='always'
+                            />
+                        </ScrollView>
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
                         <ShareInfo />
@@ -94,11 +131,17 @@ export default class InfoPage extends Component {
 }
 
 const styles = StyleSheet.create({
-    addressContainer: {
-        borderWidth: 0.5,
-        borderColor: '#d6d7da',
-        flexDirection: 'row',
-        backgroundColor: 'green'
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    txtLogo: {
+        fontFamily: 'Rubik-Bold',
+        textAlign: 'center',
+        padding: 10,
+        fontSize: 30
     },
     btnContainer: {
         flexDirection: 'row',
@@ -123,10 +166,12 @@ const styles = StyleSheet.create({
     },
     btnDirection: {
         flexDirection: 'row',
-        width: SCREEN_WIDTH,
+        width: SCREEN_WIDTH - 20,
         backgroundColor: '#F0EDE5',
         padding: 15,
-        borderColor: 'black',
+        borderColor: '#442C2E',
+        borderRadius: 20,
+        borderWidth: 0.5,
         justifyContent: 'center'
     },
     imgIcon: {
@@ -139,5 +184,23 @@ const styles = StyleSheet.create({
         height: SCREEN_WIDTH / 2,
         borderWidth: 0.5,
         backgroundColor: 'black',
-    }
+    },
+    content: {
+        padding: 20,
+        backgroundColor: '#fff',
+        flex: 2,
+        flexWrap: 'wrap',
+        width: SCREEN_WIDTH,
+        height: SCREEN_WIDTH * 3
+    },
 });
+
+function mapStateToProps(state) {
+    return {
+        MyItems: state.fetchData.itemsID,
+        itemAddress: state.fetchData.itemsAddress,
+        isFetching: state.fetchData.isFetching,
+    };
+}
+
+export default connect(mapStateToProps, { fetchID, fetchAddress })(InfoPage);

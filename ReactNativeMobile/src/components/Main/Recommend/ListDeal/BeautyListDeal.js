@@ -7,14 +7,39 @@ import React, { Component } from 'react';
 import { fetchBeautyDeal } from '../../../../redux/actions/RecommendAction';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 class BeautyListDeal extends Component {
     static navigationOptions = ({ navigation }) => ({
         tabBarLabel: 'BEAUTY'
     });
 
-    componentDidMount() {
-        console.log(this.props.fetchBeautyDeal());
+    constructor() {
+        super();
+        this.offsetDeal = 0;
+        this.isOnFirstPage = true;
+    }
+
+    componentWillMount() {
+        this.isOnFirstPage = true;
+        this.props.fetchBeautyDeal(this.offsetDeal);
+    }
+
+    loadMoreData() {
+        this.isOnFirstPage = false;
+        this.offsetDeal = this.offsetDeal + 10;
+        this.props.fetchBeautyDeal(this.offsetDeal);
+    }
+
+    loadLessData() {
+        if (this.offsetDeal !== 0) {
+            this.offsetDeal = this.offsetDeal - 10;
+            this.props.fetchBeautyDeal(this.offsetDeal);
+            if (this.offsetDeal <= 0) {
+                this.props.fetchBeautyDeal(0);
+                this.isOnFirstPage = true;
+            }
+        }
     }
 
     render() {
@@ -25,7 +50,7 @@ class BeautyListDeal extends Component {
                     {this.props.MyItems && this.props.MyItems.map((item, id) => (
                         <TouchableOpacity
                             key={id}
-                            onPress={() => this.props.navigation.navigate('InfoPage')}
+                            onPress={() => this.props.navigation.navigate('InfoPage', { item })}
                         >
                             <Animated.View style={styles.cardHolder}>
                                 <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
@@ -39,6 +64,26 @@ class BeautyListDeal extends Component {
                         </TouchableOpacity>
                     ))}
                 </View>
+                {this.props.MyItems[this.props.MyItems.length - 1] ?
+                    <View style={styles.viewLoad}>
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.loadLessData(); }}
+                        >
+                            <Text
+                                style={!this.isOnFirstPage ? styles.txtLoadMore : styles.inactiveStyle}
+                            >BACK</Text>
+                        </TouchableOpacity>
+                        <View style={{ backgroundColor: '#442C2E', width: 0.5 }} />
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.loadMoreData(); }}
+                        >
+                            <Text style={styles.txtLoadMore}>NEXT</Text>
+                        </TouchableOpacity>
+                    </View>
+                    : null
+                }
             </ScrollView>
         );
     }
@@ -77,6 +122,26 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15,
         padding: 10
+    },
+    viewLoad: {
+        height: SCREEN_HEIGHT * 0.06,
+        flexDirection: 'row',
+        backgroundColor: '#FFF',
+        borderRadius: 30,
+        margin: 10
+    },
+    btnLoad: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    inactiveStyle: {
+        color: '#caa99f',
+        fontFamily: 'Rubik-Medium'
+    },
+    txtLoadMore: {
+        color: '#442C2E',
+        fontFamily: 'Rubik-Medium'
     }
 });
 
