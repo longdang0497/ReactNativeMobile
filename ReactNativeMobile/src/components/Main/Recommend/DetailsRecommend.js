@@ -13,19 +13,10 @@ export default class DetailsRecommend extends Component {
         };
     }
 
-    // clickme = () => {
-    //     const data = this.state.PickerValue;
-    //     if (data === '') {
-    //         Alert.alert('Please Select a Option');
-    //     } else {
-    //         Alert.alert(data);
-    //     }
-    // }
-
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.textBtn}>THIS IS THE DEAL's INFO</Text>
+                <Text style={styles.textBtn}>{this.props.logo}</Text>
                 <Picker
                     style={{ width: '80%' }}
                     selectedValue={this.state.PickerValue}
@@ -49,9 +40,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     textBtn: {
-        fontFamily: 'Rubik-Medium',
+        fontFamily: 'Rubik-Bold',
         textAlign: 'center',
         padding: 10,
-        fontWeight: 'bold',
+        fontSize: 30
     }
 });

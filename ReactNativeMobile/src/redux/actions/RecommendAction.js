@@ -7,7 +7,9 @@ import {
     BEAUTY_FETCH_OK,
     FOOD_FETCHING,
     FASHION_FETCHING,
-    BEAUTY_FETCHING
+    BEAUTY_FETCHING,
+    GET_ID,
+    GET_FAIL,
 } from './type';
 
 export const startFoodFetch = () => (
@@ -127,4 +129,35 @@ function handleErrors(response) {
         throw Error(response.statusText);
     }
     return response;
+}
+
+export const getID = (itemID) => (
+    {
+        type: GET_ID,
+        payload: itemID
+    }
+);
+
+export const getFail = (error) => (
+    {
+        type: GET_FAIL,
+        payload: error
+    }
+);
+
+export function fetchID(itemID) {
+    const URL = 'https://date-now.herokuapp.com/deals/' + itemID;
+    return (dispatch) => {
+        dispatch(startFashionFetch());
+        return fetch(URL, { method: 'GET' })
+            .then(handleErrors)
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error),
+            )
+            .then((responseJson) => {
+                dispatch(getID(responseJson));
+            })
+            .catch(dispatch(getFail()));            
+    };
 }

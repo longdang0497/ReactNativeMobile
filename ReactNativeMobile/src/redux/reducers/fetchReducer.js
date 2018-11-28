@@ -7,13 +7,16 @@ import {
     BEAUTY_FETCH_OK,
     FOOD_FETCHING,
     FASHION_FETCHING,
-    BEAUTY_FETCHING
+    BEAUTY_FETCHING,
+    GET_ID,
+    GET_FAIL,
 } from '../actions/type';
 
 const initialState = {
     foodItems: [],
     beautyItems: [],
     fashionItems: [],
+    itemsID: [],
     dataFetched: false,
     isFetching: false,
     fetchError: ''
@@ -74,6 +77,19 @@ export default (state = initialState, action) => {
                 ...state,
                 beautyItems: action.payload,
                 isFetching: false
+            };
+        case GET_ID:
+            return {
+                ...state,
+                itemsID: action.payload,
+                isFetching: false
+            };
+        case GET_FAIL:
+            return {
+                ...state,
+                itemsID: [],
+                isFetching: false,
+                fetchError: action.payload
             };
         default:
             return state;

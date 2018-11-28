@@ -15,6 +15,13 @@ export const BEAUTY_FETCH_OK = 'BEAUTY_FETCH_OK';
 export const FOOD_FETCH_FAIL = 'FOOD_FETCH_FAIL';
 export const FASHION_FETCH_FAIL = 'FASHION_FETCH_FAIL';
 export const BEAUTY_FETCH_FAIL = 'BEAUTY_FETCH_FAIL';
+//------------------------------------------------------//
+export const GET_ID = 'GET_ID';
+export const GET_LOCATION = 'GET_LOCATION';
+export const GET_TITLE = 'GET_TITLE';
+export const GET_LOGO = 'GET_LOGO';
+export const GET_AVATAR = 'GET_AVATAR';
+export const GET_FAIL = 'GET_FAIL';
 //----------------End FETCH DATA------------------------//
 
 //user actions type

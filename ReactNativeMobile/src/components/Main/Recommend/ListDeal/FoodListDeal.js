@@ -51,7 +51,7 @@ class FoodListDeal extends Component {
                     {this.props.MyItems && this.props.MyItems.map((item, id) => (
                         <TouchableOpacity
                             key={id}
-                            onPress={() => this.props.navigation.navigate('InfoPage')}
+                            onPress={() => this.props.navigation.navigate('InfoPage', { item })}
                         >
                             <Animated.View style={styles.cardHolder}>
                                 <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
@@ -71,7 +71,9 @@ class FoodListDeal extends Component {
                             style={styles.btnLoad}
                             onPress={() => { this.loadLessData(); }}
                         >
-                            <Text style={!this.isOnFirstPage ? styles.txtLoadMore : styles.inactiveStyle}>BACK</Text>
+                            <Text
+                                style={!this.isOnFirstPage ? styles.txtLoadMore : styles.inactiveStyle}
+                            >BACK</Text>
                         </TouchableOpacity>
                         <View style={{ backgroundColor: '#442C2E', width: 0.5 }} />
                         <TouchableOpacity

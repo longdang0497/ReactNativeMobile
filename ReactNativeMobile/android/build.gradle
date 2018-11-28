@@ -7,18 +7,10 @@ buildscript {
         compileSdkVersion = 27
         targetSdkVersion = 26
         supportLibVersion = "27.1.1"
-        androidMapUtilsVersion = "0.5+"
-        googlePlayServicesVersion = "11.0.4"
     }
     repositories {
-        jcenter {
-            url "http://jcenter.bintray.com/"
-        }
+        jcenter()
         google()
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
@@ -31,15 +23,11 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        jcenter {
-            url "http://jcenter.bintray.com/"
-        }
+        jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        maven { url 'https://maven.google.com' }
-        maven { url "https://jitpack.io" }
         google()
     }
 }
