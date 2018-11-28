@@ -196,7 +196,7 @@ class Profile extends Component {
 
     openImagePicker(type) {
         ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
+            //console.log('Response = ', response);
 
             if (response.didCancel) {
                 this.setState({ getImageSuccess: false });
@@ -210,11 +210,15 @@ class Profile extends Component {
                 const source = { uri: response.uri };
 
                 // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+                 const sourceBase64 = 'data:image/jpeg;base64,' + response.data;
                 switch (type) {
                     case imageType.userAvatar:
+                        const update = { avatar: sourceBase64 };
+                        this.onUpdateUser(update);
                         break;
                     case imageType.loverAvatar:
+                        const updatelover = { lover_avatar: sourceBase64 };
+                        this.onUpdateUser(updatelover);
                         break;
                     default:
                         this.props.profileActions.changeBackground(source);
@@ -243,9 +247,9 @@ class Profile extends Component {
                     }}
                 />
                 <View style={styles.infoContainer}>
-                    <TouchableOpacity onPress={this.openImagePicker.bind(this)}>
+                    <TouchableOpacity onPress={() => this.openImagePicker(imageType.userAvatar)}>
                         <Image
-                            source={user.avatar.url ? user.avatar.url : avatar}
+                            source={user.avatar.url ? { uri: user.avatar.url } : avatar}
                             style={styles.avatartStyle}
                         />
                     </TouchableOpacity>
@@ -282,7 +286,7 @@ class Profile extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.settingItem}
-                        onPress={this.openImagePicker.bind(this)}
+                        onPress={() => this.openImagePicker(imageType.loverAvatar)}
                     >
                         <Text style={styles.textTitleItem}>Lover's Avatar</Text>
                         <View style={styles.rightViewItem}>
@@ -371,7 +375,7 @@ class Profile extends Component {
                     <Text style={styles.title}>Background Image</Text>
                     <TouchableOpacity
                         style={styles.settingItem}
-                        onPress={this.openImagePicker.bind(this)}
+                        onPress={() => this.openImagePicker.bind(this)}
                     >
                         <Text style={styles.textTitleItem}>Background Image</Text>
                         <View style={styles.rightViewItem}>

@@ -94,7 +94,7 @@ export class Home extends Component {
                                 <View style={styles.userInfoContainer}>
                                     <View style={styles.userContainer}>
                                         <Image
-                                            source={user.avatar.url ? user.avatar.url
+                                            source={user.avatar.url ? { uri: user.avatar.url }
                                                 : defaultAvatar}
                                             style={styles.avatarStyle}
                                         />
@@ -107,7 +107,7 @@ export class Home extends Component {
                                     <Image source={icHeart} style={styles.iconHeartStyle} />
                                     <View style={styles.userContainer}>
                                         <Image
-                                            source={user.lover_avatar.url ? user.lover_avatar.url
+                                            source={user.lover_avatar.url ? { uri: user.lover_avatar.url }
                                                 : defaultAvatar}
                                             style={styles.avatarStyle}
                                         />
