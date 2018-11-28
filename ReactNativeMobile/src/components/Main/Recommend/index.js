@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     View
 } from 'react-native';
-
 import { createStackNavigator } from 'react-navigation';
 import InfoPage from './InfoPage';
 import Recommend from './Recommend';
@@ -27,20 +26,13 @@ export const RootStack = createStackNavigator({
 
     });
 
-class RecommendScreen extends Component {
+export default class RecommendScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <NavigationEvents
-                    onWillFocus={() => {
-                        this.props.enableHeader();
-                    }}
-                />
                 <RootStack />
             </View>
         );
     }
 }
-
-export default connect(null, homeActions)(RecommendScreen);
 
