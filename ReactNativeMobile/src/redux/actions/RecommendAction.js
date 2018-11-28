@@ -8,7 +8,9 @@ import {
     FOOD_FETCHING,
     FASHION_FETCHING,
     BEAUTY_FETCHING,
+    GETTING,
     GET_ID,
+    GET_ADDRESS,
     GET_FAIL,
 } from './type';
 
@@ -131,10 +133,23 @@ function handleErrors(response) {
     return response;
 }
 
+export const getting = () => (
+    {
+        type: GETTING,
+    }
+);
+
 export const getID = (itemID) => (
     {
         type: GET_ID,
         payload: itemID
+    }
+);
+
+export const getAddress = (itemAddress) => (
+    {
+        type: GET_ADDRESS,
+        payload: itemAddress
     }
 );
 
@@ -148,7 +163,26 @@ export const getFail = (error) => (
 export function fetchID(itemID) {
     const URL = 'https://date-now.herokuapp.com/deals/' + itemID;
     return (dispatch) => {
-        dispatch(startFashionFetch());
+        dispatch(getting());
+        return fetch(URL, { method: 'GET' }, { headers: { 'Cache-Control': 'no-cache' } })
+            .then(handleErrors)
+            .then(
+                response => response.json(),
+                error => console.log('An error occurred.', error),
+            )
+            .then((responseJson) => {          
+                console.log( "child: " + responseJson);      
+                dispatch(getID(responseJson));
+                
+            })
+            .catch(dispatch(getFail()));            
+    };
+}
+
+export function fetchAddress(itemID) {
+    const URL = 'https://date-now.herokuapp.com/deals/' + itemID + '/places';
+    return (dispatch) => {
+        dispatch(getting());
         return fetch(URL, { method: 'GET' })
             .then(handleErrors)
             .then(
@@ -156,7 +190,7 @@ export function fetchID(itemID) {
                 error => console.log('An error occurred.', error),
             )
             .then((responseJson) => {
-                dispatch(getID(responseJson));
+                dispatch(getAddress(responseJson));
             })
             .catch(dispatch(getFail()));            
     };

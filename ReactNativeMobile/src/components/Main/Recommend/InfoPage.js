@@ -2,76 +2,44 @@ import React, { Component } from 'react';
 import {
     View, Dimensions,
     Text, Image,
-    StyleSheet,
+    StyleSheet, Picker,
     ScrollView,
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
-import { fetchID } from '../../../redux/actions/RecommendAction';
-import DetailsRecommend from './DetailsRecommend';
+import { fetchID, fetchAddress } from '../../../redux/actions/RecommendAction';
+//import DetailsRecommend from './DetailsRecommend';
 //import CollapseInfo from './CollapseInfo';
 import ShareInfo from './ShareInfo';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const htmlContent = `
-<p><strong>Thời gian áp dụng:</strong></p>
-<ul>
-  <li>Từ ngày 27/11/2018 đến 1/2/2019</li>
-  <li>Khung giờ: 8:00 - 23:00</li>
-</ul>
-<p><strong>Nội dung:</strong></p>
-<p><strong>GIẢM 30% TỔNG HOÁ ĐƠN</strong></p>
-<p>Áp dụng cho:</p>
-<ul>
-  <li>Tổng giờ xem phim tại quán</li>
-  <li>Cho toàn Menu</li>
-  <li>Không áp dụng dịch vụ tổ chức tiệc</li>
-</ul>
-<p><strong>Giá trị ưu đãi:</strong></p>
-<ul>
-  <li>Giá đã giảm: 98K</li>
-  <li>Giá gốc: 140K</li>
-  <li>Tỷ lệ giảm: 30%</li>
-</ul>
-<p><strong>Lưu ý:</strong></p>
-<p><strong>Mỗi người được dùng:</strong></p>
-<ul>
-  <li>Không giới hạn trong suốt chương trình</li>
-  <li>1 thiết bị chứa mã</li>
-</ul>
-<p><strong>Mỗi mã chỉ:</strong></p>
-<ul>
-  <li>Dùng 1 lần khi thanh toán</li>
-  <li>Dùng cho 1 hoá đơn</li>
-</ul>
-<p>----</p>
-<p><em>Áp dụng tại cửa hàng</em></p>
-<p><em>Nhớ xuất trình mã ưu đãi trước khi sử dụng dịch vụ</em></p>
-<p><em>Chỉ áp dụng trong khoảng thời gian sẽ hẹn đến </em></p>
-<p><em>Khi thanh toán chỉ áp dụng duy nhất 1 mã</em></p>
-<p>----</p>
-<p><em>Không áp dụng hình chụp màn hình     </em></p>
-<p><em>Không áp dụng chung với các chương trình khuyến mại khác</em></p>
-<p><em>Ngày không áp dụng:</em></p>
-<ul>
-  <li><em>23/12 , 24/12, 25/12, 1/1/2019</em></li>
-</ul>
-<p><strong>Hotline:</strong></p>
-<ul>
-  <li>3D Box Cineme: <a href="tel:0902559022" target="_blank" style="color: rgb(230, 0, 0);">0902 559 022</a></li>
-  <li>Meete HCM: <a href="tel:0917247744" target="_blank">0917 247 744</a></li>
-</ul>
-`;
 
 class InfoPage extends Component {
     static navigationOptions = {
         header: null
     }
 
-    render() {
+    constructor() {
+        super();
+        this.state = {
+            PickerValue: ''
+        };
+    }
+
+    componentWillMount() {
         const { navigation } = this.props;
-        const item = navigation.getParam('item', 'none');
+        const item = navigation.getParam('item', 'NO-ID');
+        console.log(item.id);
+        this.props.fetchID(item.id);
+        this.props.fetchAddress(item.id);
+    }
+
+    render() {
+        const { navigation, itemAddress, MyItems } = this.props;
+        const item = navigation.getParam('item', 'NO-ID');
+        console.log(item);
+        console.log(MyItems);
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
@@ -84,7 +52,24 @@ class InfoPage extends Component {
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
                         <View style={{ flex: 1 }}>
-                            <DetailsRecommend logo={item.logo} />
+                            <View style={styles.container}>
+                                <Text style={styles.txtLogo}>{item.logo}</Text>
+                                <Picker
+                                    style={{ width: '80%' }}
+                                    selectedValue={this.state.PickerValue}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ PickerValue: itemValue })}
+                                >
+                                    <Picker.Item label="Select a option" value="" />
+                                    {(itemAddress) ? itemAddress.places.map(
+                                        (obj) => <Picker.Item
+                                            key={obj.id}
+                                            label={obj.address + ', ' + obj.districtName}
+                                            value={obj.address + obj.districtName}
+                                        />
+                                    ) : []}
+                                </Picker>
+                            </View>
                         </View>
                         <View
                             style={{
@@ -92,24 +77,24 @@ class InfoPage extends Component {
                                 padding: 5,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                backgroundColor: '#F0EDE5',
+                                backgroundColor: 'white',
                             }}
                         >
                             <TouchableOpacity
                                 style={styles.btnDirection}
                                 onPress={() => this.props.navigation.navigate('ShowMaps')}
                             >
-                                <Text>CHỈ ĐƯỜNG</Text>
+                                <Text style={{ fontFamily: 'Rubik-Medium', fontSize: 15, color: '#442C2E' }}>SHOW DIRECTION</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{ flex: 1, padding: 5 }}>
                         <ScrollView>
                             <WebView
-                                source={{ html: htmlContent }}
+                                source={{ html: this.props.MyItems.body }}
                                 style={styles.content}
                                 automaticallyAdjustContentInsets={true}
-                                mixedContentMode='always'                                
+                                mixedContentMode='always'
                             />
                         </ScrollView>
                     </View>
@@ -146,11 +131,17 @@ class InfoPage extends Component {
 }
 
 const styles = StyleSheet.create({
-    addressContainer: {
-        borderWidth: 0.5,
-        borderColor: '#d6d7da',
-        flexDirection: 'row',
-        backgroundColor: 'green'
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    txtLogo: {
+        fontFamily: 'Rubik-Bold',
+        textAlign: 'center',
+        padding: 10,
+        fontSize: 30
     },
     btnContainer: {
         flexDirection: 'row',
@@ -175,10 +166,12 @@ const styles = StyleSheet.create({
     },
     btnDirection: {
         flexDirection: 'row',
-        width: SCREEN_WIDTH,
+        width: SCREEN_WIDTH - 20,
         backgroundColor: '#F0EDE5',
         padding: 15,
-        borderColor: 'black',
+        borderColor: '#442C2E',
+        borderRadius: 20,
+        borderWidth: 0.5,
         justifyContent: 'center'
     },
     imgIcon: {
@@ -195,7 +188,7 @@ const styles = StyleSheet.create({
     content: {
         padding: 20,
         backgroundColor: '#fff',
-        flex: 2, 
+        flex: 2,
         flexWrap: 'wrap',
         width: SCREEN_WIDTH,
         height: SCREEN_WIDTH * 3
@@ -205,8 +198,9 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
     return {
         MyItems: state.fetchData.itemsID,
+        itemAddress: state.fetchData.itemsAddress,
         isFetching: state.fetchData.isFetching,
     };
 }
 
-export default connect(mapStateToProps, { fetchID })(InfoPage);
+export default connect(mapStateToProps, { fetchID, fetchAddress })(InfoPage);
