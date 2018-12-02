@@ -1,27 +1,60 @@
 import React, { Component } from 'react';
 import {
     View, Dimensions,
-    Text, Image,
     StyleSheet,
-    ScrollView,
-    TouchableOpacity
 } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
+import { fetchLocation } from '../../../redux/actions/SearchAction';
 
-export default class ShowMaps extends Component {
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+
+class ShowMaps extends Component {
+    static navigationOptions = {
+        header: null
+    }
+
+    state = {
+        region: {
+            latitude: 10.772237053021,
+            longitude: 106.70358685,
+            latitudeDelta: 0.09,
+            longitudeDelta: 0.09
+        }
+    }
+
+    componentDidMount() {
+        const { navigation } = this.props;
+        const item = navigation.getParam('item', 'NO-ID');
+        this.props.fetchLocation(item.id);
+    }
+
+    onRegionChangeComplete() {
+        this.setState({
+            region: {
+                latitude: Number.parseFloat(this.props.location.lat),
+                longitude: Number.parseFloat(this.props.location.lon),
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0411
+            }
+        })
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <MapView
-                    style={styles.map}
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                />
+                {this.props.location &&
+                    <MapView
+                        style={styles.map}
+                        region={this.state.region}
+                        onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}
+                    >
+                        <MapView.Marker
+                            coordinate={this.state.region}
+                        />
+                    </MapView>
+                }
             </View>
         );
     }
@@ -29,19 +62,22 @@ export default class ShowMaps extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
+        ...StyleSheet.absoluteFillObject,
+        height: SCREEN_HEIGHT,
+        width: SCREEN_WIDTH,
+        justifyContent: 'flex-end',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF'
     },
     map: {
-        left: 0,
-        right: 0,
-        bottom: 0,
-        top: 0, 
-        position: 'absolute'
+        ...StyleSheet.absoluteFillObject,
     },
-    marker: {
-
-    }
 });
+
+function mapStateToProps(state) {
+    return {
+        location: state.search.location,
+        isFetching: state.search.isFetching,
+    };
+}
+
+export default connect(mapStateToProps, { fetchLocation })(ShowMaps);

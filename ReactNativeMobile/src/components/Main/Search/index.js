@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-
+import {
+    View
+} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import InfoPage from '../../Recommend/InfoPage';
-import Recommend from '../../Recommend/Recommend';
+import ListSearch from './ListSearch';
+import ShowMaps from '../Recommend/ShowMaps';
 
 export const RootStack = createStackNavigator({
-    Recommend: { screen: Recommend },
-    InfoPage: { screen: InfoPage },
+    ListSearch: { screen: ListSearch },
+    ShowMaps: { screen: ShowMaps },
 },
     {
-        initialRouteName: 'Recommend',
+        initialRouteName: 'ListSearch',
         navigationOptions: {
             headerStyle: {
                 backgroundColor: '#fff',
@@ -19,13 +21,15 @@ export const RootStack = createStackNavigator({
                 fontWeight: 'bold',
             },
         },
-        
+
     });
 
-export default class RecommendScreen extends Component {
+export default class SearchScreen extends Component {
     render() {
         return (
-            <RootStack />
+            <View style={{ flex: 1 }}>
+                <RootStack />
+            </View>
         );
     }
 }

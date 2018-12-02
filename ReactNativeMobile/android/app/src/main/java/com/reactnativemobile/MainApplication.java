@@ -3,6 +3,7 @@ package com.reactnativemobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import cl.json.RNSharePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -24,12 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new CookieManagerPackage(),
-            new RNSharePackage(),
-            new RNCWebViewPackage()
-      );
+      return Arrays.<ReactPackage>asList(new MainReactPackage(), new CookieManagerPackage(), new RNSharePackage(),
+          new RNCWebViewPackage(), new MapsPackage());
     }
 
     @Override

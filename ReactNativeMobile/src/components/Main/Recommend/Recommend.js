@@ -1,7 +1,5 @@
 import {
-    TextInput,
     Dimensions, SafeAreaView,
-    View
 } from 'react-native';
 import React, { Component } from 'react';
 import { createTabNavigator, TabNavigator } from 'react-navigation';
@@ -10,13 +8,13 @@ import FashionScreen from './ListDeal/indexFashion';
 import FoodScreen from './ListDeal/indexFood';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 export default class Recommend extends Component {
     constructor() {
         super();
         this.state = {
-            PickerValue: ''
+            PickerValue: '',
+            searchInput: ''
         };
     }
 
@@ -62,26 +60,10 @@ export default class Recommend extends Component {
         return (
             /* eslint-disable global-require */
             <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                <View style={{ flexWrap: 'wrap' }}>
-                    <TextInput
-                        inlineImageLeft='ic_search'
-                        style={{
-                            height: SCREEN_HEIGHT / 12,
-                            width: SCREEN_WIDTH,
-                            backgroundColor: '#fff',
-                            borderWidth: 0.5,
-                            borderColor: '442C2E',
-                            paddingLeft: 15,
-                            paddingTop: 16,
-                            paddingBottom: 16,
-                            justifyContent: 'space-between'
-                        }}
-                        placeholder="What are you looking for?"
-                    />
-                </View>
                 {this.Tabs(nav)}
             </SafeAreaView>
             /* eslint-enable global-require */
         );
     }
 }
+

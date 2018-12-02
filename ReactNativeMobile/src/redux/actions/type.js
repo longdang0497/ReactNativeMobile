@@ -23,11 +23,16 @@ export const BEAUTY_FETCH_FAIL = 'BEAUTY_FETCH_FAIL';
 export const GETTING = 'GETTING';
 export const GET_ID = 'GET_ID';
 export const GET_ADDRESS = 'GET_ADDRESS';
+export const GET_LOCATION = 'GET_LOCATION';
 export const GET_TITLE = 'GET_TITLE';
 export const GET_LOGO = 'GET_LOGO';
 export const GET_AVATAR = 'GET_AVATAR';
 export const GET_FAIL = 'GET_FAIL';
-//----------------End FETCH DATA------------------------//
+//-----------------------------------------------------//
+export const SEARCHING = 'SEARCHING';
+export const SEARCH_OK = 'SEARCH_OK';
+export const SEARCH_FAIL = 'SEARCH_FAIL';
+//----------------End FETCH DATA-----------------------//
 
 //user actions type
 export const ADD_USER = 'add_user';

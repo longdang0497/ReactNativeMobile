@@ -6,10 +6,12 @@ import {
 import { createStackNavigator } from 'react-navigation';
 import InfoPage from '../InfoPage';
 import BeautyListDeal from './BeautyListDeal';
+import InfoMap from '../InfoMap';
 
 export const RootStack = createStackNavigator({
     BeautyListDeal,
-    InfoPage
+    InfoPage,
+    InfoMap,
 },
     {
         initialRouteName: 'BeautyListDeal',

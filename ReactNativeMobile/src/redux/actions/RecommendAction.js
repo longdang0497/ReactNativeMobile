@@ -11,7 +11,11 @@ import {
     GETTING,
     GET_ID,
     GET_ADDRESS,
+    GET_LOCATION,
     GET_FAIL,
+    SEARCHING,
+    SEARCH_FAIL,
+    SEARCH_OK
 } from './type';
 
 export const startFoodFetch = () => (
@@ -87,7 +91,7 @@ export function fetchFoodDeal(offsetDeal) {
             .then((responseJson) => {
                 dispatch(fetchFoodSucceed(responseJson));
             })
-            .catch(dispatch(fetchFoodFail()));            
+            .catch(dispatch(fetchFoodFail()));
     };
 }
 
@@ -104,7 +108,7 @@ export function fetchBeautyDeal(offsetDeal) {
             .then((responseJson) => {
                 dispatch(fetchBeautySucceed(responseJson));
             })
-            .catch(dispatch(fetchBeautyFail()));            
+            .catch(dispatch(fetchBeautyFail()));
     };
 }
 
@@ -121,7 +125,7 @@ export function fetchFashionDeal(offsetDeal) {
             .then((responseJson) => {
                 dispatch(fetchFashionSucceed(responseJson));
             })
-            .catch(dispatch(fetchFashionFail()));            
+            .catch(dispatch(fetchFashionFail()));
     };
 }
 
@@ -153,6 +157,13 @@ export const getAddress = (itemAddress) => (
     }
 );
 
+export const getLocation = (location) => (
+    {
+        type: GET_LOCATION,
+        payload: location
+    }
+);
+
 export const getFail = (error) => (
     {
         type: GET_FAIL,
@@ -170,12 +181,12 @@ export function fetchID(itemID) {
                 response => response.json(),
                 error => console.log('An error occurred.', error),
             )
-            .then((responseJson) => {          
-                console.log( "child: " + responseJson);      
+            .then((responseJson) => {
+                //console.log("child: " + responseJson);
                 dispatch(getID(responseJson));
-                
+
             })
-            .catch(dispatch(getFail()));            
+            .catch(dispatch(getFail()));
     };
 }
 
@@ -192,6 +203,27 @@ export function fetchAddress(itemID) {
             .then((responseJson) => {
                 dispatch(getAddress(responseJson));
             })
-            .catch(dispatch(getFail()));            
+            .catch(dispatch(getFail()));
     };
 }
+
+export const searching = () => (
+    {
+        type: SEARCHING,
+    }
+);
+
+export const searchOK = (data) => (
+    {
+        type: SEARCH_OK,
+        payload: data
+    }
+);
+
+export const searchFail = (error) => (
+    {
+        type: SEARCH_FAIL,
+        payload: error
+    }
+);
+
