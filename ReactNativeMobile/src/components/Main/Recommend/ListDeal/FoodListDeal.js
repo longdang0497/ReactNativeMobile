@@ -44,7 +44,7 @@ class FoodListDeal extends Component {
 
     render() {
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: '#FEDBD0' }}>
                 <View style={styles.container}>
                     {this.props.isFetching && <Text>Loading...</Text>}
                     {this.props.MyItems && this.props.MyItems.map((item, id) => (
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         justifyContent: 'space-around',
-        backgroundColor: '#FEDBD0',
+        backgroundColor: 'white',
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5
     },

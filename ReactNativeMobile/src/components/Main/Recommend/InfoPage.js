@@ -9,8 +9,6 @@ import {
 import { connect } from 'react-redux';
 import { WebView } from 'react-native-webview';
 import { fetchID, fetchAddress } from '../../../redux/actions/RecommendAction';
-//import DetailsRecommend from './DetailsRecommend';
-//import CollapseInfo from './CollapseInfo';
 import ShareInfo from './ShareInfo';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -30,16 +28,13 @@ class InfoPage extends Component {
     componentWillMount() {
         const { navigation } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
-        console.log(item.id);
         this.props.fetchID(item.id);
         this.props.fetchAddress(item.id);
     }
 
     render() {
-        const { navigation, itemAddress, MyItems } = this.props;
+        const { navigation, itemAddress } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
-        console.log(item);
-        console.log(MyItems);
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
@@ -57,7 +52,7 @@ class InfoPage extends Component {
                                 <Picker
                                     style={{ width: '80%' }}
                                     selectedValue={this.state.PickerValue}
-                                    onValueChange={(itemValue, itemIndex) =>
+                                    onValueChange={(itemValue) =>
                                         this.setState({ PickerValue: itemValue })}
                                 >
                                     <Picker.Item label="Select a option" value="" />
@@ -82,7 +77,7 @@ class InfoPage extends Component {
                         >
                             <TouchableOpacity
                                 style={styles.btnDirection}
-                                onPress={() => this.props.navigation.navigate('ShowMaps')}
+                                onPress={() => this.props.navigation.navigate('ShowMaps', { item })}
                             >
                                 <Text style={{ fontFamily: 'Rubik-Medium', fontSize: 15, color: '#442C2E' }}>SHOW DIRECTION</Text>
                             </TouchableOpacity>
@@ -98,31 +93,9 @@ class InfoPage extends Component {
                             />
                         </ScrollView>
                     </View>
-                    <View style={{ flex: 1, padding: 5 }}>
-                        <ShareInfo />
-                    </View>
                 </ScrollView>
                 <View style={styles.btnContainer}>
-                    <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
-                        <TouchableOpacity style={styles.btnSaveDeal}>
-                            <Image
-                                source={require('../../../../assets/appicon/ic_heart.png')}
-                                style={styles.imgIcon}
-                            />
-                            <Text style={{ textAlign: 'center', paddingLeft: 20 }}>Lưu ưu đãi</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ justifyContent: 'space-around', flexDirection: 'row' }}>
-                        <TouchableOpacity style={styles.btnGetDeal}>
-                            <Image
-                                source={require('../../../../assets/appicon/ic_get.png')}
-                                style={styles.imgIcon}
-                            />
-                            <Text
-                                style={{ textAlign: 'center', color: 'white', paddingLeft: 20 }}
-                            >Lấy ưu đãi</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <ShareInfo linkID={item.id} linkTitle={item.title} />
                 </View>
             </View>
             /* eslint-enable global-require */

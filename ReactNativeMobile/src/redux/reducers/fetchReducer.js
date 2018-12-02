@@ -20,6 +20,7 @@ const initialState = {
     fashionItems: [],
     itemsID: [],
     itemsAddress: null,
+    dataSearch: [],
     dataFetched: false,
     isFetching: false,
     fetchError: ''

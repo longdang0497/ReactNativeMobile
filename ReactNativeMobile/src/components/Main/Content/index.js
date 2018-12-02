@@ -9,10 +9,12 @@ import Home from './Home';
 import Profile from './Profile';
 import RecommendScreen from '../Recommend/index';
 import Header from './Header.js';
+import SearchScreen from '../Search/index';
 
 export const BottomTabNavigator = createBottomTabNavigator({
     Home: { screen: Home },
     Recommend: { screen: RecommendScreen },
+    Search: { screen: SearchScreen },
     Profile: { screen: Profile }
 },
     {
@@ -26,6 +28,9 @@ export const BottomTabNavigator = createBottomTabNavigator({
                         break;
                     case 'Recommend':
                         iconName = 'shopping-cart';
+                        break;
+                    case 'Search':
+                        iconName = 'ic_search';
                         break;
                     default:
                         iconName = 'user';

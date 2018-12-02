@@ -15,7 +15,7 @@ import { bindActionCreators } from 'redux';
 import Main from './components/Main';
 import Authentication from './components/Authentication';
 import RecommendScreen from './components/Main/Recommend/index';
-import FoodScreen from './components/Main/Recommend/ListDeal/indexFood';
+import SearchScreen from './components/Main/Search/index';
 import SplashScreen from './components/SplashScreen';
 import constants from './components/Main/Constants';
 import * as profileActions from './redux/actions/ProfileAction';
@@ -27,7 +27,7 @@ export const RootStack = createStackNavigator({
     Main,
     Authentication,
     RecommendScreen,
-    FoodScreen
+    SearchScreen
 },
     {
         headerMode: 'none',
