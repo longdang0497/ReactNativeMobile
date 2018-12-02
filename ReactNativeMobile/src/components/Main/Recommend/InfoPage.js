@@ -45,6 +45,7 @@ class InfoPage extends Component {
     render() {
         const { navigation, itemAddress } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
+        console.log(item);
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
@@ -96,7 +97,7 @@ class InfoPage extends Component {
                         >
                             <TouchableOpacity
                                 style={styles.btnDirection}
-                                onPress={() => this.props.navigation.navigate('ShowMaps', { item })}
+                                onPress={() => this.props.navigation.navigate('InfoMap', { item })}
                             >
                                 <Text style={{ fontFamily: 'Rubik-Medium', fontSize: 15, color: '#442C2E' }}>SHOW DIRECTION</Text>
                             </TouchableOpacity>
@@ -107,7 +108,7 @@ class InfoPage extends Component {
                             <WebView
                                 source={{ html: this.props.MyItems.body }}
                                 style={styles.content}
-                                automaticallyAdjustContentInsets={true}
+                                automaticallyAdjustContentInsets
                                 mixedContentMode='always'
                             />
                         </ScrollView>
