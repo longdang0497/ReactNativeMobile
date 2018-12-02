@@ -1,6 +1,6 @@
 import {
     StyleSheet, Text, View, Image, Dimensions,
-    TouchableOpacity, Animated, ScrollView
+    TouchableOpacity, Animated, ScrollView, RefreshControl
 } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -18,6 +18,9 @@ class BeautyListDeal extends Component {
         super();
         this.offsetDeal = 0;
         this.isOnFirstPage = true;
+        this.state = {
+            refreshing: false,
+        };
     }
 
     componentWillMount() {
@@ -25,10 +28,20 @@ class BeautyListDeal extends Component {
         this.props.fetchBeautyDeal(this.offsetDeal);
     }
 
+    onRefresh = () => {
+        this.setState({ refreshing: true });
+        this.props.fetchBeautyDeal(this.offsetDeal);
+        this.setState({ refreshing: false });
+    }
+
     loadMoreData() {
         this.isOnFirstPage = false;
         this.offsetDeal = this.offsetDeal + 10;
         this.props.fetchBeautyDeal(this.offsetDeal);
+        if (this.isOnLastPage === true) {
+            const lastPage = this.offsetDeal;
+            this.props.fetchBeautyDeal(lastPage);
+        }
     }
 
     loadLessData() {
@@ -44,7 +57,16 @@ class BeautyListDeal extends Component {
 
     render() {
         return (
-            <ScrollView style={{ backgroundColor: '#FEDBD0' }}>
+            <ScrollView
+                style={{ backgroundColor: '#FEDBD0' }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh}
+                        progressBackgroundColor='white'
+                    />
+                }
+            >
                 <View style={styles.container}>
                     {this.props.isFetching && <Text>Loading...</Text>}
                     {this.props.MyItems && this.props.MyItems.map((item, id) => (
@@ -77,9 +99,11 @@ class BeautyListDeal extends Component {
                         <View style={{ backgroundColor: '#442C2E', width: 0.5 }} />
                         <TouchableOpacity
                             style={styles.btnLoad}
-                            onPress={() => { this.loadMoreData(); }}
+                            onPress={() => { this.props.MyItems.length >= 10 ? this.loadMoreData() : null; }}
                         >
-                            <Text style={styles.txtLoadMore}>NEXT</Text>
+                            <Text
+                                style={this.props.MyItems.length >= 10 ? styles.txtLoadMore : styles.inactiveStyle}
+                            >NEXT</Text>
                         </TouchableOpacity>
                     </View>
                     : null

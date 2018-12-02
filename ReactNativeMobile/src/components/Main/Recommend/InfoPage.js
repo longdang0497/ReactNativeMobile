@@ -3,7 +3,7 @@ import {
     View, Dimensions,
     Text, Image,
     StyleSheet, Picker,
-    ScrollView,
+    ScrollView, RefreshControl,
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -21,7 +21,8 @@ class InfoPage extends Component {
     constructor() {
         super();
         this.state = {
-            PickerValue: ''
+            PickerValue: '',
+            refreshing: false,
         };
     }
 
@@ -32,13 +33,31 @@ class InfoPage extends Component {
         this.props.fetchAddress(item.id);
     }
 
+    onRefresh = () => {
+        const { navigation } = this.props;
+        const item = navigation.getParam('item', 'NO-ID');
+        this.setState({ refreshing: true });
+        this.props.fetchID(item.id);
+        this.props.fetchAddress(item.id);
+        this.setState({ refreshing: false });
+    }
+
     render() {
         const { navigation, itemAddress } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
-                <ScrollView>
+                <ScrollView
+                    style={{ backgroundColor: '#FEDBD0' }}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this.onRefresh}
+                            progressBackgroundColor='white'
+                        />
+                    }
+                >
                     <View style={{ flex: 1, padding: 5 }}>
                         <Image
                             style={styles.imgDeal}

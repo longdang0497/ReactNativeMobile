@@ -1,6 +1,6 @@
 import {
     StyleSheet, Text, View, TextInput, Dimensions,
-    TouchableOpacity, ScrollView, Animated, Image
+    TouchableOpacity, ScrollView, Animated, Image, RefreshControl
 } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -12,15 +12,45 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 class ListSearch extends Component {
     constructor() {
         super();
+        this.offsetDeal = 0;
+        this.isOnFirstPage = true;
         this.state = {
             text: '',
-            isPressSearch: false
+            isPressSearch: false,
+            refreshing: false,
         };
     }
-    
+
     onSearch() {
         this.setState({ isPressSearch: true });
-        this.props.fetchSearch(this.state.text);
+        this.props.fetchSearch(this.state.text, this.offsetDeal);
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true });
+        this.props.fetchSearch(this.state.text, this.offsetDeal);
+        this.setState({ refreshing: false });
+    }
+
+    loadMoreData() {
+        this.isOnFirstPage = false;
+        this.offsetDeal = this.offsetDeal + 10;
+        this.props.fetchSearch(this.state.text, this.offsetDeal);
+        if (this.isOnLastPage === true) {
+            const lastPage = this.offsetDeal;
+            this.props.fetchSearch(this.state.text, lastPage);
+        }
+    }
+
+    loadLessData() {
+        if (this.offsetDeal !== 0) {
+            this.offsetDeal = this.offsetDeal - 10;
+            this.props.fetchSearch(this.state.text, this.offsetDeal);
+            if (this.offsetDeal <= 0) {
+                this.props.fetchSearch(this.state.text, 0);
+                this.isOnFirstPage = true;
+            }
+        }
     }
 
     renderSearchNull() {
@@ -35,7 +65,16 @@ class ListSearch extends Component {
         //console.log(`search: ${this.props.dataSearch}`);
         //console.log(this.props.dataSearch);
         return (
-            <ScrollView style={{ backgroundColor: '#FEDBD0' }}>
+            <ScrollView
+                style={{ backgroundColor: '#FEDBD0' }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={this.onRefresh}
+                        progressBackgroundColor='white'
+                    />
+                }
+            >
                 <View style={{ flex: 1, flexWrap: 'wrap', backgroundColor: '#FEDBD0' }}>
                     <TextInput
                         inlineImageLeft='ic_search'
@@ -43,7 +82,7 @@ class ListSearch extends Component {
                         style={{
                             height: SCREEN_HEIGHT / 11.4,
                             width: SCREEN_WIDTH,
-                            backgroundColor: '#fff',                            
+                            backgroundColor: '#fff',
                             paddingLeft: 15,
                             paddingTop: 16,
                             paddingBottom: 16,
@@ -61,28 +100,50 @@ class ListSearch extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.container}>
-                    {(this.state.isPressSearch === true && this.props.dataSearch !== null) 
+                    {(this.state.isPressSearch === true && this.props.dataSearch !== null)
                         ? this.props.dataSearch && this.props.dataSearch.map((item, id) => (
-                        <TouchableOpacity
-                            key={id}
-                            onPress={() => this.props.navigation.navigate('ShowMaps', { item })}
-                        >
-                            <Animated.View style={styles.cardHolder}>
-                                <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
-                                <View style={styles.txtRecommend}>
-                                    <Text
-                                        numberOfLines={1}
-                                        style={styles.txtInfoName}
-                                    >{item.name}</Text>
-                                    <Text
-                                        numberOfLines={2}
-                                        style={styles.txtInfoAddress}
-                                    >{item.address}</Text>
-                                </View>
-                            </Animated.View>
-                        </TouchableOpacity>
-                    )) : this.renderSearchNull()}
+                            <TouchableOpacity
+                                key={id}
+                                onPress={() => this.props.navigation.navigate('ShowMaps', { item })}
+                            >
+                                <Animated.View style={styles.cardHolder}>
+                                    <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
+                                    <View style={styles.txtRecommend}>
+                                        <Text
+                                            numberOfLines={1}
+                                            style={styles.txtInfoName}
+                                        >{item.name}</Text>
+                                        <Text
+                                            numberOfLines={2}
+                                            style={styles.txtInfoAddress}
+                                        >{item.address}</Text>
+                                    </View>
+                                </Animated.View>
+                            </TouchableOpacity>
+                        )) : this.renderSearchNull()}
                 </View>
+                {(this.state.isPressSearch === true && this.props.dataSearch !== null && this.props.dataSearch[this.props.dataSearch.length - 1]) ?
+                    <View style={styles.viewLoad}>
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.loadLessData(); }}
+                        >
+                            <Text
+                                style={!this.isOnFirstPage ? styles.txtLoadMore : styles.inactiveStyle}
+                            >BACK</Text>
+                        </TouchableOpacity>
+                        <View style={{ backgroundColor: '#442C2E', width: 0.5 }} />
+                        <TouchableOpacity
+                            style={styles.btnLoad}
+                            onPress={() => { this.props.dataSearch.length >= 10 ? this.loadMoreData() : null; }}
+                        >
+                            <Text
+                                style={this.props.dataSearch.length >= 10 ? styles.txtLoadMore : styles.inactiveStyle}
+                            >NEXT</Text>
+                        </TouchableOpacity>
+                    </View>
+                    : null
+                }
             </ScrollView>
         );
     }

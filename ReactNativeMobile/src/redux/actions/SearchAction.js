@@ -82,13 +82,13 @@ export function replaceString(string) {
     return str;
 }
 
-export function fetchSearch(strSearch) {
+export function fetchSearch(strSearch, offsetDeal) {
     let URL = '';
     //console.log('strSearch: ' + strSearch);
     if (strSearch !== '') {
         const str = replaceString(strSearch);
         //console.log(str);
-        URL = 'https://date-now.herokuapp.com/places?name=' + str + '&offset=0&limit=10';
+        URL = 'https://date-now.herokuapp.com/places?name=' + str + '&offset=' + offsetDeal + '&limit=10';
         //console.log(URL);
     }
     else if (strSearch === '') {
