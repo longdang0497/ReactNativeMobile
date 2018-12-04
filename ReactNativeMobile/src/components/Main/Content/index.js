@@ -30,7 +30,7 @@ export const BottomTabNavigator = createBottomTabNavigator({
                         iconName = 'shopping-cart';
                         break;
                     case 'Search':
-                        iconName = 'ic_search';
+                        iconName = 'search';
                         break;
                     default:
                         iconName = 'user';

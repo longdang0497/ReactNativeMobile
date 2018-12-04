@@ -6786,10 +6786,10 @@ react-native-view-shot@2.5.0, react-native-view-shot@^2.5.0:
   resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-2.5.0.tgz#428a997f470d3148d0067c5b46abd988ef1aa4c0"
   integrity sha512-xFJA+N7wh8Ik/17I4QB24e0a0L3atg1ScVehvtYR5UBTgHdzTFA0ZylvXp9gkZt7V+AT5Pni0H3NQItpqSKFoQ==
 
-react-native-webview@^2.13.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-2.13.0.tgz#06eb1f7a21be079e4eac693a0682034540c1084d"
-  integrity sha512-gaUZWRvXL8g/kEqi/EITOYJlHh5Ah2VgZl8Ye5p7tfP/hCNUT2Hh+SXur5dpSyAvXG6V1ef9hISI3qzi6sZYuQ==
+react-native-webview@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-2.14.0.tgz#def9fd91bcd6bca3b16c4a1e7ed0f0881e89f942"
+  integrity sha512-24frICMSPwr9/j2mvR9kD/NWs542eS3kFkM+VUX0iL8/x5csW1ZBKjc+InApqDNNDIOUKsBzA7PgYa+EvJhiaA==
   dependencies:
     escape-string-regexp "^1.0.5"
     fbjs "^0.8.17"
