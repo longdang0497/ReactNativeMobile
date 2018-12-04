@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import {
     View
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationEvents } from 'react-navigation';
+import { connect } from 'react-redux';
 import ListSearch from './ListSearch';
 import ShowMaps from '../Recommend/ShowMaps';
+import * as homeActions from '../../../redux/actions/HomeActions';
 
 export const RootStack = createStackNavigator({
     ListSearch: { screen: ListSearch },
@@ -24,13 +26,20 @@ export const RootStack = createStackNavigator({
 
     });
 
-export default class SearchScreen extends Component {
+class SearchScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <NavigationEvents
+                    onWillFocus={() => {
+                        this.props.enableHeader();
+                    }}
+                />
                 <RootStack />
             </View>
         );
     }
 }
+
+export default connect(null, homeActions)(SearchScreen);
 

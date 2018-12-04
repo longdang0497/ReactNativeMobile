@@ -3,6 +3,12 @@ package com.reactnativemobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import fr.greweb.reactnativeviewshot.RNViewShotPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import cl.json.RNSharePackage;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.psykar.cookiemanager.CookieManagerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.psykar.cookiemanager.CookieManagerPackage;
 import cl.json.RNSharePackage;
@@ -25,8 +31,14 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(new MainReactPackage(), new CookieManagerPackage(), new RNSharePackage(),
-          new RNCWebViewPackage(), new MapsPackage());
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new RNViewShotPackage(),
+            new VectorIconsPackage(),
+            new RNSharePackage(),
+            new ImagePickerPackage(),
+            new CookieManagerPackage(),
+          new RNCWebViewPackage(), 
+          new MapsPackage());
     }
 
     @Override
@@ -39,6 +51,12 @@ public class MainApplication extends Application implements ReactApplication {
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
   }
+
+  @Override
+  public String getFileProviderAuthority() {
+    return "com.reactnativemobile.provider";
+  }
+
 
   @Override
   public void onCreate() {
