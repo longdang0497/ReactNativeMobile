@@ -23,7 +23,7 @@ class FashionListDeal extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.isOnFirstPage = true;
         this.props.fetchFashionDeal(this.offsetDeal);
     }

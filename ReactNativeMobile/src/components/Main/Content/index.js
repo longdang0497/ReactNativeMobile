@@ -50,6 +50,7 @@ export const BottomTabNavigator = createBottomTabNavigator({
                 borderTopWidth: 0.5,
                 borderTopColor: '#442C2E',
             },
+            showLabel: false
         },
         swipeEnabled: true
     },

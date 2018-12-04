@@ -7,9 +7,11 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { connect } from 'react-redux';
+import { ProgressDialog } from 'react-native-simple-dialogs';
 import { WebView } from 'react-native-webview';
 import { fetchID, fetchAddress } from '../../../redux/actions/RecommendAction';
 import ShareInfo from './ShareInfo';
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -18,11 +20,12 @@ class InfoPage extends Component {
         header: null
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            PickerValue: '',
+            PickerValue: null,
             refreshing: false,
+            inProgress: false
         };
     }
 
@@ -31,6 +34,7 @@ class InfoPage extends Component {
         const item = navigation.getParam('item', 'NO-ID');
         this.props.fetchID(item.id);
         this.props.fetchAddress(item.id);
+        this.setState({ inProgress: true });
     }
 
     onRefresh = () => {
@@ -43,9 +47,14 @@ class InfoPage extends Component {
     }
 
     render() {
-        const { navigation, itemAddress } = this.props;
+        const { navigation, itemAddress, isFetching } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
-        console.log(item);
+        if (itemAddress && !this.state.PickerValue) {
+            this.setState({ PickerValue: itemAddress.places[0] });
+        }
+        if (!isFetching && this.state.inProgress) {
+            this.setState({ inProgress: false });
+        }
         return (
             /* eslint-disable global-require */
             <View style={{ flex: 1, backgroundColor: '#DCE2E5' }}>
@@ -75,12 +84,11 @@ class InfoPage extends Component {
                                     onValueChange={(itemValue) =>
                                         this.setState({ PickerValue: itemValue })}
                                 >
-                                    <Picker.Item label="Select a option" value="" />
                                     {(itemAddress) ? itemAddress.places.map(
                                         (obj) => <Picker.Item
                                             key={obj.id}
                                             label={obj.address + ', ' + obj.districtName}
-                                            value={obj.address + obj.districtName}
+                                            value={obj}
                                         />
                                     ) : []}
                                 </Picker>
@@ -97,7 +105,7 @@ class InfoPage extends Component {
                         >
                             <TouchableOpacity
                                 style={styles.btnDirection}
-                                onPress={() => this.props.navigation.navigate('InfoMap', { item })}
+                                onPress={() => this.props.navigation.navigate('InfoMap', { item: this.state.PickerValue })}
                             >
                                 <Text style={{ fontFamily: 'Rubik-Medium', fontSize: 15, color: '#442C2E' }}>SHOW DIRECTION</Text>
                             </TouchableOpacity>
@@ -117,6 +125,11 @@ class InfoPage extends Component {
                 <View style={styles.btnContainer}>
                     <ShareInfo linkID={item.id} linkTitle={item.title} />
                 </View>
+                <ProgressDialog
+                    visible={this.state.inProgress}
+                    title="Loading"
+                    message="Please, wait..."
+                />
             </View>
             /* eslint-enable global-require */
         );

@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':lottie-react-native')
     compile project(':react-native-webview')
     implementation project(':react-native-view-shot')
     implementation project(':react-native-vector-icons')

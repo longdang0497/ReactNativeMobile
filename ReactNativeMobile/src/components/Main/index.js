@@ -17,7 +17,7 @@ const { width } = Dimensions.get('window');
 class Main extends Component {
   state = { isDateTimePickerVisible: false }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.user.start_date) {
       this.showDateTimePicker();
     }  

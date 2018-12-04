@@ -23,7 +23,7 @@ class BeautyListDeal extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.isOnFirstPage = true;
         this.props.fetchBeautyDeal(this.offsetDeal);
     }

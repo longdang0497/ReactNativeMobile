@@ -13,28 +13,18 @@ export default class InfoMap extends Component {
         header: null
     }
 
-    state = {
-        region: {
-            latitude: 10.772237053021,
-            longitude: 106.70358685,
-            latitudeDelta: 0.09,
-            longitudeDelta: 0.09
-        }
-    }
-
-    onRegionChangeComplete() {
+    constructor(props) {
+        super(props);
         const { navigation } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
-        item.locations.map((obj) => (
-            this.setState({
-                region: {
-                    latitude: Number.parseFloat(obj.lat),
-                    longitude: Number.parseFloat(obj.lon),
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0411
-                }
-            })
-        ));
+        this.state = {
+            region: {
+                latitude: Number.parseFloat(item.lat),
+                longitude: Number.parseFloat(item.lon),
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0411
+            }
+        };
     }
 
     render() {
@@ -43,7 +33,6 @@ export default class InfoMap extends Component {
                 <MapView
                     style={styles.map}
                     region={this.state.region}
-                    onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}
                 >
                     <MapView.Marker
                         coordinate={this.state.region}

@@ -23,7 +23,7 @@ class FoodListDeal extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.isOnFirstPage = true;
         this.props.fetchFoodDeal(this.offsetDeal);
     }

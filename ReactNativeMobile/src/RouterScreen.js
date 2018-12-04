@@ -49,7 +49,7 @@ class RouterScreen extends Component {
                 }
             })
             .catch(err => console.log(err));
-        setTimeout(() => this.setState({ isLoading: false }), 2000);
+        setTimeout(() => this.setState({ isLoading: false }), 3500);
     }
 
     getStorageItem = async () => {

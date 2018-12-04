@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { 
-    Text,
-    View
-} from 'react-native';
+import LottieView from 'lottie-react-native';
+import animation from '../../media/heart_animation.json';
 
 export default class SplashScreen extends Component {
     render() {
         return (
-            <View>
-                <Text>Splash Screen</Text>
-            </View>
+            <LottieView
+                style={{ backgroundColor: '#FEDBD0' }}
+                source={animation}
+                autoPlay
+            />
         );
     }
 }
