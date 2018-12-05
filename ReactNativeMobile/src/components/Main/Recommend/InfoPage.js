@@ -35,6 +35,7 @@ class InfoPage extends Component {
         this.props.fetchID(item.id);
         this.props.fetchAddress(item.id);
         this.setState({ inProgress: true });
+        setTimeout(() => this.setState({ inProgress: false }), 1500);
     }
 
     onRefresh = () => {
@@ -47,13 +48,10 @@ class InfoPage extends Component {
     }
 
     render() {
-        const { navigation, itemAddress, isFetching } = this.props;
+        const { navigation, itemAddress } = this.props;
         const item = navigation.getParam('item', 'NO-ID');
         if (itemAddress && !this.state.PickerValue) {
             this.setState({ PickerValue: itemAddress.places[0] });
-        }
-        if (!isFetching && this.state.inProgress) {
-            this.setState({ inProgress: false });
         }
         return (
             /* eslint-disable global-require */

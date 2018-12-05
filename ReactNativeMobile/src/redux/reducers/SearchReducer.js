@@ -4,7 +4,8 @@ import {
     GET_FAIL,
     SEARCHING,
     SEARCH_FAIL,
-    SEARCH_OK
+    SEARCH_OK,
+    SET_NULL
 } from '../actions/type';
 
 const initialState = {
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: true
+            };
+        case SET_NULL:
+            return {
+                ...state,
+                location: null
             };
         case GET_LOCATION:
             return {

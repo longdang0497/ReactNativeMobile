@@ -375,7 +375,7 @@ class Profile extends Component {
                     <Text style={styles.title}>Background Image</Text>
                     <TouchableOpacity
                         style={styles.settingItem}
-                        onPress={() => this.openImagePicker.bind(this)}
+                        onPress={() => this.openImagePicker()}
                     >
                         <Text style={styles.textTitleItem}>Background Image</Text>
                         <View style={styles.rightViewItem}>

@@ -32,6 +32,7 @@ export const GET_FAIL = 'GET_FAIL';
 export const SEARCHING = 'SEARCHING';
 export const SEARCH_OK = 'SEARCH_OK';
 export const SEARCH_FAIL = 'SEARCH_FAIL';
+export const SET_NULL = 'SET_NULL';
 //----------------End FETCH DATA-----------------------//
 
 //user actions type

@@ -4,7 +4,8 @@ import {
     GET_FAIL,
     SEARCHING,
     SEARCH_FAIL,
-    SEARCH_OK
+    SEARCH_OK,
+    SET_NULL
 } from './type';
 
 // Handle HTTP errors since fetch won't.
@@ -35,6 +36,12 @@ export const getFail = (error) => (
     }
 );
 
+export const setNullLocation = () => (
+    {
+        type: SET_NULL
+    }
+);
+
 export function fetchLocation(itemID) {
     const URL = 'https://date-now.herokuapp.com/places/' + itemID;
     return (dispatch) => {
@@ -47,7 +54,6 @@ export function fetchLocation(itemID) {
             )
             .then((responseJson) => {
                 dispatch(getLocation(responseJson));
-
             })
             .catch(dispatch(getFail()));
     };

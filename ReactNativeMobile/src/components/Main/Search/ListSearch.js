@@ -4,7 +4,8 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { fetchSearch } from '../../../redux/actions/SearchAction';
+import { ProgressDialog } from 'react-native-simple-dialogs';
+import { fetchSearch, fetchLocation, setNullLocation } from '../../../redux/actions/SearchAction';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -18,6 +19,7 @@ class ListSearch extends Component {
             text: '',
             isPressSearch: false,
             refreshing: false,
+            inProgress: false
         };
     }
 
@@ -55,6 +57,21 @@ class ListSearch extends Component {
         }
     }
 
+    onItemPress(item) {
+        this.setState({ inProgress: true });
+        this.props.fetchLocation(item.id);
+        setTimeout(() => {
+            this.setState({ inProgress: false });
+            if (this.props.location) {
+                const tempLocation = this.props.location;
+                this.props.setNullLocation();
+                this.setState({ inProgress: false });
+                this.props.navigation.navigate('ShowMaps', { item: tempLocation });
+            }
+        }
+        , 2000);
+    }
+
     renderSearchNull() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -63,7 +80,7 @@ class ListSearch extends Component {
         );
     }
 
-    render() {
+    render() { 
         //console.log(`search: ${this.props.dataSearch}`);
         //console.log(this.props.dataSearch);
         return (
@@ -106,7 +123,7 @@ class ListSearch extends Component {
                         ? this.props.dataSearch && this.props.dataSearch.map((item, id) => (
                             <TouchableOpacity
                                 key={id}
-                                onPress={() => this.props.navigation.navigate('ShowMaps', { item })}
+                                onPress={() => this.onItemPress(item)}
                             >
                                 <Animated.View style={styles.cardHolder}>
                                     <Image source={{ uri: item.avatar }} style={styles.imgRecommend} />
@@ -146,6 +163,11 @@ class ListSearch extends Component {
                     </View>
                     : null
                 }
+                <ProgressDialog
+                    visible={this.state.inProgress}
+                    title="Loading"
+                    message="Please, wait..."
+                />
             </ScrollView>
         );
     }
@@ -232,12 +254,13 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
     return {
+        location: state.search.location,
         dataSearch: state.search.dataSearch,
         isFetching: state.search.isFetching,
     };
 }
 
-export default connect(mapStateToProps, { fetchSearch })(ListSearch);
+export default connect(mapStateToProps, { fetchSearch, fetchLocation, setNullLocation })(ListSearch);
 
 
 // {(this.props.dataSearch[this.props.dataSearch.length - 1]) ?
